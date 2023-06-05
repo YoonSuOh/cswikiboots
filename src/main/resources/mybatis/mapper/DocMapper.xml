@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cswiki.mappers.Doc">
+    <!-- 1단계 분류 -->
+    <select id="list" resultType="com.spring.cswiki.domain.BigCategory">
+        SELECT
+        b_ca_name, b_ca_num
+        FROM big_category WHERE b_ca_avaliable = 1
+    </select>
+
+    <!-- 2단계 분류 -->
+    <select id="s_category" resultType="com.spring.cswiki.domain.SmallCategory">
+        SELECT s_ca_name, s_ca_num FROM small_category WHERE b_ca_num = #{b_ca_num} and s_ca_avaliable = 1
+    </select>
+
+    <!-- 1단계 분류 추가 -->
+    <insert id="createbigcategory" useGeneratedKeys="true" keyProperty="b_ca_num">
+        INSERT INTO big_category (b_ca_name, b_ca_avaliable)
+        VALUES (#{b_ca_name}, 1)
+    </insert>
+    <!-- 2단계 분류 추가 -->
+    <insert id="createsmallcategory" useGeneratedKeys="true" keyProperty="s_ca_num">
+        INSERT INTO small_category (s_ca_name, b_ca_num, s_ca_avaliable)
+        VALUES (#{s_ca_name}, #{b_ca_num}, 1)
+    </insert>
+    <!-- 문서 리스트 -->
+    <select id="doc_list" resultType="com.spring.cswiki.domain.Doc">
+        SELECT d_title, d_num FROM doc WHERE s_ca_num = #{s_ca_num} AND d_available = 1
+    </select>
+
+    <!-- 문서 상세정보 -->
+    <select id="doc" resultType="com.spring.cswiki.domain.Doc">
+        SELECT d_num, d_title, d_content, p_read, p_update, p_delete FROM doc where d_num = #{d_num}
+    </select>
+
+    <!-- 새 문서 작성 -->
+    <insert id="create" useGeneratedKeys="true" keyProperty="d_num">
+        INSERT INTO doc (s_ca_num, p_read, p_insert, p_update, p_delete, d_title, d_content, d_summary, d_available)
+        VALUES (null , 0, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1);
+    </insert>
+
+    <!-- 문서 작성 시 2단계 카테고리 선택 -->
+    <select id="ins1category">
+        select * from small_category
+    </select>
+    <!-- 새 문서 작성 시 역사 생성 -->
+    <insert id="createhistory" useGeneratedKeys="true" keyProperty="d_num">
+        INSERT INTO doc_history (d_version, d_num, d_date, u_id, d_summary, d_content)
+        VALUES (#{d_version}, #{d_num}, SYSDATE(), #{u_id}, #{d_summary}, #{d_content})
+    </insert>
+
+    <!-- 문서 편집 -->
+    <update id="edit">
+        UPDATE doc
+        SET d_title = #{d_title},
+        d_content = #{d_content},
+        u_id = #{u_id}
+        WHERE d_num = #{d_num}
+    </update>
+
+    <!-- ACL 삽입/수정 -->
+    <update id="acl">
+        UPDATE doc
+        SET p_read = #{p_read},
+        p_update = #{p_update},
+        p_delete = #{p_delete}
+        WHERE d_num = #{d_num}
+    </update>
+
+    <!-- ACL 초기화-->
+    <update id="aclwipe">
+        UPDATE doc
+        SET p_read = 1
+        p_update = 2
+        p_delete = 2
+        WHERE d_num = #{d_num}
+    </update>
+
+    <!-- 문서 편집시 역사 새로 삽입 -->
+    <insert id="edithistory">
+        INSERT INTO doc_history (d_num, d_version, d_date, u_id, d_summary, d_content)
+        SELECT #{d_num}, (SELECT IFNULL(MAX(d_version), 0) FROM doc_history WHERE d_num = #{d_num}) + 1, SYSDATE(), #{u_id}, #{d_summary}, #{d_content}
+        FROM doc
+        WHERE d_num = #{d_num}
+    </insert>
+
+    <!-- 문서 삭제  -->
+    <update id="delete">
+        UPDATE doc
+        SET d_available = 0
+        WHERE d_num = #{d_num}
+    </update>
+
+    <!-- 문서 검색 -->
+    <select id="search" resultType="com.spring.cswiki.domain.Doc">
+        SELECT d_title, d_num, d_content FROM doc WHERE d_title like concat('%', #{d_title}, '%')
+        order by d_num desc
+    </select>
+
+    <!-- 문서 역사  -->
+    <select id="getDocHistory" resultType="com.spring.cswiki.domain.DocHistory">
+        SELECT d.d_num, d.d_content, dh.d_version, dh.d_date, dh.d_summary, dh.u_id
+        FROM doc d
+        JOIN doc_history dh ON d.d_num = dh.d_num
+        WHERE d.d_num = #{d_num} AND d_available = 1;
+    </select>
+
+    <!-- 버전별 내용 확인 -->
+    <select id="version" resultType="com.spring.cswiki.domain.Doc">
+        SELECT d.d_num, d.d_title, d.p_read, d.p_insert, d.p_update, d.p_delete, dh.d_content, dh.d_version, dh.d_date, dh.d_summary, dh.u_id
+        FROM doc d
+        JOIN doc_history dh ON d.d_num = dh.d_num
+        WHERE d.d_num = #{d_num} AND d_available = 1 AND dh.d_version = #{d_version} order by dh.d_version DESC
+    </select>
+
+    <!-- 즐겨찾기 등록 -->
+    <insert id="starin">
+        INSERT INTO star (star, u_id, d_num)
+        VALUES (star, #{u_id}, #{d_num})
+    </insert>
+
+    <!-- 즐겨찾기 삭제 -->
+    <delete id="starout">
+        DELETE FROM star
+        WHERE u_id = #{u_id} AND d_num = #{d_num}
+    </delete>
+
+    <!-- 즐겨찾기 된 문서 출력 -->
+    <select id="userstar" resultType="com.spring.cswiki.domain.Doc">
+        SELECT * FROM doc WHERE d_num IN (SELECT d_num FROM star WHERE u_id=#{u_id})
+    </select>
+</mapper>

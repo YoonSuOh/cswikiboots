@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body style="overflow-x: hidden">
+    <script>
+        function toggleMenu() {
+          var userInfo = document.getElementById("hmenu");
+          userInfo.classList.toggle("mhidden");
+        }
+    </script>
+    <script>
+        document.getElementById("searchBtn").onclick = function () {
+         let keyword =  document.getElementsByName("title")[0].value;
+         console.log(title)
+         location.href = "/doc/search" + "&title=" + title;
+        };
+    </script>
+    <div th:insert="/header :: header"></div>
+    <main>
+    </main>
+</body>
+</html>

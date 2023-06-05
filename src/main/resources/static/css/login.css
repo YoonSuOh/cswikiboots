@@ -1,0 +1,175 @@
+@font-face{
+    font-family:'InterparkGothic'; /*font 이름*/
+    font-style: 'normal';
+    src: url("../font/InterparkGothicLight.ttf"); /* IE9 Compat Modes */
+}
+@font-face{
+    font-family:'InterparkGothicMedium'; /*font 이름*/
+    font-style: 'normal';
+    src: url("../font/InterparkGothicMedium.ttf"); /* IE9 Compat Modes */
+}
+@font-face{
+    font-family:'InterparkGothicBold'; /*font 이름*/
+    font-style: 'normal';
+    src: url("../font/InterparkGothicBold.ttf"); /* IE9 Compat Modes */
+}
+.body{
+    margin:0;
+}
+/* 기본 해상도(QHD) */
+.pc{
+    font-family:'InterparkGothic';
+    padding:0px;
+    margin:0px;
+    font-size: 20px;
+    background-color:white;
+    /* display: none; 화면에서 안 보이고 공간도 차지하지 않음 */
+}
+body{
+    margin : 0 auto;
+}
+header{
+    padding-top:158px;
+    padding-bottom:48px;
+}
+
+header a{
+    text-decoration: none;
+}
+
+.header_inner{
+    width:1080px;
+    margin:0 auto;
+    position: relative;
+    text-align:center;
+    width: 743px;
+}
+
+.logo{
+    width:175px;
+    height:62px;
+    display:inline-block;
+    background : url("../img/logo_skyblue.png") 0px 2px no-repeat;
+}
+
+.logo h1 span{
+    display:none;
+}
+
+main, .main_inner{
+    display: block;
+}
+
+.login_wrap{
+    position:relative;
+    width: 560px;
+    height:357px;
+    margin: 1px auto;
+    border: 1px solid #cccccc;
+    border-radius:6px;
+}
+.id_pw_wrap{
+    position:relative;
+    top:30px;
+    margin: 0 auto;
+    width:360px;
+}
+.form{
+    margin:0;
+    padding:0;
+    display: block;
+}
+
+.id_area, .pw_area{
+    position:relative;
+    top:30px;
+    margin: 0 auto;
+    display:table;
+    border:0;
+}
+
+#u_id, #pwd{
+    width:360px;
+    height:60px;
+    font-family:'InterparkGothic';
+    border: 1px solid #cccccc;
+    border-radius:6px;
+    font-size:17px;
+}
+.login_btn{
+    position:relative;
+    top:50px;
+    width: 360px;
+    margin: 0 auto;
+    display:block;
+}
+.btn_login{
+    position:relative;
+    top:60px;
+    width: 360px;
+    height:50px;
+    background-color: skyblue;
+    border: 1px solid rgb(48, 183, 236);
+    border-radius:6px;
+    font-size:25px;
+    font-family:'InterparkGothicBold';
+    color:#ffffff;
+}
+
+#console{
+	width:auto;
+	height:20px;
+	position:absolute;
+	top:-20px;
+}
+#errormsg{
+    color:red;
+    position:relative;
+    top:-20px;
+}
+
+.find_wrap{
+    position:relative;
+    top:20px;
+    display:table;
+    margin:0 auto;
+    padding:0;
+    height:21px;
+}
+
+.find_wrap li, .find_wrap li a {
+    list-style:none;
+    float:left;
+    text-align:center;
+    text-decoration-line: none;
+    display: block;
+    padding : 0px 4px 0px 4px;
+    color:black;
+    font-size:17px;
+    hover:skyblue;
+}
+footer{
+    margin-top:40px;
+}
+
+.footer_inner{
+    position: relative;
+    text-align: center;
+}
+.footer_logo{
+    position:relative;
+    top:4px;
+    width:62px;
+    height:21px;
+    display:inline-block;
+    background : url("../img/logo_footer.png") 13px 1px no-repeat;
+}
+.footer_inner h1 span{
+    display:none;
+}
+.text, .corp{
+    font-size:14px;
+}
+.corp{
+    font-weight:bold;
+}

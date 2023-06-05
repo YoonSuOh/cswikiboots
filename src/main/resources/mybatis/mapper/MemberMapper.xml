@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cswiki.dao.MemberDAO">
+    <!-- 유저 전체 목록 -->
+    <select id="list" resultType="com.spring.cswiki.domain.Member">
+        select
+        u_id, p_id, email, name, reg_date
+        from user
+    </select>
+
+    <!-- 회원 가입 -->
+    <insert id="join">
+        INSERT INTO user (u_id, p_id, email, name, pwd, reg_date) VALUES (#{u_id}, #{p_id}, #{email}, #{name}, #{pwd}, SYSDATE())
+    </insert>
+
+    <!-- 로그인  -->
+    <select id="login" resultType="com.spring.cswiki.domain.Member">
+        select u_id, pwd, name, p_id
+        from user
+        where u_id=#{u_id} and pwd=#{pwd}
+    </select>
+
+    <!-- 회원 권한 수정 -->
+    <update id="grant">
+        UPDATE user
+        SET p_id = #{p_id}
+        where u_id = #{g_id}
+    </update>
+
+    <!-- 회원 탈퇴/강제 탈퇴 -->
+    <delete id="remove">
+        DELETE from user
+        where u_id=#{u_id}
+    </delete>
+</mapper>

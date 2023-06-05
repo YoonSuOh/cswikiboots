@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/nav.css"> -->
+    <link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">
+</head>
+<body style="overflow-x: hidden">
+    <script>
+        function toggleMenu() {
+          var userInfo = document.getElementById("hmenu");
+          userInfo.classList.toggle("mhidden");
+        }
+    </script>
+    <script>
+        document.getElementById("searchBtn").onclick = function () {
+         let keyword =  document.getElementsByName("title")[0].value;
+         console.log(title)
+         location.href = "/doc/search" + "&title=" + title;
+        };
+    </script>
+    <header id="header">
+        <div class="center-align">
+            <div id="header-top">
+            </div>
+            <div id="header-search" style="clear:both">
+                <a href=""><h1><span>CS위키</span></h1></a>
+                <h2 class="blind">검색창</h2>
+                <fieldset>
+                    <legend class="blind">검색</legend>
+                    <form action="" method="get">
+                        <input type="text" name="d_title" placeholder="찾으시는 문서의 이름을 입력하세요."/>
+                        <button type="submit" id="searchBtn">
+                            <span class="blind">검색</span>
+                            <span id="search-image"></span>
+                        </button>
+                    </form>
+                </fieldset>
+                <div id="menu">
+                    <img class="menu" src="/src/main/resources/static/img/menu30.png" onclick="toggleMenu()">
+                    <div id="hmenu" class="mhidden">
+                        <div th:if="${#httpServletRequest.getSession(false) != null}" class="userInfo">
+                            <div class="box" style=" cursor: pointer;" onclick="location.href='/member/logout';">
+                                <img class="box-item" src="/src/main/resources/static/img/logout50.png">
+                                <span class="box-text">로그아웃</span>
+                            </div>
+                            <div class="box" href="/board/list">
+                                <img class="box-item" src="/src/main/resources/static/img/board50.png">
+                                <span class="box-text">게시판</span>
+                            </div>
+                            <div class="box" href="/doc/help">
+                                <img class="box-item" src="/src/main/resources/static/img/help50.png">
+                                <span class="box-text">도움말</span>
+                            </div>
+                            <div class="box" href="/doc/rule">
+                                <img class="box-item" src="/src/main/resources/static/img/rule50.png">
+                                <span class="box-text">규정</span>
+                            </div>
+                            <div class="box" href="/doc/rule">
+                                <img class="box-item" src="/src/main/resources/static/img/category50.png">
+                                <span class="box-text">문서 분류</span>
+                            </div>
+                            <div class="box" href="/member/banlist">
+                                <img class="box-item" src="/src/main/resources/static/img/ban50.png">
+                                <span class="box-text">차단 내역</span>
+                            </div>
+                            <div class="box" href="/doc/starlist">
+                                <img class="box-item" src="/img/star50.png">
+                                <span class="box-text">자주 찾는 문서</span>
+                            </div>
+                            <div class="box" href="/src/main/resources/static/board/notice">
+                                <img class="box-item" src="/img/notice50.png">
+                                <span class="box-text">공지사항</span>
+                            </div>
+                            <div class="box" href="/board/report">
+                                <img class="box-item" src="/src/main/resources/static/img/report50.png">
+                                <span class="box-text">신고</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <hr>
+    <main>
+        <div id="doc">
+            <div class="doc_inner">
+            <span class="title">${doc.d_title}</span>
+            <div class="selectbox">
+                <ul>
+                    <li><a href="/doc/starcheck?d_num=${doc.d_num}&u_id=${member.u_id}" id="star"style="cursor:pointer;">★</a></li>
+                    <li>
+                        <a href=" /doc/edit?d_num=${doc.d_num}">편집</a>
+                    </li>
+                    <li><a href="/doc/doc_history?d_num=${doc.d_num}">역사</a></li>
+                    <li>
+                        <a href="/doc/acl?d_num=${doc.d_num}">ACL</a>
+                    </li>
+                    <li>
+                        <a href="/doc/delete?d_num=${doc.d_num}">삭제</a>
+                    </li>
+                </ul>          
+           </div>
+           <div class="content">
+                ${doc.d_content}
+           </div>
+        </div>
+    </main>
+</body>
+</html>

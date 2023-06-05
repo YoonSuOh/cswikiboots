@@ -1,0 +1,108 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<header id="header">
+    <div class="center-align">
+        <div id="header-top">
+        </div>
+        <div id="header-search" style="clear:both">
+            <a href=""><h1><span>CS위키</span></h1></a>
+            <h2 class="blind">검색창</h2>
+            <fieldset id="fieldset-doc">
+                <legend class="blind">검색</legend>
+                <form action="" method="get">
+                    <input type="text" name="d_title" placeholder="찾으시는 문서의 이름을 입력하세요."/>
+                    <button type="submit" id="searchBtn">
+                        <span class="blind">검색</span>
+                        <span id="search-image"></span>
+                    </button>
+                </form>
+            </fieldset>
+            <div id="menu">
+                <img class="menu" src="/img/menu30.png" onclick="toggleMenu()">
+                <span id="logininfo" th:if="${#httpServletRequest.getSession(false) != null}">[[${session.member.name}]]님 환영합니다!</span>
+                <div id="hmenu" class="mhidden">
+                    <div th:if="${#httpServletRequest.getSession(false) != null}" class="userInfo">
+                        <div class="box" style=" cursor: pointer;" onclick="location.href='/member/logout';">
+                            <img class="box-item" src="/img/logout50.png">
+                            <span class="box-text">로그아웃</span>
+                        </div>
+                        <div class="box" href="/board/list">
+                            <img class="box-item" src="/img/board50.png">
+                            <span class="box-text">게시판</span>
+                        </div>
+                        <div class="box" href="/doc/help">
+                            <img class="box-item" src="/img/help50.png">
+                            <span class="box-text">도움말</span>
+                        </div>
+                        <div class="box" href="/doc/rule">
+                            <img class="box-item" src="/img/rule50.png">
+                            <span class="box-text">규정</span>
+                        </div>
+                        <div class="box" href="/doc/rule">
+                            <img class="box-item" src="/img/category50.png">
+                            <span class="box-text">문서 분류</span>
+                        </div>
+                        <div class="box" href="/member/banlist">
+                            <img class="box-item" src="/img/ban50.png">
+                            <span class="box-text">차단 내역</span>
+                        </div>
+                        <div class="box" href="/doc/starlist">
+                            <img class="box-item" src="/img/star50.png">
+                            <span class="box-text">자주 찾는 문서</span>
+                        </div>
+                        <div class="box" href="/board/notice">
+                            <img class="box-item" src="/img/notice50.png">
+                            <span class="box-text">공지사항</span>
+                        </div>
+                        <div class="box" href="/board/report">
+                            <img class="box-item" src="/img/report50.png">
+                            <span class="box-text">신고</span>
+                        </div>
+                    </div>
+                    <div th:if="${#httpServletRequest.getSession(false) == null}" class="userInfo">
+                        <div class="box" style=" cursor: pointer;" onclick="location.href='/member/login';">
+                            <img class="box-item" src="/img/login50.png">
+                            <span class="box-text">로그인</span>
+                        </div>
+                        <div class="box" href="/board/list">
+                            <img class="box-item" src="/img/board50.png">
+                            <span class="box-text">게시판</span>
+                        </div>
+                        <div class="box" href="/doc/help">
+                            <img class="box-item" src="/img/help50.png">
+                            <span class="box-text">도움말</span>
+                        </div>
+                        <div class="box" href="/doc/rule">
+                            <img class="box-item" src="/img/rule50.png">
+                            <span class="box-text">규정</span>
+                        </div>
+                        <div class="box" href="/doc/rule">
+                            <img class="box-item" src="/img/category50.png">
+                            <span class="box-text">문서 분류</span>
+                        </div>
+                        <div class="box" href="/member/banlist">
+                            <img class="box-item" src="/img/ban50.png">
+                            <span class="box-text">차단 내역</span>
+                        </div>
+                        <div class="box" href="/doc/starlist">
+                            <img class="box-item" src="/img/star50.png">
+                            <span class="box-text">자주 찾는 문서</span>
+                        </div>
+                        <div class="box" href="/board/notice">
+                            <img class="box-item" src="/img/notice50.png">
+                            <span class="box-text">공지사항</span>
+                        </div>
+                        <div class="box" href="/board/report">
+                            <img class="box-item" src="/img/report50.png">
+                            <span class="box-text">신고</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

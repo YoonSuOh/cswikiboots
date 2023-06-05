@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 - CS위키</title>
+    <link rel="stylesheet" type="text/css" href = "/css/login.css">
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <a href="/" class="logo">
+                <h1>
+                    <span>CS위키</span>
+                </h1>
+            </a>
+        </div>
+    </header>
+    <main>
+        <div class="main_inner">
+            <div class="login_wrap">
+                <form name='member' method="post" action="/member/login">
+                    <div class="id_pw_wrap">
+                        <div class="id_area">
+                            <input type="text" id="u_id" name="u_id" placeholder="아이디" title="아이디" class="input_text" maxlength="41" value="">
+                        </div>
+                        <div class="pw_area">
+                            <input type="password" id="pwd" name="pwd" placeholder="비밀번호" title="비밀번호" class="input_text" maxlength="16">
+                        </div>
+                    </div>
+                    <div class="login_btn">
+                        <button type="submit"class="btn_login" id="btnLogin">
+                            <span class="btn_text">로그인</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <ul class="find_wrap">
+                <li><a href="">비밀번호 찾기</a></li>
+                <li>|</li>
+                <li><a href="">아이디 찾기</a></li>
+                <li>|</li>
+                <li><a href="/member/join">회원가입</a></li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
