@@ -140,6 +140,15 @@ header{
     transition: background-color 0.3s, border-radius 0.3s;
 }
 
+@media (max-width: 1400px){
+    #menu{
+        position:relative;
+        top : -114px;
+        left : 1210px;
+        transition: background-color 0.3s, border-radius 0.3s;
+    }
+}
+
 .mhidden {
 	display: none;
 }
@@ -154,6 +163,20 @@ header{
     height:auto;
     border-radius: 7px;
     border: 1px solid #d1d8e4;
+}
+
+@media (max-width: 1400px){
+    .userInfo{
+    	position:fixed;
+        display: flex;
+        flex-wrap: wrap;
+        left:1178px;
+        top: 60px;
+        width: 242px;
+        height:auto;
+        border-radius: 7px;
+        border: 1px solid #d1d8e4;
+    }
 }
 
 .box{
