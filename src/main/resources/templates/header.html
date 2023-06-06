@@ -13,7 +13,7 @@
             <h2 class="blind">검색창</h2>
             <fieldset id="fieldset-doc">
                 <legend class="blind">검색</legend>
-                <form action="" method="get">
+                <form action="/doc/doc" method="get">
                     <input type="text" name="d_title" placeholder="찾으시는 문서의 이름을 입력하세요."/>
                     <button type="submit" id="searchBtn">
                         <span class="blind">검색</span>
@@ -23,7 +23,8 @@
             </fieldset>
             <div id="menu">
                 <img class="menu" src="/img/menu30.png" onclick="toggleMenu()">
-                <span id="logininfo" th:if="${#httpServletRequest.getSession(false) != null}">[[${session.member.name}]]님 환영합니다!</span>
+                <span id="logininfo" th:if="${#httpServletRequest.getSession(false) != null}">[[${session.member.name}]]님 환영합니다! [[${session.member.p_id}]]</span>
+                <span>[[${p_id}]]</span>
                 <div id="hmenu" class="mhidden">
                     <div th:if="${#httpServletRequest.getSession(false) != null}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="location.href='/member/logout';">
@@ -60,7 +61,7 @@
                         </div>
                         <div class="box" href="/board/report">
                             <img class="box-item" src="/img/report50.png">
-                            <span class="box-text">신고</span>
+                            <span class="box-text">새문서 만들기</span>
                         </div>
                     </div>
                     <div th:if="${#httpServletRequest.getSession(false) == null}" class="userInfo">
@@ -72,9 +73,9 @@
                             <img class="box-item" src="/img/board50.png">
                             <span class="box-text">게시판</span>
                         </div>
-                        <div class="box" href="/doc/help">
+                        <div class="box" onclick="location.href='/doc/create';">
                             <img class="box-item" src="/img/help50.png">
-                            <span class="box-text">도움말</span>
+                            <span class="box-text">새문서 작성</span>
                         </div>
                         <div class="box" href="/doc/rule">
                             <img class="box-item" src="/img/rule50.png">

@@ -68,6 +68,7 @@ public class MemberController {
             LOG.info("login success!");
             session.setAttribute("member", login);
             session.setAttribute("p_id", login.getP_id());
+            LOG.info(String.valueOf(login.getP_id()));
 
             if (referer != null && !referer.contains("login")) {
                 LOG.info("prev page is checked, return to check page.");

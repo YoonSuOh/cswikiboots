@@ -4,6 +4,6 @@
 <configuration>
     <mappers>
         <mapper resource="MemberMapper.xml"/>
-        <mapper resource="DocMapper.xml"/>s
+        <mapper resource="DocMapper.xml"/>
     </mappers>
 </configuration>

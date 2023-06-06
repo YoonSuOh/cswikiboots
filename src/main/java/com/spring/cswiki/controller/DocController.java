@@ -43,7 +43,7 @@ import com.google.gson.JsonObject;
 @RequestMapping("/doc/*")
 
 public class DocController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     @Inject
     private DocService service;
     // 파일 업로드
@@ -60,7 +60,7 @@ public class DocController {
                     try {
                         String fileName = file.getName();
                         byte[] bytes = file.getBytes();
-                        String uploadPath = req.getServletContext().getRealPath("/resources/ckimage/");
+                        String uploadPath = req.getServletContext().getRealPath("/ckimage/");
                         File uploadFile = new File(uploadPath);
                         if (!uploadFile.exists()) {
                             uploadFile.mkdirs();
@@ -72,7 +72,7 @@ public class DocController {
 
                         printWriter = resp.getWriter();
                         resp.setContentType("text/html");
-                        String fileUrl = req.getContextPath() + "/resources/ckimage/" + fileName;
+                        String fileUrl = req.getContextPath() + "/ckimage/" + fileName;
 
                         // json 데이터로 등록
                         // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
@@ -238,7 +238,7 @@ public class DocController {
     @RequestMapping("/doc_version")
     public String version(@RequestParam("d_num") int d_num, @RequestParam("d_version") String d_version, Model model) {
         Doc version = service.version(d_num, d_version);
-        model.addAttribute("version", version);
+        model.addAttribute("doc", version);
         return "doc/doc_version";
     }
 

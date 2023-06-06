@@ -15,9 +15,9 @@
     </script>
     <script>
         document.getElementById("searchBtn").onclick = function () {
-         let keyword =  document.getElementsByName("title")[0].value;
+         let keyword =  document.getElementsByName("d_title")[0].value;
          console.log(title)
-         location.href = "/doc/search" + "&title=" + title;
+         location.href = "/doc/doc" + "&title=" + title;
         };
     </script>
     <div th:insert="/header :: header"></div>

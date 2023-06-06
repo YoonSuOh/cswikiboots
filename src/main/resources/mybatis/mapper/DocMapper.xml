@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.cswiki.mappers.Doc">
+<mapper namespace="com.spring.cswiki.dao.DocDAO">
     <!-- 1단계 분류 -->
     <select id="list" resultType="com.spring.cswiki.domain.BigCategory">
         SELECT
@@ -46,7 +46,7 @@
         select * from small_category
     </select>
     <!-- 새 문서 작성 시 역사 생성 -->
-    <insert id="createhistory" useGeneratedKeys="true" keyProperty="d_num">
+    <insert id="createDocHistory" useGeneratedKeys="true" keyProperty="d_num">
         INSERT INTO doc_history (d_version, d_num, d_date, u_id, d_summary, d_content)
         VALUES (#{d_version}, #{d_num}, SYSDATE(), #{u_id}, #{d_summary}, #{d_content})
     </insert>
@@ -104,7 +104,8 @@
         SELECT d.d_num, d.d_content, dh.d_version, dh.d_date, dh.d_summary, dh.u_id
         FROM doc d
         JOIN doc_history dh ON d.d_num = dh.d_num
-        WHERE d.d_num = #{d_num} AND d_available = 1;
+        WHERE d.d_num = #{d_num} AND d_available = 1
+        ORDER BY d_date DESC
     </select>
 
     <!-- 버전별 내용 확인 -->

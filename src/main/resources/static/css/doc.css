@@ -229,6 +229,39 @@ div .selectbox > ul > li > a{
     font-size:50px;
 }
 
+.option{
+    font-family:'InterparkGothicMedium';
+    width:100px;
+    height:20px;
+    border:1px solid #cccccc;
+    border-radius:10px;
+}
+
+#aclupdate{
+    border:0px;
+    border-radius:5px;
+    width:50px;
+    height:20px;
+    background-color:skyblue;
+}
+
+.btn_text{
+    font-family:'InterparkGothicBold';
+}
+.btn_text:hover{
+    color:white;
+}
+table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+th, td{
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align : left;
+}
+
 footer{
     margin-top:40px;
 }

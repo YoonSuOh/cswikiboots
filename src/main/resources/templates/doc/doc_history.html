@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/doc.css">
+    <link rel="stylesheet" href="/css/doc/header.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
+</head>
+<body style="overflow-x: hidden">
+<script>
+        function toggleMenu() {
+          var userInfo = document.getElementById("hmenu");
+          userInfo.classList.toggle("mhidden");
+        }
+    </script>
+<script>
+        document.getElementById("searchBtn").onclick = function () {
+         let keyword =  document.getElementsByName("title")[0].value;
+         console.log(title)
+         location.href = "/doc/search" + "&title=" + title;
+        }
+    </script>
+<div th:insert="/header :: header"></div>
+<main>
+    <div id="doc">
+        <hr>
+        <div class="doc_inner">
+            <span class="title">[[${doc.d_title}]](문서 역사)</span>
+            <div class="content">
+                <li th:each="history : ${historyList}">
+                    <span th:text="${#dates.format(history.d_date, 'yyyy-MM-dd HH:mm:ss')}" />
+                    <span th:text="${history.d_time}" />
+                    (<a th:href="@{/doc/doc_version(d_num=${history.d_num}, d_version=${history.d_version})}">보기</a>)
+                    <span th:text="'r' + ${history.d_version}" />
+                    <span th:text="${history.u_id}" />
+                    (<span th:text="${history.d_summary}" />)
+                </li>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

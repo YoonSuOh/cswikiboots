@@ -71,8 +71,8 @@ header{
     background : url(/img/logo_skyblue.png) 0px 2px no-repeat;
     vertical-align: middle;
     position:relative;
-    top: 105px;
-    left:450px;
+    top: 39px;
+    left:110px;
 }
 
 #header-search h1 span{
@@ -119,7 +119,7 @@ header{
 }
 
 #search-image{
-    background-image: url(../img/sp_searchbtn.png);
+    background-image: url(/img/sp_searchbtn.png);
     background-position: 0px 0px;
     background-repeat:no-repeat;
     width:21px;
@@ -135,7 +135,7 @@ header{
 }
 #menu{
     position:relative;
-    top : -114px;
+    top : -94px;
     left : 1770px;
     transition: background-color 0.3s, border-radius 0.3s;
 }

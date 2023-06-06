@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/doc.css">
+    <link rel="stylesheet" href="/css/doc/header.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
+</head>
+<body style="overflow-x: hidden">
+    <script>
+        function toggleMenu() {
+            var userInfo = document.getElementById("hmenu");
+            userInfo.classList.toggle("mhidden");
+        }
+    </script>
+    <script>
+            document.getElementById("searchBtn").onclick = function () {
+             let keyword =  document.getElementsByName("title")[0].value;
+             console.log(title)
+             location.href = "/doc/search" + "&title=" + title;
+            }
+    </script>
+    <div th:insert="/header :: header"></div>
+    <main>
+        <div id="doc">
+            <hr>
+            <div class="doc_inner">
+                <span class="title">[[${doc.d_title}]](ACL)</span>
+                <div th:if="${session.p_id >= 3}" class="aclmodify">
+                    <h2>ACL 조정</h2>
+                    <form name="acl" class="aclgroup" method="POST" th:action="@{/doc/acl(d_num=${doc.d_num})}">
+                        읽기 권한 :
+                        <select name="p_read" class="option">
+                            <option value="1">아무나</option>
+                            <option value="2">회원</option>
+                            <option value="3">관리자</option>
+                            <option value="4">개발자</option>
+                        </select>
+                        수정 권한 :
+                        <select name="p_update" class="option">
+                            <option value="1">아무나</option>
+                            <option value="2">회원</option>
+                            <option value="3">관리자</option>
+                            <option value="4">개발자</option>
+                        </select>
+                        삭제 권한 :
+                        <select name="p_delete" class="option">
+                            <option value="1">아무나</option>
+                            <option value="2">회원</option>
+                            <option value="3">관리자</option>
+                            <option value="4">개발자</option>
+                        </select>
+                        <button type="submit" id="aclupdate">
+                            <span class="btn_text">설정</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="acl">
+                <h2>ACL 리스트</h2>
+                <table class="table">
+                    <thead>
+                        <th>권한명</th>
+                        <th>허용하는 사용자</th>
+                        <th>Action</th>
+                        <th>Expire</th>
+                    </thead>
+                    <tbody th:each="doc : ${doc}">
+                        <tr class="tr">
+                            <td>doc:read</td>
+                            <td>
+                                <span th:if="${doc.p_read == 0}">perm:차단된 사용자</span>
+                                <span th:if="${doc.p_read == 1}">perm:모든 이용자</span>
+                                <span th:if="${doc.p_read == 2}">perm:회원</span>
+                                <span th:if="${doc.p_read == 3}">perm:관리자</span>
+                                <span th:if="${doc.p_read == 4}">perm:개발자</span>
+                            </td>
+                            <td>허용</td>
+                            <td>영구</td>
+                        </tr>
+                        <tr class="tr">
+                            <td>doc:update</td>
+                            <td>
+                                <span th:if="${doc.p_update == 0}">perm:차단된 사용자</span>
+                                <span th:if="${doc.p_update == 1}">perm:모든 이용자</span>
+                                <span th:if="${doc.p_update == 2}">perm:회원</span>
+                                <span th:if="${doc.p_update == 3}">perm:관리자</span>
+                                <span th:if="${doc.p_update == 4}">perm:개발자</span>
+                            </td>
+                            <td>허용</td>
+                            <td>영구</td>
+                        </tr>
+                        <tr class="tr">
+                            <td>doc:delete</td>
+                            <td>
+                                <span th:if="${doc.p_delete == 0}">perm:차단된 사용자</span>
+                                <span th:if="${doc.p_delete == 1}">perm:모든 이용자</span>
+                                <span th:if="${doc.p_delete == 2}">perm:회원</span>
+                                <span th:if="${doc.p_delete == 3}">perm:관리자</span>
+                                <span th:if="${doc.p_delete == 4}">perm:개발자</span>
+                            </td>
+                            <td>허용</td>
+                            <td>영구</td>
+                        </tr>
+                        <tr class="tr">
+                            <td>doc:modify_acl</td>
+                            <td>perm:관리자</td>
+                            <td>허용</td>
+                            <td>영구</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    </body>
+    </html>

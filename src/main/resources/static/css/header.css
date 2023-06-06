@@ -152,6 +152,17 @@ header{
 .mhidden {
 	display: none;
 }
+.userInfo{
+    position:fixed;
+    display: flex;
+    flex-wrap: wrap;
+    left:2295px;
+    top: 60px;
+    width: 242px;
+    height:auto;
+    border-radius: 7px;
+    border: 1px solid #d1d8e4;
+}
 
 @media (max-width: 1400px){
     .userInfo{
