@@ -68,7 +68,13 @@ public class MemberController {
             LOG.info("login success!");
             session.setAttribute("member", login);
             session.setAttribute("p_id", login.getP_id());
+            session.setAttribute("u_id", login.getU_id());
+            session.setAttribute("email", login.getEmail());
+            session.setAttribute("regdate", login.getReg_date());
             LOG.info(String.valueOf(login.getP_id()));
+            LOG.info((login.getU_id()));
+            LOG.info((login.getEmail()));
+            LOG.info(String.valueOf((login.getReg_date())));
 
             if (referer != null && !referer.contains("login")) {
                 LOG.info("prev page is checked, return to check page.");

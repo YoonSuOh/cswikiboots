@@ -97,12 +97,13 @@ public class DocController {
         }
         return null;
     }
+
     // 1단계 분류 페이지로 이동 및 1단계 분류 보기
-    @RequestMapping(value="/list", method=RequestMethod.GET) //url mapping
+    @RequestMapping(value="/category", method=RequestMethod.GET) //url mapping
     public ModelAndView getBigCategoryList() {
-        ModelAndView modelAndView = new ModelAndView("doc/list");
-        List<BigCategory> list = service.list();
-        modelAndView.addObject("list", list);
+        ModelAndView modelAndView = new ModelAndView("doc/category");
+        List<BigCategory> category = service.list();
+        modelAndView.addObject("category", category);
         return modelAndView;
     }
 
@@ -121,23 +122,24 @@ public class DocController {
     }
 
     // 2단계 분류 페이지로 이동 및 2단계 분류 보기
-    @RequestMapping(value = "/s_category", method = RequestMethod.GET)
+    @RequestMapping(value = "/scategory", method = RequestMethod.GET)
     public String gets_category(Model model, @RequestParam("b_ca_num") int b_ca_num) throws Exception {
-        List<SmallCategory> s_category = service.s_category(b_ca_num);
-        model.addAttribute("s_category", s_category);
+        List<SmallCategory> scategory = service.s_category(b_ca_num);
+        model.addAttribute("scategory", scategory);
         model.addAttribute("b_ca_num", b_ca_num);
         System.out.println("현재 분류 : " + b_ca_num);
-        return "doc/s_category";
+        return "doc/scategory";
     }
 
-    // 2단계 분류별 문서 보기
-    @RequestMapping(value="/doc_list", method=RequestMethod.GET) //url mapping
+    // 분류별 문서 보기
+    @RequestMapping(value="/list", method=RequestMethod.GET) //url mapping
     public String getdoc_list(Model model, @RequestParam("s_ca_num") int s_ca_num) throws Exception{
-        List<Doc> doc_list = service.doc_list(s_ca_num);
-        model.addAttribute("doc_list", doc_list);
-        model.addAttribute("b_ca_num", s_ca_num);
-        return "doc/doc_list";
+        List<Doc> list = service.doc_list(s_ca_num);
+        model.addAttribute("list", list);
+        model.addAttribute("s_ca_num", s_ca_num);
+        return "doc/list";
     }
+
     // 2단계 분류 추가 화면 띄우기
     @RequestMapping(value="/createsmallcategory", method=RequestMethod.GET)
     public String getcreatesmallcategory(Model model, @RequestParam("b_ca_num") int b_ca_num) throws Exception{
@@ -262,8 +264,8 @@ public class DocController {
     // 즐겨찾기 목록
     @RequestMapping(value="/userstar")
     public String userstar(Model model, @RequestParam("u_id") String u_id) throws Exception{
-        List<Doc> userstar = service.userstar(u_id);
-        model.addAttribute("userstar", userstar);
+        List<Doc> star = service.userstar(u_id);
+        model.addAttribute("star", star);
         model.addAttribute("u_id", u_id);
         return "doc/userstar";
     }

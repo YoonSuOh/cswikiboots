@@ -9,7 +9,7 @@
         <div id="header-top">
         </div>
         <div id="header-search" style="clear:both">
-            <a href=""><h1><span>CS위키</span></h1></a>
+            <a href="/"><h1><span>CS위키</span></h1></a>
             <h2 class="blind">검색창</h2>
             <fieldset id="fieldset-doc">
                 <legend class="blind">검색</legend>
@@ -22,11 +22,22 @@
                 </form>
             </fieldset>
             <div id="menu">
-                <img class="menu" src="/img/menu30.png" onclick="toggleMenu()">
-                <span id="logininfo" th:if="${#httpServletRequest.getSession(false) != null}">[[${session.member.name}]]님 환영합니다! [[${session.member.p_id}]]</span>
-                <span>[[${p_id}]]</span>
+                <img th:if="${#httpServletRequest.getSession(false) != null}" class="menu" src="/img/user30.png" onclick="toggleMenu()">
+                <img th:if="${#httpServletRequest.getSession(false) == null}" class="menu" src="/img/menu30.png" onclick="toggleMenu()">
                 <div id="hmenu" class="mhidden">
                     <div th:if="${#httpServletRequest.getSession(false) != null}" class="userInfo">
+                        <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
+                            <img class="box-item" src="/img/uinfo50.png">
+                            <span class="box-text">사용자 정보</span>
+                        </div>
+                        <div class="box" style=" cursor: pointer;">
+                            <img class="box-item" src="/img/userstar50.png">
+                            <span class="box-text">즐겨찾기 목록</span>
+                        </div>
+                        <div class="box" style=" cursor: pointer;" onclick="togglemodify()">
+                            <img class="box-item" src="/img/security50.png">
+                            <span class="box-text">개인정보 수정</span>
+                        </div>
                         <div class="box" style=" cursor: pointer;" onclick="location.href='/member/logout';">
                             <img class="box-item" src="/img/logout50.png">
                             <span class="box-text">로그아웃</span>
@@ -43,7 +54,7 @@
                             <img class="box-item" src="/img/rule50.png">
                             <span class="box-text">규정</span>
                         </div>
-                        <div class="box" href="/doc/rule">
+                        <div class="box" onclick="location.href='/doc/category';">
                             <img class="box-item" src="/img/category50.png">
                             <span class="box-text">문서 분류</span>
                         </div>
@@ -81,7 +92,7 @@
                             <img class="box-item" src="/img/rule50.png">
                             <span class="box-text">규정</span>
                         </div>
-                        <div class="box" href="/doc/rule">
+                        <div class="box" onclick="location.href='/doc/category';">
                             <img class="box-item" src="/img/category50.png">
                             <span class="box-text">문서 분류</span>
                         </div>

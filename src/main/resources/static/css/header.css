@@ -148,7 +148,9 @@ header{
         transition: background-color 0.3s, border-radius 0.3s;
     }
 }
-
+.hidden {
+    display: none;
+}
 .mhidden {
 	display: none;
 }

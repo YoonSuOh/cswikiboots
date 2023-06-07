@@ -7,12 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale-1">
 </head>
 <body>
-    <script>
-        function toggleMenu() {
-          var userInfo = document.getElementById("hmenu");
-          userInfo.classList.toggle("mhidden");
-        }
-    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
         document.getElementById("searchBtn").onclick = function () {
          let keyword =  document.getElementsByName("d_title")[0].value;
@@ -21,7 +16,31 @@
         };
     </script>
     <div th:insert="/header :: header"></div>
+    <script src="/js/header.js"></script>
     <main>
     </main>
+    <div th:if="${#httpServletRequest.getSession(false) != null}" id="userinfo" class="hidden">
+        <div class="userinfo">
+            <h4 style="text-align:center">사용자 정보</h4>
+            사용자 이름 : <span th:text="${session.member.name}"></span>
+            <br>
+            가입일: <span th:text="${session.member.reg_date}" th:utext="${#dates.format(session.member.reg_date, 'yyyy-MM-dd')}"></span>
+            <br>
+            이메일 주소 : <span th:text="${session.member.email}"></span>
+        </div>
+    </div>
+    <div th:if="${#httpServletRequest.getSession(false) != null}" id="usermodify" class="hidden">
+        <div class="userinfo">
+            <h4 style="text-align:center">사용자 정보수정</h4>
+            <form>
+                사용자 이름  : <input type="text" name="u_id" th:value="${session.member.u_id}">
+                <br>
+                비밀번호 변경: <input type="password" name="pwd" placeholder="새로운 비밀번호를 입력하세요.">
+                <br>
+                이메일      : <input type="text" name="email" th:value="${session.member.email}">
+                <button type="submit">정보수정</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

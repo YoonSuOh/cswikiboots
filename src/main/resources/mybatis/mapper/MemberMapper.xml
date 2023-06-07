@@ -17,7 +17,7 @@
 
     <!-- 로그인  -->
     <select id="login" resultType="com.spring.cswiki.domain.Member">
-        select u_id, pwd, name, p_id
+        select *
         from user
         where u_id=#{u_id} and pwd=#{pwd}
     </select>

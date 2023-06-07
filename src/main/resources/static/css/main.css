@@ -294,6 +294,15 @@ nav li > a:hover{
     width:1080px;
     border: 1px solid #d1d8e4;
 }
+.userinfo{
+    position:fixed;
+    font-family:'InterParkGothicMedium';
+    width:242px;
+    top: 60px;
+    left: 2041px;
+    border: 1px solid #d1d8e4;
+    border-radius: 7px;
+}
 footer{
     margin-top:40px;
 }

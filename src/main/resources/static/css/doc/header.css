@@ -140,7 +140,7 @@ header{
     transition: background-color 0.3s, border-radius 0.3s;
 }
 
-@media (max-width: 1400px){
+@media (max-width: 1440px){
     #menu{
         position:relative;
         top : -114px;
@@ -165,7 +165,7 @@ header{
     border: 1px solid #d1d8e4;
 }
 
-@media (max-width: 1400px){
+@media (max-width: 1440px){
     .userInfo{
     	position:fixed;
         display: flex;

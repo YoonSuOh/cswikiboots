@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="/css/doc.css">
+    <link rel="stylesheet" href="/css/doc/header.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
 </head>
-<body>
+<body style="overflow-x: hidden">
+<script>
+        function toggleMenu() {
+          var userInfo = document.getElementById("hmenu");
+          userInfo.classList.toggle("mhidden");
+        }
+    </script>
+<script>
+        document.getElementById("searchBtn").onclick = function () {
+         let keyword =  document.getElementsByName("d_title")[0].value;
+         console.log(title)
+         location.href = "/doc/search" + "&title=" + title;
+        }
+    </script>
 
+<div th:insert="/header :: header"></div>
+<main>
+    <div id="doc">
+        <hr>
+        <div class="doc_inner">
+            <span class="title">2단계 분류</span>
+            <ul>
+                <div id="category" th:each="list : ${scategory}">
+                    <li><a th:href="@{/doc/list(s_ca_num=${list.s_ca_num})}">[[${list.s_ca_name}]]</a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+</main>
 </body>
 </html>

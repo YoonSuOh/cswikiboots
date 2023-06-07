@@ -262,6 +262,9 @@ th, td{
     text-align : left;
 }
 
+#category{
+    font-size:25px;
+}
 footer{
     margin-top:40px;
 }
