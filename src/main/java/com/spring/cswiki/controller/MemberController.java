@@ -86,11 +86,32 @@ public class MemberController {
         }
     }
 
+    // 로그아웃
     @RequestMapping(value="/logout")
     public String logout(HttpServletRequest req, HttpSession session){
         String referer = req.getHeader("referer");
         session.invalidate();
         LOG.info("logout success!");
         return "redirect:" + referer;
+    }
+
+    // 관리자 페이지로 이동
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String getcreate() throws Exception {
+        return "member/admin";
+    }
+
+    // 회원목록 출력
+    @RequestMapping(value="/memberlist", method=RequestMethod.GET) //url mapping
+    public String getList(Model model) throws Exception{
+        List<Member> list = service.list();
+        model.addAttribute("list", list);
+        return "member/memberlist";
+    }
+
+    // 사용자 차단 메뉴 이동
+    @RequestMapping(value = "/ban", method = RequestMethod.GET)
+    public String ban() throws Exception {
+        return "member/ban";
     }
 }

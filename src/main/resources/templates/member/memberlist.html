@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>관리 메뉴</title>
+</head>
+<body>
+<ul th:if="${session.member.p_id>=3}">
+  <h2>관리자 페이지</h2>
+  <h3>접속 정보</h3>
+  관리자 이름 : [[${session.member.name}]]
+  <ul>
+    <div class="selectbox" th:each="list : ${list}">
+      <li>[[${list.u_id}]] | [[${list.p_id}]] | [[${list.email}]] | [[${list.name}]]</li>
+    </div>
+  </ul>
+</ul>
+<ul th:if="${session.member.p_id<3}">
+  <script>
+        alert('관리자 권한이 없습니다!');
+        window.history.back();
+      </script>
+</ul>
+</body>
+</html>

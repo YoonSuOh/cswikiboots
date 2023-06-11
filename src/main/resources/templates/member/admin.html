@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>관리 메뉴</title>
+</head>
+<body>
+    <ul th:if="${session.member.p_id==3}">
+      <h2>관리자 페이지</h2>
+      <h3>접속 정보</h3>
+      관리자 이름 : [[${session.member.name}]]
+      권한 : 관리자
+      <li><a th:href="@{/member/memberlist}">사용자 조회</a></li>
+      <li><a th:href="@{/member/ban}">사용자 차단</a></li>
+      <li><a href="${path}/member/edit-c">카테고리 관리</a></li>
+      <li><a href="">게시판 관리</a></li>
+    </ul>
+    <ul th:if="${session.member.p_id==4}">
+      <h2>관리자 페이지</h2>
+      <h3>접속 정보</h3>
+      관리자 이름 : [[${session.member.name}]]
+      권한 : 개발자
+      <li><a href="${path}/member/memberlist">사용자 조회</a></li>
+      <li><a href="${path}/member/grant">사용자 권한 부여</a></li>
+      <li><a href="${path}/member/ban">사용자 차단</a></li>
+      <li><a href="${path}/member/edit-c">카테고리 관리</a></li>
+      <li><a href="">게시판 관리</a></li>
+    </ul>
+    <ul th:if="${session.member.p_id<3}">
+      <script>
+        alert('관리자 권한이 없습니다!');
+        window.history.back();
+      </script>
+    </ul>
+</body>
+</html>

@@ -6,6 +6,8 @@ import com.spring.cswiki.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -23,5 +25,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member getUserByname(String name) {
         return null;
+    }
+
+    @Override
+    public List<Member> list() {
+        return dao.list();
     }
 }

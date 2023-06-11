@@ -31,7 +31,7 @@
             <h2>내 문서함</h2>
                 <ul>
                     <div class="selectbox" th:each="star : ${star}">
-                        <li><a th:href="@{/doc/doc(d_num=${star.d_num})}">${userstar.d_title}</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${member.u_id)}">삭제</a>)</li>
+                        <li><a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
                     </div>
                 </ul>
         </div>

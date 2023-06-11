@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>관리 메뉴</title>
+</head>
+<body>
+<ul th:if="${session.member.p_id==3}">
+  <h2>관리자 페이지</h2>
+  <h3>접속 정보</h3>
+  관리자 이름 : [[${session.member.name}]]
+  권한 : 개발자
+  <form th:action="" method="post">
+    <input type="text" name="u_id" placeholder="차단할 사용자 이름을 입력하세요."/>
+    <input type="text" name="reason" placeholder="차단 사유를 입력하세요." />
+    <button type="submit">사용자 차단</button>
+  </form>
+</ul>
+<ul th:if="${session.member.p_id<3}">
+  <script>
+        alert('관리자 권한이 없습니다!');
+        window.history.back();
+      </script>
+</ul>
+</body>
+</html>
