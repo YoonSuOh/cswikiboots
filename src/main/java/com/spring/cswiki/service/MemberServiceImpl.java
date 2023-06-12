@@ -1,6 +1,7 @@
 package com.spring.cswiki.service;
 
 import com.spring.cswiki.dao.MemberDAO;
+import com.spring.cswiki.domain.DocHistory;
 import com.spring.cswiki.domain.Member;
 import com.spring.cswiki.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,4 +32,21 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> list() {
         return dao.list();
     }
+
+    @Override
+    public int ban(Member member) {
+        return dao.ban(member);
+    }
+
+    @Override
+    public int removeban(Member member){
+        return dao.removeban(member);
+    }
+
+    @Override
+    public List<Member> banlist() {
+        return dao.banlist();
+    }
+
+
 }

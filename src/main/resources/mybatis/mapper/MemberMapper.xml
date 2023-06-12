@@ -26,7 +26,7 @@
     <update id="grant">
         UPDATE user
         SET p_id = #{p_id}
-        where u_id = #{g_id}
+        where u_id = #{u_id}
     </update>
 
     <!-- 회원 탈퇴/강제 탈퇴 -->
@@ -34,4 +34,23 @@
         DELETE from user
         where u_id=#{u_id}
     </delete>
+
+    <!-- 사용자 차단-->
+    <update id="ban">
+        UPDATE user
+        SET ban = 1
+        where u_id = #{u_id}
+    </update>
+
+    <!-- 차단 목록에서 제거 -->
+    <update id="removeban">
+        UPDATE user
+        SET ban = 0
+        where u_id = #{u_id}
+    </update>
+
+    <!-- 차단 목록 조회 -->
+    <select id="banlist" resultType="com.spring.cswiki.domain.Member">
+        select * from user where ban = 1;
+    </select>
 </mapper>

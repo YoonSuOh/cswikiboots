@@ -3,24 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>관리 메뉴</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
+<script>
+    function confirmban() {
+      if (confirm('해당 사용자를 차단하시겠습니까?')) {
+        document.getElementById('ban').submit();
+      }
+    }
+</script>
 <ul th:if="${session.member.p_id==3}">
   <h2>관리자 페이지</h2>
   <h3>접속 정보</h3>
   관리자 이름 : [[${session.member.name}]]
-  권한 : 개발자
-  <form th:action="" method="post">
+  <h3>차단 목록 조회</h3>
+  <ul>
+    <div class="selectbox" th:each="list : ${list}">
+      <li>[[${list.u_id}]] | [[${list.p_id}]] | [[${list.name}]] | (<a th:href="@{/member/unban(u_id=${list.u_id})}">해제</a></li>
+    </div>
+  </ul>
+  <h3>사용자 차단</h3>
+  <form id="ban" method="post">
     <input type="text" name="u_id" placeholder="차단할 사용자 이름을 입력하세요."/>
     <input type="text" name="reason" placeholder="차단 사유를 입력하세요." />
-    <button type="submit">사용자 차단</button>
+    <button type="button" onclick="confirmban()">사용자 차단</button>
   </form>
 </ul>
 <ul th:if="${session.member.p_id<3}">
   <script>
         alert('관리자 권한이 없습니다!');
         window.history.back();
-      </script>
+  </script>
 </ul>
 </body>
 </html>

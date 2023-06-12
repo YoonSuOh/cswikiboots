@@ -9,5 +9,8 @@ public interface MemberService {
     Member login(Member member);
     Member getUserByname(String name);
     List<Member> list();
+    int ban(Member member);
+    int removeban(Member member);
+    List<Member> banlist(); // (관리자 전용) 차단된 회원 목록 조회
 //    PasswordEncoder passwordEncoder();
 }

@@ -111,7 +111,23 @@ public class MemberController {
 
     // 사용자 차단 메뉴 이동
     @RequestMapping(value = "/ban", method = RequestMethod.GET)
-    public String ban() throws Exception {
+    public String ban(Model model) throws Exception {
+        List<Member> list = service.banlist();
+        model.addAttribute("list", list);
         return "member/ban";
+    }
+
+    // 사용자 차단
+    @PostMapping(value="/ban")
+    public String banProcess(Member member) throws Exception {
+        service.ban(member);
+        return "redirect:/member/ban";
+    }
+
+    // 사용자 차단 해제
+    @RequestMapping(value="/unban")
+    public String unban(Member member) throws Exception {
+        service.removeban(member);
+        return "redirect:/member/ban";
     }
 }
