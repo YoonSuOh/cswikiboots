@@ -29,6 +29,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public int infomodify(Member member) {
+        return dao.infomodify(member);
+    }
+
+    @Override
     public List<Member> list() {
         return dao.list();
     }
@@ -48,5 +53,13 @@ public class MemberServiceImpl implements MemberService {
         return dao.banlist();
     }
 
+    @Override
+    public List<Member> adminlist() {
+        return dao.adminlist();
+    }
 
+    @Override
+    public int grant(Member member) {
+        return dao.grant(member);
+    }
 }

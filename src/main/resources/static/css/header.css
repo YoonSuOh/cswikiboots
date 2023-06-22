@@ -71,8 +71,8 @@ header{
     background : url(/img/logo_skyblue.png) 0px 2px no-repeat;
     vertical-align: middle;
     position:relative;
-    top: 105px;
-    left:450px;
+    top: 41px;
+    left:106px;
 }
 
 #header-search h1 span{
@@ -94,7 +94,7 @@ header{
     vertical-align: middle;
     position:relative;
     left:50px;
-    top:200px;
+    top:46px;
 }
 
 #header-search fieldset input{
@@ -164,6 +164,7 @@ header{
     height:auto;
     border-radius: 7px;
     border: 1px solid #d1d8e4;
+    background-color:white;
 }
 
 @media (max-width: 1440px){

@@ -13,6 +13,7 @@ public interface DocDAO {
     public void createbigcategory(BigCategory vo);
     public void createsmallcategory(SmallCategory vo);
     public int create(Doc dto); // 새 문서 작성
+    public List<SmallCategory> selectcategory(); // 문서 작성 시 분류 선택
     public void createDocHistory(DocHistory dto); // 문서 역사 생성
     public List<DocHistory> getDocHistory(int d_num); // 문서 역사 보기
     public Doc version(int d_num, String d_version); // 문서 버전별 내용 확인

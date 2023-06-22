@@ -156,9 +156,11 @@ public class DocController {
     public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title) throws Exception {
         if (d_num != null) {
             Doc doc = service.doc(d_num);
+            log.info(String.valueOf(doc.getP_read()));
             model.addAttribute("doc", doc);
         } else if (d_title != null) {
             Doc doc = service.search(d_title);
+            log.info(String.valueOf(doc.getP_read()));
             model.addAttribute("doc", doc);
             model.addAttribute("d_title", d_title);
         }
@@ -167,13 +169,16 @@ public class DocController {
 
     // 문서 작성 페이지로 이동
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String getcreate() throws Exception {
+    public String getcreate(Model model) throws Exception {
+        List<SmallCategory> list = service.selectcategory();
+        model.addAttribute("list", list);
         return "doc/create";
     }
 
     // 문서 작성
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String postcreate(Doc domain) throws Exception {
+        log.info(String.valueOf("전달된 값" + domain.getS_ca_num()));
         int result = service.create(domain);
         if(result > 0) {
             return "redirect:doc?d_num=" + domain.getD_num();
@@ -205,7 +210,7 @@ public class DocController {
     @RequestMapping(value="/delete", method=RequestMethod.GET)
     public String postdelete(int d_num) throws Exception{
         service.delete(d_num);
-        return "redirect:list";
+        return "redirect:/";
     }
 
     // 문서 ACL 조정 페이지 이동(관리자 전용)
@@ -255,7 +260,7 @@ public class DocController {
     public String starout(Model model, Star vo, @RequestParam("d_num")int d_num, @RequestParam("u_id")String u_id) {
         service.starout(vo);
         model.addAttribute("u_id", u_id);
-        return "redirect:userstar?";
+        return "redirect:userstar?u_id=" + u_id;
     }
 
     // 즐겨찾기 목록

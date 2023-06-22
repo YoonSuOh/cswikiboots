@@ -32,15 +32,20 @@
             <span class="title">[[${doc.d_title}]]</span>
                 <div class="selectbox">
                     <ul>
-                        <li><a th:href="@{/doc/starcheck(d_num=${doc.d_num}, u_id=${session.member.u_id})}" id="star"style="cursor:pointer;">★</a></li>
                         <li>
-                            <th:block th:if="${session.member.ban == 0} and ${session.member.p_id >= doc.p_update}">
-                                <a th:href="@{/doc/edit(d_num=${doc.d_num})}">편집</a>
+                            <th:block th:if="${session.member != null}">
+                                <a th:href="@{/doc/starcheck(d_num=${doc.d_num}, u_id=${session.member.u_id})}" id="star"style="cursor:pointer;">★</a>
                             </th:block>
-                            <th:block th:if="${session.member.p_id <= doc.p_update}">
-                                편집
+                            <th:block th:unless="${session.member != null}">
+                                ★
                             </th:block>
-                            <th:block th:if="${session.member.ban == 1}">
+                        </li>
+                        <li>
+                            <th:block th:if="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_update}">
+                                <th:block th:if="${session.member.ban == 1}">편집</th:block>
+                                <th:block th:unless="${session.member.ban == 1}"><a th:href="@{/doc/edit(d_num=${doc.d_num})}">편집</a></th:block>
+                            </th:block>
+                            <th:block th:unless="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_update}">
                                 편집
                             </th:block>
                         </li>
@@ -49,17 +54,22 @@
                             <a th:href="@{/doc/acl(d_num=${doc.d_num})}">ACL</a>
                         </li>
                         <li>
-                            <th:block th:if="${session.p_id == doc.p_delete or session.p_id >= doc.p_delete}">
-                                <a th:href="@{/doc/doc_delete(d_num=${doc.d_num})}">삭제</a>
+                            <th:block th:if="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
+                                <a th:href="@{/doc/delete(d_num=${doc.d_num})}">삭제</a>
                             </th:block>
-                            <th:block th:unless="${session.member.ban == 1 or session.p_id >= doc.p_delete}">
+                            <th:block th:unless="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
                                 삭제
                             </th:block>
                         </li>
                     </ul>
                 </div>
-                <div th:if="${doc.p_read <= session.p_id}" th:utext="${doc.d_content}" class="content" id="ckcontent"></div>
-                <div th:unless="${doc.p_read <= session.p_id}" class="content">읽기 권한이 없습니다. 해당 문서의 ACL 탭을 확인하십시요.</div>
+                <div class="content">
+                    <div th:if="${doc.p_read == 1} or ${session.member != null} and ${session.member.p_id >= doc.p_read}" th:utext="${doc.d_content}">
+                    </div>
+                    <div th:unless="${doc.p_read == 1} or ${session.member != null} and ${session.member.p_id >= doc.p_read}">
+                        읽기 권한이 없습니다!
+                    </div>
+                </div>
             </div>
         </div>
     </main>

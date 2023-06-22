@@ -29,29 +29,26 @@
             <hr>
             <div class="doc_inner">
                 <span class="title">[[${doc.d_title}]](ACL)</span>
-                <div th:if="${session.p_id >= 3}" class="aclmodify">
+                <div th:if="${session.member != null} and ${session.member.p_id >= 3}" class="aclmodify">
                     <h2>ACL 조정</h2>
                     <form name="acl" class="aclgroup" method="POST" th:action="@{/doc/acl(d_num=${doc.d_num})}">
                         읽기 권한 :
                         <select name="p_read" class="option">
-                            <option value="0">아무나</option>
-                            <option value="1">IP</option>
+                            <option value="1">아무나</option>
                             <option value="2">회원</option>
                             <option value="3">관리자</option>
                             <option value="4">개발자</option>
                         </select>
                         수정 권한 :
                         <select name="p_update" class="option">
-                            <option value="0">아무나</option>
-                            <option value="1">IP</option>
+                            <option value="1">아무나</option>
                             <option value="2">회원</option>
                             <option value="3">관리자</option>
                             <option value="4">개발자</option>
                         </select>
                         삭제 권한 :
                         <select name="p_delete" class="option">
-                            <option value="0">아무나</option>
-                            <option value="1">IP</option>
+                            <option value="1">아무나</option>
                             <option value="2">회원</option>
                             <option value="3">관리자</option>
                             <option value="4">개발자</option>
@@ -75,8 +72,7 @@
                         <tr class="tr">
                             <td>doc:read</td>
                             <td>
-                                <span th:if="${doc.p_read == 0}">perm:아무나</span>
-                                <span th:if="${doc.p_read == 1}">perm:IP 이용자</span>
+                                <span th:if="${doc.p_read == 1}">perm:아무나</span>
                                 <span th:if="${doc.p_read == 2}">perm:회원</span>
                                 <span th:if="${doc.p_read == 3}">perm:관리자</span>
                                 <span th:if="${doc.p_read == 4}">perm:개발자</span>
@@ -87,8 +83,7 @@
                         <tr class="tr">
                             <td>doc:update</td>
                             <td>
-                                <span th:if="${doc.p_update == 0}">perm:아무나</span>
-                                <span th:if="${doc.p_update == 1}">perm:IP 이용자</span>
+                                <span th:if="${doc.p_update == 1}">perm:아무나</span>
                                 <span th:if="${doc.p_update == 2}">perm:회원</span>
                                 <span th:if="${doc.p_update == 3}">perm:관리자</span>
                                 <span th:if="${doc.p_update == 4}">perm:개발자</span>
@@ -99,8 +94,7 @@
                         <tr class="tr">
                             <td>doc:delete</td>
                             <td>
-                                <span th:if="${doc.p_delete == 0}">perm:아무나</span>
-                                <span th:if="${doc.p_delete == 1}">perm:IP 이용자</span>
+                                <span th:if="${doc.p_delete == 1}">perm:아무나</span>
                                 <span th:if="${doc.p_delete == 2}">perm:회원</span>
                                 <span th:if="${doc.p_delete == 3}">perm:관리자</span>
                                 <span th:if="${doc.p_delete == 4}">perm:개발자</span>

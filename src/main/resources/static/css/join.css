@@ -1,0 +1,140 @@
+@font-face{
+    font-family:'InterparkGothic'; /*font 이름*/
+    font-style: 'normal';
+    src: url("/font/InterparkGothicLight.ttf"); /* IE9 Compat Modes */
+}
+@font-face{
+    font-family:'InterparkGothicMedium'; /*font 이름*/
+    font-style: 'normal';
+    src: url("/font/InterparkGothicMedium.ttf"); /* IE9 Compat Modes */
+}
+@font-face{
+    font-family:'InterparkGothicBold'; /*font 이름*/
+    font-style: 'normal';
+    src: url("/font/InterparkGothicBold.ttf"); /* IE9 Compat Modes */
+}
+
+/* 기본 해상도(QHD) */
+.pc{
+    font-family:'InterparkGothic';
+    padding:0px;
+    margin:0px;
+    font-size: 20px;
+    background-color: #efefef;
+    /* display: none; 화면에서 안 보이고 공간도 차지하지 않음 */
+}
+
+.body{
+    margin:0;
+    background-color: #efefef;
+}
+
+header{
+    padding-top:78px;
+    padding-bottom:48px;
+}
+
+header a{
+    text-decoration: none;
+}
+
+.header_inner{
+    width:1080px;
+    margin:0 auto;
+    position: relative;
+    text-align:center;
+    width: 743px;
+}
+
+.logo{
+    margin : 0 auto;
+    width:175px;
+    height:62px;
+    display:block;
+    background : url("../img/logo_skyblue.png") 0px 2px no-repeat;
+}
+
+.logo h1 span{
+    display:none;
+}
+
+main, .main_inner{
+    display: block;
+}
+
+#group{
+    margin : 0 auto;
+    width: 460px;
+}
+
+.input_area{
+    font-family:'InterparkGothic';
+    margin : 0 auto;
+    margin-top:40px;
+}
+
+.form_text{
+    margin : 0 auto;
+    font-weight: bold;
+}
+
+.textForm{
+    margin : 0 auto;
+    width: 460px;
+    height:50px;
+}
+
+.textinput{
+    font-family:'InterparkGothic';
+    margin : 0 auto;
+    margin-top:20px;
+    width: 460px;
+    height:50px;
+    border: 1px solid #cccccc;
+    background-color: white;
+}
+
+.btn_area{
+    position:relative;
+    top:40px;
+    margin : 0 auto;
+    width: 460px;
+}
+
+.join_btn{
+    margin : 0 auto;
+    width: 460px;
+    height:50px;
+    background-color: skyblue;
+    border: 1px solid rgb(48, 183, 236);
+    font-size:20px;
+    font-family:'InterparkGothicBold';
+    color:#ffffff;
+}
+
+footer{
+    font-family:'InterparkGothic';
+    margin-top:370px;
+}
+
+.footer_inner{
+    position: relative;
+    text-align: center;
+}
+.footer_logo{
+    position:relative;
+    top:4px;
+    width:62px;
+    height:21px;
+    display:inline-block;
+    background : url("../img/logo_footer.png") 13px 1px no-repeat;
+}
+.footer_inner h1 span{
+    display:none;
+}
+.text, .corp{
+    font-size:14px;
+}
+.corp{
+    font-weight:bold;
+}

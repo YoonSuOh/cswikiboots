@@ -1,17 +1,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/nav.css">
-</head>
 <header id="header">
     <div class="center-align">
         <div id="header-search" style="clear:both">
+            <a href="/"><h1><span>CS위키</span></h1></a>
+            <h2 class="blind">검색창</h2>
+            <fieldset id="fieldset-doc">
+                <legend class="blind">검색</legend>
+                <form action="/doc/doc" method="get">
+                    <input type="text" name="d_title" placeholder="찾으시는 문서의 이름을 입력하세요."/>
+                    <button type="submit" id="searchBtn">
+                        <span class="blind">검색</span>
+                        <span id="search-image"></span>
+                    </button>
+                </form>
+            </fieldset>
             <div id="menu">
                 <img th:if="${#httpServletRequest.getSession(false) != null}" class="menu" src="/img/user30.png" onclick="toggleMenu()">
                 <img th:if="${#httpServletRequest.getSession(false) == null}" class="menu" src="/img/menu30.png" onclick="toggleMenu()">
                 <div id="hmenu" class="mhidden">
-                    <div th:if="${#httpServletRequest.getSession(false) != null} and ${session.member.p_id<=2}" class="userInfo">
+                    <div th:if="${session.member.p_id<=2}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
                             <img class="box-item" src="/img/uinfo50.png">
                             <span class="box-text">사용자 정보</span>
@@ -44,7 +51,7 @@
                             <img class="box-item" src="/img/category50.png">
                             <span class="box-text">문서 분류</span>
                         </div>
-                        <div class="box" href="/doc/starlist">
+                        <div class="box" onclick="location.href='/doc/popular';">
                             <img class="box-item" src="/img/star50.png">
                             <span class="box-text">자주 찾는 문서</span>
                         </div>
@@ -57,7 +64,7 @@
                             <span class="box-text">새문서 만들기</span>
                         </div>
                     </div>
-                    <div th:if="${#httpServletRequest.getSession(false) != null} and ${session.member.p_id==3}" class="userInfo">
+                    <div th:if="${session.member.p_id==3}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
                             <img class="box-item" src="/img/uinfo50.png">
                             <span class="box-text">사용자 정보</span>
@@ -90,7 +97,7 @@
                             <img class="box-item" src="/img/category50.png">
                             <span class="box-text">문서 분류</span>
                         </div>
-                        <div class="box" href="/board/report">
+                        <div class="box" th:onclick="|location.href='@{/doc/popular}'|">
                             <img class="box-item" src="/img/popular50.png">
                             <span class="box-text">인기있는 문서 목록</span>
                         </div>
@@ -98,8 +105,8 @@
                             <img class="box-item" src="/img/notice50.png">
                             <span class="box-text">공지사항</span>
                         </div>
-                        <div class="box" href="/board/report">
-                            <img class="box-item" src="/img/report50.png">
+                        <div class="box" th:onclick="|location.href='@{/doc/create}'|">
+                            <img class="box-item" src="/img/newdoc50.png">
                             <span class="box-text">새문서 만들기</span>
                         </div>
                         <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/memberlist}'|">
@@ -115,7 +122,7 @@
                             <span class="box-text">카테고리 관리</span>
                         </div>
                     </div>
-                    <div th:if="${#httpServletRequest.getSession(false) != null} and ${session.member.p_id==4}" class="userInfo">
+                    <div th:if="${session.member.p_id==4}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
                             <img class="box-item" src="/img/uinfo50.png">
                             <span class="box-text">사용자 정보</span>
@@ -177,7 +184,7 @@
                             <span class="box-text">권한 부여</span>
                         </div>
                     </div>
-                    <div th:if="${#httpServletRequest.getSession(false) == null}" class="userInfo">
+                    <div th:if="${session.member == null}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="location.href='/member/login';">
                             <img class="box-item" src="/img/login50.png">
                             <span class="box-text">로그인</span>
@@ -186,9 +193,9 @@
                             <img class="box-item" src="/img/board50.png">
                             <span class="box-text">게시판</span>
                         </div>
-                        <div class="box" onclick="location.href='/doc/create';">
-                            <img class="box-item" src="/img/help50.png">
-                            <span class="box-text">새문서 작성</span>
+                        <div class="box" onclick="location.href='/member/join';">
+                            <img class="box-item" src="/img/join50.png">
+                            <span class="box-text">회원가입</span>
                         </div>
                         <div class="box" href="/doc/rule">
                             <img class="box-item" src="/img/rule50.png">

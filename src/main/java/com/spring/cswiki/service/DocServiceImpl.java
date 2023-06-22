@@ -82,6 +82,11 @@ public class DocServiceImpl implements DocService{
     }
 
     @Override
+    public List<SmallCategory> selectcategory() {
+        return dao.selectcategory();
+    }
+
+    @Override
     public void delete(int d_num) {
         dao.delete(d_num);
     }

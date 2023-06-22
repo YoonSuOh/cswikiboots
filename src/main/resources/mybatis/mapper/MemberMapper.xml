@@ -22,6 +22,20 @@
         where u_id=#{u_id} and pwd=#{pwd}
     </select>
 
+    <!-- 개인 정보 수정 -->
+    <update id="infomodify">
+        UPDATE user
+        SET name = #{name}, pwd = #{pwd}, email = #{email}
+        where u_id = #{u_id}
+    </update>
+
+    <!-- 관리자 및 개발자 목록 출력 -->
+    <select id="adminlist">
+        select *
+        from user
+        where p_id = 3 or p_id = 4
+    </select>
+
     <!-- 회원 권한 수정 -->
     <update id="grant">
         UPDATE user

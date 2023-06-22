@@ -15,6 +15,7 @@ public interface DocService {
     public Doc version(int d_num, String d_version); // 문서 버전별 내용 확인
     public Doc doc(int d_num); // 문서 본문 보기
     public int edit(Doc dto); // 문서 편집
+    public List<SmallCategory> selectcategory();
     public void delete(int d_num); // 문서 삭제
     public void acl(Doc dto); // acl 수정
     public Doc search(String d_title); // 문서 검색

@@ -38,11 +38,11 @@
     <!-- 새 문서 작성 -->
     <insert id="create" useGeneratedKeys="true" keyProperty="d_num">
         INSERT INTO doc (s_ca_num, p_read, p_insert, p_update, p_delete, d_title, d_content, d_summary, d_available)
-        VALUES (null , 0, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1);
+        VALUES (#{s_ca_num}, 1, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1);
     </insert>
 
     <!-- 문서 작성 시 2단계 카테고리 선택 -->
-    <select id="ins1category">
+    <select id="selectcategory">
         select * from small_category
     </select>
     <!-- 새 문서 작성 시 역사 생성 -->
@@ -90,13 +90,13 @@
     <!-- 문서 삭제  -->
     <update id="delete">
         UPDATE doc
-        SET d_available = 0
+        SET d_available = 0, d_content = '삭제된 문서입니다.'
         WHERE d_num = #{d_num}
     </update>
 
     <!-- 문서 검색 -->
     <select id="search" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d_title, d_num, d_content FROM doc WHERE d_title like concat('%', #{d_title}, '%')
+        SELECT * FROM doc WHERE d_title = #{d_title}
         order by d_num desc
     </select>
 

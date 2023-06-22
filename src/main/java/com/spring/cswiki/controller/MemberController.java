@@ -97,10 +97,11 @@ public class MemberController {
         return "redirect:" + referer;
     }
 
-    // 관리자 페이지로 이동
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String getcreate() throws Exception {
-        return "member/admin";
+    @RequestMapping(value="/infomodify")
+    public String postinfomodify(Member member) throws Exception{
+        service.infomodify(member);
+        return "redirect:/";
+
     }
 
     // 회원목록 출력
@@ -131,5 +132,20 @@ public class MemberController {
     public String unban(Member member) throws Exception {
         service.removeban(member);
         return "redirect:/member/ban";
+    }
+    
+    // 권한 부여 / 회수 메뉴 이동
+    @GetMapping(value="/grant")
+    public String grant(Model model) throws Exception{
+        List<Member> list = service.adminlist();
+        model.addAttribute("list", list);
+        return "member/grant";
+    }
+
+    // 권한 부여 / 회수
+    @PostMapping(value="/grant")
+    public String grantprocess(Member member) throws Exception {
+        service.grant(member);
+        return "redirect:/member/grant";
     }
 }
