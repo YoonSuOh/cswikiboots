@@ -76,7 +76,7 @@ public class DocServiceImpl implements DocService{
             dh.setU_id(dto.getU_id());
             dh.setD_summary(dto.getD_summary());
             dh.setD_content(dto.getD_content());
-            dao.editHistory(dh);
+            dao.edithistory(dh);
         }
         return result;
     }
@@ -109,5 +109,10 @@ public class DocServiceImpl implements DocService{
     @Override
     public List<Doc> userstar(String u_id) {
         return dao.userstar(u_id);
+    }
+
+    @Override
+    public List<Doc> popular() {
+        return dao.popular();
     }
 }

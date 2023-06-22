@@ -16,4 +16,6 @@ public class Member {
     private String pwd;
     private Date reg_date;
     private int ban;
+    private Date ban_date;
+    private String ban_reason;
 }

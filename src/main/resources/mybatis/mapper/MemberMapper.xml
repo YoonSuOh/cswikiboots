@@ -38,14 +38,14 @@
     <!-- 사용자 차단-->
     <update id="ban">
         UPDATE user
-        SET ban = 1
+        SET ban = 1, ban_date = SYSDATE(), ban_reason = #{ban_reason}
         where u_id = #{u_id}
     </update>
 
     <!-- 차단 목록에서 제거 -->
     <update id="removeban">
         UPDATE user
-        SET ban = 0
+        SET ban = 0, ban_date = null, ban_reason = null
         where u_id = #{u_id}
     </update>
 

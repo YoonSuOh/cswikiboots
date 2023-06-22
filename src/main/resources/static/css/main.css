@@ -310,10 +310,21 @@ nav li > a:hover{
         font-family:'InterParkGothicMedium';
         width:242px;
         top: 60px;
-        left: 2041px;
+        left: 935px;
         border: 1px solid #d1d8e4;
         border-radius: 7px;
     }
+}
+
+table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+th, td{
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align : left;
 }
 
 .footer_inner{

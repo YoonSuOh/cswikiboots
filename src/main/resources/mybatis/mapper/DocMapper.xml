@@ -56,6 +56,7 @@
         UPDATE doc
         SET d_title = #{d_title},
         d_content = #{d_content},
+        d_summary = #{d_summary},
         u_id = #{u_id}
         WHERE d_num = #{d_num}
     </update>
@@ -131,5 +132,17 @@
     <!-- 즐겨찾기 된 문서 출력 -->
     <select id="userstar" resultType="com.spring.cswiki.domain.Doc">
         SELECT * FROM doc WHERE d_num IN (SELECT d_num FROM star WHERE u_id=#{u_id})
+    </select>
+
+    <!-- 즐겨찾기 횟수가 가장 많은 문서 출력 -->
+    <select id="popular" resultType="com.spring.cswiki.domain.Doc">
+        SELECT d.d_num, d.d_title, d.p_read, d.p_insert, d.p_update, d.p_delete, s.star, s.d_num
+        FROM doc d
+        JOIN (
+        SELECT d_num, MAX(star) AS star
+        FROM star
+        GROUP BY d_num
+        ) s ON d.d_num = s.d_num
+        ORDER BY s.star DESC;
     </select>
 </mapper>

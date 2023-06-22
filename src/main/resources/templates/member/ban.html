@@ -3,9 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <title>관리 메뉴</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <meta name="viewport" content="width=device-width, initial-scale-1">
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
-<body>
+<body style="overflow-x: hidden">
+<script src="/js/header.js"></script>
+<div th:insert="/headera :: header"></div>
+<main>
+<div th:if="${#httpServletRequest.getSession(false) != null}" id="userinfo" class="hidden">
+  <div class="userinfo">
+    <h4 style="text-align:center">사용자 정보</h4>
+    사용자 이름 : <span th:text="${session.member.name}"></span>
+    <br>
+    가입일: <span th:text="${session.member.reg_date}" th:utext="${#dates.format(session.member.reg_date, 'yyyy-MM-dd')}"></span>
+    <br>
+    이메일 주소 : <span th:text="${session.member.email}"></span>
+  </div>
+</div>
+<div th:if="${#httpServletRequest.getSession(false) != null}" id="usermodify" class="hidden">
+  <div class="userinfo">
+    <h4 style="text-align:center">사용자 정보수정</h4>
+    <form>
+      사용자 이름  : <input type="text" name="u_id" th:value="${session.member.u_id}">
+      <br>
+      비밀번호 변경: <input type="password" name="pwd" placeholder="새로운 비밀번호를 입력하세요.">
+      <br>
+      이메일      : <input type="text" name="email" th:value="${session.member.email}">
+      <button type="submit">정보수정</button>
+    </form>
+  </div>
+</div>
+  <div class="acl" th:if="${session.member.p_id>=3}">
+    <h2>차단된 사용자 목록</h2>
+    <table class="table">
+      <thead>
+      <th>사용자 ID</th>
+      <th>권한</th>
+      <th>차단 사유</th>
+      <th>해제</th>
+      </thead>
+      <tbody th:each="list : ${list}">
+      <tr class="tr">
+        <td>[[${list.u_id}]]</td>
+        <td>
+          <span th:if="${list.p_id== 2}">회원</span>
+          <span th:if="${list.p_id == 3}">관리자</span>
+        </td>
+        <td>[[${list.ban_reason}]]</td>
+        <td><a th:href="@{/member/unban(u_id=${list.u_id})}">해제</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <h2>사용자 차단</h2>
+    <form id="ban" method="post">
+      <input type="text" name="u_id" placeholder="차단할 사용자 이름을 입력하세요."/>
+      <input type="text" name="ban_reason" placeholder="차단 사유를 입력하세요." />
+      <button type="button" onclick="confirmban()">사용자 차단</button>
+    </form>
+  </div>
 <script>
     function confirmban() {
       if (confirm('해당 사용자를 차단하시겠습니까?')) {
@@ -13,28 +71,12 @@
       }
     }
 </script>
-<ul th:if="${session.member.p_id==3}">
-  <h2>관리자 페이지</h2>
-  <h3>접속 정보</h3>
-  관리자 이름 : [[${session.member.name}]]
-  <h3>차단 목록 조회</h3>
-  <ul>
-    <div class="selectbox" th:each="list : ${list}">
-      <li>[[${list.u_id}]] | [[${list.p_id}]] | [[${list.name}]] | (<a th:href="@{/member/unban(u_id=${list.u_id})}">해제</a></li>
-    </div>
-  </ul>
-  <h3>사용자 차단</h3>
-  <form id="ban" method="post">
-    <input type="text" name="u_id" placeholder="차단할 사용자 이름을 입력하세요."/>
-    <input type="text" name="reason" placeholder="차단 사유를 입력하세요." />
-    <button type="button" onclick="confirmban()">사용자 차단</button>
-  </form>
-</ul>
 <ul th:if="${session.member.p_id<3}">
   <script>
         alert('관리자 권한이 없습니다!');
         window.history.back();
   </script>
 </ul>
+</main>
 </body>
 </html>

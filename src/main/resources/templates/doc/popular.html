@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="/css/doc.css">
     <link rel="stylesheet" href="/css/doc/header.css">
     <link rel="stylesheet" href="/css/nav.css">
-    <title>새 문서 작성 - CS위키</title>
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
@@ -19,29 +18,23 @@
     </script>
 <script>
         document.getElementById("searchBtn").onclick = function () {
-         let keyword =  document.getElementsByName("title")[0].value;
+         let keyword =  document.getElementsByName("d_title")[0].value;
          console.log(title)
          location.href = "/doc/search" + "&title=" + title;
         }
     </script>
+
 <div th:insert="/header :: header"></div>
 <main>
-    <div id="doc">
-        <form class="editarea" method="post">
-            <input type="hidden" name="u_id" id="u_id" th:value="${session.member.u_id}"/>
-            <input type="text" name="d_title" id="d_title" th:value="${doc.d_title}"><br>
-            <textarea name="d_content" id="editor" th:text="${doc.d_content}"></textarea>
-            <br>
-            <p id="caution">경고! 문서 편집을 저장할 경우 당신의 기여 내용은 CC-BY-NC-SA 2.0 KR으로 배포됩니다.</p>
-            편집요약 : <input type="text" name="d_summary" id="d_summary"><br>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <button id="save" type="submit">저장</button>
-        </form>
-        <script>
-                CKEDITOR.replace('editor', {
-                    filebrowserUploadUrl : '/doc/ckUpload'
-                });
-        </script>
+    <div id="list">
+        <div class="list_inner">
+            <h2>인기있는 문서</h2>
+                <ul>
+                    <div th:each="list : ${list}">
+                        <li><a th:href="@{/doc/doc(d_num=${list.d_num})}">[[${list.d_title}]]</a>
+                    </div>
+                </ul>
+        </div>
     </div>
 </main>
 </body>

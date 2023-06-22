@@ -6,9 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.spring.cswiki.domain.BigCategory;
 import com.spring.cswiki.domain.Doc;
@@ -31,7 +29,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -268,5 +265,13 @@ public class DocController {
         model.addAttribute("star", star);
         model.addAttribute("u_id", u_id);
         return "doc/userstar";
+    }
+
+    // 즐겨찾기가 가장 많이 된 순서대로 조회
+    @GetMapping(value="/popular")
+    public String popular(Model model) throws Exception{
+        List<Doc> list = service.popular();
+        model.addAttribute("list", list);
+        return "doc/popular";
     }
 }

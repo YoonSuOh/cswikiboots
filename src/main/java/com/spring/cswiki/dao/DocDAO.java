@@ -18,7 +18,7 @@ public interface DocDAO {
     public Doc version(int d_num, String d_version); // 문서 버전별 내용 확인
     public Doc doc(int d_num); // 문서 본문 보기
     public int edit(Doc dto); // 문서 편집
-    public void editHistory(DocHistory dto); // 문서 편집시 역사 생성
+    public void edithistory(DocHistory dto); // 문서 편집시 역사 생성
     public void delete(int d_num); // 문서 삭제
     public void acl(Doc dto); // acl 수정
     public void aclwipe(Doc dto); // acl 삭제
@@ -26,4 +26,5 @@ public interface DocDAO {
     public int starin(Star vo); // 즐겨찾기 등록
     public int starout(Star vo); // 즐겨찾기 삭제
     public List<Doc> userstar(String u_id); // 즐겨찾기 한 문서 목록 조회
+    public List<Doc> popular(); // 즐겨찾기가 가장 많이 된 문서 목록 출력
 }

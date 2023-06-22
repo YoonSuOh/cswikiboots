@@ -5,7 +5,7 @@ import com.spring.cswiki.domain.*;
 import java.util.List;
 
 public interface DocService {
-    public List<BigCategory> list(); // 1단계 분류 조회
+    public List<BigCategory> list(); // xx`1단계 분류 조회
     public List<SmallCategory> s_category(int b_ca_num); // 2단계 분류 조회
     public List<Doc> doc_list(int s_ca_num); // 분류별 문서 조회
     public void createbigcategory(BigCategory vo);
@@ -21,4 +21,5 @@ public interface DocService {
     public int starin(Star vo); // 즐겨찾기 등록
     public int starout(Star vo); // 즐겨찾기 삭제
     public List<Doc> userstar(String u_id); // 즐겨찾기 한 문서 목록 조회
+    public List<Doc> popular(); // 즐겨찾기가 가장 많은 순대로 문서 목록 조회
 }
