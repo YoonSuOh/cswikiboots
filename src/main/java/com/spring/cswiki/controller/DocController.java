@@ -191,6 +191,10 @@ public class DocController {
     @RequestMapping(value= "/edit", method = RequestMethod.GET)
     public String getedit(int d_num, Model model) throws Exception{
         Doc doc = service.doc(d_num);
+        SmallCategory ctg = service.getcategory(d_num);
+        List<SmallCategory> list = service.selectcategory();
+        model.addAttribute("ctg", ctg);
+        model.addAttribute("list", list);
         model.addAttribute("doc", doc);
         return "doc/edit";
     }

@@ -44,7 +44,7 @@
                                 <img class="box-item" src="/img/help50.png">
                                 <span class="box-text">도움말</span>
                             </div>
-                            <div class="box" href="/doc/rule">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
                                 <img class="box-item" src="/img/rule50.png">
                                 <span class="box-text">규정</span>
                             </div>
@@ -56,7 +56,7 @@
                                 <img class="box-item" src="/img/popular50.png">
                                 <span class="box-text">인기있는 문서 목록</span>
                             </div>
-                            <div class="box" href="/board/notice">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
                                 <img class="box-item" src="/img/notice50.png">
                                 <span class="box-text">공지사항</span>
                             </div>
@@ -90,7 +90,7 @@
                                 <img class="box-item" src="/img/help50.png">
                                 <span class="box-text">도움말</span>
                             </div>
-                            <div class="box" href="/doc/rule">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
                                 <img class="box-item" src="/img/rule50.png">
                                 <span class="box-text">규정</span>
                             </div>
@@ -102,7 +102,7 @@
                                 <img class="box-item" src="/img/popular50.png">
                                 <span class="box-text">인기있는 문서 목록</span>
                             </div>
-                            <div class="box" href="/board/notice">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
                                 <img class="box-item" src="/img/notice50.png">
                                 <span class="box-text">공지사항</span>
                             </div>
@@ -117,10 +117,6 @@
                             <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/ban}'|">
                                 <img class="box-item" src="/img/ban50.png">
                                 <span class="box-text">사용자 차단</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/grant}'|">
-                                <img class="box-item" src="/img/items50.png">
-                                <span class="box-text">카테고리 관리</span>
                             </div>
                         </div>
                         <div th:if="${session.member.p_id==4}" class="userInfo">
@@ -148,7 +144,7 @@
                                 <img class="box-item" src="/img/help50.png">
                                 <span class="box-text">도움말</span>
                             </div>
-                            <div class="box" href="/doc/rule">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
                                 <img class="box-item" src="/img/rule50.png">
                                 <span class="box-text">규정</span>
                             </div>
@@ -160,7 +156,7 @@
                                 <img class="box-item" src="/img/popular50.png">
                                 <span class="box-text">인기있는 문서 목록</span>
                             </div>
-                            <div class="box" href="/board/notice">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
                                 <img class="box-item" src="/img/notice50.png">
                                 <span class="box-text">공지사항</span>
                             </div>
@@ -175,10 +171,6 @@
                             <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/ban}'|">
                                 <img class="box-item" src="/img/ban50.png">
                                 <span class="box-text">사용자 차단</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/grant}'|">
-                                <img class="box-item" src="/img/items50.png">
-                                <span class="box-text">카테고리 관리</span>
                             </div>
                             <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/grant}'|">
                                 <img class="box-item" src="/img/grant50.png">
@@ -200,7 +192,7 @@
                                 <img class="box-item" src="/img/join50.png">
                                 <span class="box-text">회원가입</span>
                             </div>
-                            <div class="box" href="/doc/rule">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
                                 <img class="box-item" src="/img/rule50.png">
                                 <span class="box-text">규정</span>
                             </div>
@@ -216,7 +208,7 @@
                                 <img class="box-item" src="/img/popular50.png">
                                 <span class="box-text">인기있는 문서 목록</span>
                             </div>
-                            <div class="box" href="/board/notice">
+                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
                                 <img class="box-item" src="/img/notice50.png">
                                 <span class="box-text">공지사항</span>
                             </div>

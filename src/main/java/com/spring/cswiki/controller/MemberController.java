@@ -97,6 +97,7 @@ public class MemberController {
         return "redirect:" + referer;
     }
 
+    // 사용자 정보 수정
     @RequestMapping(value="/infomodify")
     public String postinfomodify(Member member) throws Exception{
         service.infomodify(member);

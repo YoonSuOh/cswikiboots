@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/nav.css">
     <meta name="viewport" content="width=device-width, initial-scale-1">
+    <title>환영합니다! - CS위키</title>
 </head>
 <body style="overflow-x: hidden">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -37,7 +38,7 @@
                 <br>
                 비밀번호 변경: <input type="password" name="pwd" placeholder="새로운 비밀번호를 입력하세요.">
                 <br>
-                이메일      : <input type="text" name="email" th:value="${session.member.email}">
+                이메일: <input type="text" name="email" th:value="${session.member.email}">
                 <button type="submit">정보수정</button>
             </form>
         </div>

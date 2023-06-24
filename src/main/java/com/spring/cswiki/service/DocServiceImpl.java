@@ -68,6 +68,11 @@ public class DocServiceImpl implements DocService{
     }
 
     @Override
+    public SmallCategory getcategory(int d_num) {
+        return dao.getcategory(d_num);
+    }
+
+    @Override
     public int edit(Doc dto) {
         int result = dao.edit(dto);
         if(result > 0) {

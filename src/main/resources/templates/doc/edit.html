@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/css/doc.css">
+    <link rel="stylesheet" href="/css/create.css">
     <link rel="stylesheet" href="/css/doc/header.css">
     <link rel="stylesheet" href="/css/nav.css">
-    <title>새 문서 작성 - CS위키</title>
+    <title>[[${doc.d_title}]](편집) - CS위키</title>
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
@@ -30,10 +30,14 @@
         <form class="editarea" method="post">
             <input type="hidden" name="u_id" id="u_id" th:value="${session.member.u_id}"/>
             <input type="text" name="d_title" id="d_title" th:value="${doc.d_title}"><br>
-            <textarea name="d_content" id="editor" th:text="${doc.d_content}"></textarea>
+            <select id="category" name="s_ca_num">
+                <option th:value="${ctg.s_ca_num}">[[${ctg.s_ca_num}]] : [[${ctg.s_ca_name}]]</option>
+                <option th:each="list : ${list}" th:value="${list.s_ca_num}" th:text="|${list.s_ca_num} : ${list.s_ca_name}|"></option>
+            </select>
+            <textarea name="d_content" id="editor" th:text="${doc.d_content}"></textarea><br>
+            <input type="text" name="d_summary" id="d_summary" placeholder="편집요약에 남길 말을 입력해주세요."><br>
             <br>
             <p id="caution">경고! 문서 편집을 저장할 경우 당신의 기여 내용은 CC-BY-NC-SA 2.0 KR으로 배포됩니다.</p>
-            편집요약 : <input type="text" name="d_summary" id="d_summary"><br>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <button id="save" type="submit">저장</button>
         </form>

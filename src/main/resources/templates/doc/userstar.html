@@ -3,11 +3,11 @@
 <head>
     <link rel="stylesheet" href="/css/doc.css">
     <link rel="stylesheet" href="/css/doc/header.css">
-    <link rel="stylesheet" href="/css/nav.css">
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
+    <title>내 문서함 - CS위키</title>
 </head>
 <body style="overflow-x: hidden">
 <script>
@@ -26,14 +26,17 @@
 
 <div th:insert="/header :: header"></div>
 <main>
-    <div id="list">
-        <div class="list_inner">
-            <h2>내 문서함</h2>
-                <ul>
-                    <div class="selectbox" th:each="star : ${star}">
-                        <li><a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
-                    </div>
-                </ul>
+    <div id="doc">
+        <hr>
+        <div id="list">
+            <div class="list_inner">
+                <span class="title">내 문서함</span>
+                    <ul>
+                        <div id="category" th:each="star : ${star}">
+                            <li><a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
+                        </div>
+                    </ul>
+            </div>
         </div>
     </div>
 </main>

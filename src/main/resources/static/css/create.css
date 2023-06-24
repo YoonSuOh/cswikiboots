@@ -201,6 +201,14 @@ nav li > a:hover{
 	border: solid #d1d8e4 1px;
 }
 
+#d_summary{
+	margin:0 auto;
+	width:1068px;
+	height:30px;
+	margin-bottom:10px;
+	border: solid #d1d8e4 1px;
+}
+
 .title{
     display:inline-block;
     position:relative;
