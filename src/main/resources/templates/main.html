@@ -18,6 +18,25 @@
     </script>
     <div th:insert="/header :: header"></div>
     <script src="/js/header.js"></script>
+    <aside>
+        <div id="sidebar">
+            <ul>
+                <div th:each="list : ${sidebar}">
+                    <li>
+                        [[${list.b_ca_name}]]
+                        <ul>
+                            <li>
+                                [[${list.s_ca_name}]]
+                                <ul>
+                                    <li>[[${list.d_title}]]</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </aside>
     <main>
     </main>
     <div th:if="${#httpServletRequest.getSession(false) != null}" id="userinfo" class="hidden">

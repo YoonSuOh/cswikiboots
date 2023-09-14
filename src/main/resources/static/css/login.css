@@ -28,6 +28,16 @@
 body{
     margin : 0 auto;
 }
+
+a{
+    text-decoration:none;
+    color:blue;
+}
+
+a:hover{
+    color:skyblue;
+}
+
 header{
     padding-top:158px;
     padding-bottom:48px;

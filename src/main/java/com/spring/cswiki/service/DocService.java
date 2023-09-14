@@ -24,4 +24,12 @@ public interface DocService {
     public int starout(Star vo); // 즐겨찾기 삭제
     public List<Doc> userstar(String u_id); // 즐겨찾기 한 문서 목록 조회
     public List<Doc> popular(); // 즐겨찾기가 가장 많은 순대로 문서 목록 조회
+    public List<Doc> sidebar(); // 사이드바 카테고리 출력
+
+    /* 카테고리 트리뷰 테스트 코드 */
+    List<Category> getAllCategories(); // 카테고리 전체 출력
+    Category getCategoryById(int id); // 카테고리 id
+    void addCategory(Category category); // 카테고리 추가
+    void updateCategory(Category category); // 카테고리 수정
+    void deleteCategory(int id); // 카테고리 삭제
 }

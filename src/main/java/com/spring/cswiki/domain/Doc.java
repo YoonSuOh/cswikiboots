@@ -20,5 +20,7 @@ public class Doc {
     private String d_content;
     private String d_summary;
     private String u_id;
+    private String b_ca_name;
+    private String s_ca_name;
     private int d_available;
 }

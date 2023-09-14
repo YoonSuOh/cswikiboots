@@ -29,6 +29,15 @@
     background-color: #efefef;
 }
 
+a{
+    text-decoration:none;
+    color:blue;
+}
+
+a:hover{
+    color:skyblue;
+}
+
 header{
     padding-top:78px;
     padding-bottom:48px;

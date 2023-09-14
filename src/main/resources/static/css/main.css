@@ -24,6 +24,16 @@ html, body{
     padding : 0;
     font-family: Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif;
 }
+
+a{
+    text-decoration:none;
+    color:blue;
+}
+
+a:hover{
+    color:skyblue;
+}
+
 body{
     margin-right : 20px;
     margin-left : 20px;

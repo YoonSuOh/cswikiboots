@@ -14,6 +14,15 @@
     src: url("/font/InterparkGothicBold.ttf"); /* IE9 Compat Modes */
 }
 
+a{
+    text-decoration:none;
+    color:blue;
+}
+
+a:hover{
+    color:skyblue;
+}
+
 .blind{
     position:absolute;
     overflow:hidden;
@@ -71,8 +80,8 @@ header{
     background : url(/img/logo_skyblue.png) 0px 2px no-repeat;
     vertical-align: middle;
     position:relative;
-    top: 41px;
-    left:106px;
+    top: 43px;
+    left: 145px;
 }
 
 #header-search h1 span{
@@ -93,7 +102,7 @@ header{
     border: 2px solid skyblue;
     vertical-align: middle;
     position:relative;
-    left:50px;
+    left: 83px;
     top:46px;
 }
 

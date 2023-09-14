@@ -4,15 +4,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.spring.cswiki.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.spring.cswiki.domain.BigCategory;
-import com.spring.cswiki.domain.Doc;
-import com.spring.cswiki.domain.DocHistory;
-import com.spring.cswiki.domain.SmallCategory;
-import com.spring.cswiki.domain.Star;
 import com.spring.cswiki.service.DocService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -156,6 +152,8 @@ public class DocController {
     public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title) throws Exception {
         if (d_num != null) {
             Doc doc = service.doc(d_num);
+            log.info(String.valueOf(doc.getB_ca_name()));
+            log.info(String.valueOf(doc.getS_ca_name()));
             log.info(String.valueOf(doc.getP_read()));
             model.addAttribute("doc", doc);
         } else if (d_title != null) {
@@ -282,5 +280,13 @@ public class DocController {
         List<Doc> list = service.popular();
         model.addAttribute("list", list);
         return "doc/popular";
+    }
+
+    // 카테고리 출력
+    @GetMapping(value="/categorytest")
+    public String categories(Model model){
+        List<Category>category = service.getAllCategories();
+        model.addAttribute("rootcategory", category);
+        return "doc/categorytest";
     }
 }

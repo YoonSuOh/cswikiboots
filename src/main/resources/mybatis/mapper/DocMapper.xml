@@ -32,7 +32,10 @@
 
     <!-- 문서 상세정보 -->
     <select id="doc" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d_num, d_title, d_content, p_read, p_update, p_delete FROM doc where d_num = #{d_num}
+        SELECT d.d_num, d.s_ca_num, d.p_read, d.p_insert, d.p_update, d.p_delete, d.d_title, d.d_content, sc.s_ca_name, b.b_ca_name FROM doc d
+        JOIN small_category sc on sc.s_ca_num = d.s_ca_num
+        JOIN big_category b on b.b_ca_num = sc.b_ca_num
+        WHERE d_num = #{d_num};
     </select>
 
     <!-- 새 문서 작성 -->
@@ -55,6 +58,7 @@
     <select id="getcategory" resultType="com.spring.cswiki.domain.SmallCategory">
         SELECT s_ca_num, s_ca_name FROM small_category WHERE s_ca_num IN(SELECT s_ca_num FROM doc WHERE d_num = #{d_num});
     </select>
+
     <!-- 문서 편집 -->
     <update id="edit">
         UPDATE doc
@@ -102,8 +106,10 @@
 
     <!-- 문서 검색 -->
     <select id="search" resultType="com.spring.cswiki.domain.Doc">
-        SELECT * FROM doc WHERE d_title = #{d_title}
-        order by d_num desc
+        SELECT d.d_num, d.s_ca_num, d.p_read, d.p_insert, d.p_update, d.p_delete, d.d_title, d.d_content, sc.s_ca_name, b.b_ca_name FROM doc d
+        JOIN small_category sc on sc.s_ca_num = d.s_ca_num
+        JOIN big_category b on b.b_ca_num = sc.b_ca_num
+        WHERE d_title = #{d_title};
     </select>
 
     <!-- 문서 역사  -->
@@ -151,4 +157,36 @@
         ) s ON d.d_num = s.d_num
         ORDER BY s.star DESC;
     </select>
+
+    <!-- 사이드바 카테고리 출력 -->
+    <select id="sidebar" resultType="com.spring.cswiki.domain.Doc">
+        select b.b_ca_name, sc.s_ca_name, d.d_title from doc d
+        join small_category sc on sc.s_ca_num = d.s_ca_num
+        join big_category b on b.b_ca_num = sc.b_ca_num;
+    </select>
+
+    <!-- 카테고리 테스트 코드 -->
+    <!-- 카테고리 전체 출력 -->
+    <select id="getAllCategories" resultType="com.spring.cswiki.domain.Category">
+        SELECT * FROM category WHERE parent_id IS NULL
+    </select>
+    <!-- 카테고리 개별 출력 -->
+    <select id="getCategoryById" resultType="com.spring.cswiki.domain.Category">
+        SELECT * FROM category WHERE parent_id = #{parent_id}
+    </select>
+
+    <!-- 카테고리 추가-->
+    <insert id="addCategory">
+        INSERT INTO category (name, parent_id) VALUES (#{name}, #{parentCategory.id})
+    </insert>
+
+    <!-- 카테고리 수정 -->
+    <update id="updateCategory">
+        UPDATE category SET name = #{name}, parent_id = #{parentCategory.id} WHERE id = #{id}
+    </update>
+
+    <!-- 카테고리 삭제 -->
+    <delete id="deleteCategory">
+        DELETE FROM category WHERE id = #{id}
+    </delete>
 </mapper>

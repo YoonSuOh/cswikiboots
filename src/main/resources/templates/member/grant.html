@@ -11,7 +11,7 @@
 </head>
 <body style="overflow-x: hidden">
 <script src="/js/header.js"></script>
-<div th:insert="/headera :: header"></div>
+<div th:insert="/header :: header"></div>
 <main>
 <div th:if="${#httpServletRequest.getSession(false) != null}" id="userinfo" class="hidden">
   <div class="userinfo">

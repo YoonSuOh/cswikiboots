@@ -2,6 +2,7 @@ package com.spring.cswiki.dao;
 
 import com.spring.cswiki.domain.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface DocDAO {
     public List<SmallCategory> selectcategory(); // 문서 작성 시 분류 선택
     public void createDocHistory(DocHistory dto); // 문서 역사 생성
     public List<DocHistory> getDocHistory(int d_num); // 문서 역사 보기
-    public Doc version(int d_num, String d_version); // 문서 버전별 내용 확인
+    public Doc version(@Param("d_num") int d_num, @Param("d_version")String d_version); // 문서 버전별 내용 확인
     public Doc doc(int d_num); // 문서 본문 보기
     public SmallCategory getcategory(int d_num);
     public int edit(Doc dto); // 문서 편집
@@ -29,4 +30,8 @@ public interface DocDAO {
     public int starout(Star vo); // 즐겨찾기 삭제
     public List<Doc> userstar(String u_id); // 즐겨찾기 한 문서 목록 조회
     public List<Doc> popular(); // 즐겨찾기가 가장 많이 된 문서 목록 출력
+    public List<Doc> sidebar(); // 사이드바 카테고리 출력
+
+    /* 카테고리 트리뷰 테스트 코드 */
+
 }

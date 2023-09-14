@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category List</title>
+</head>
+<body>
+<h1>Category List</h1>
+<ul th:each="category : ${category}">
+    <li th:text="${category.name}">
+        <ul th:if="${category.parentId == null}">
+            <li th:each="subCategory : ${category}" th:unless="${subCategory.parentId != category.id}">
+                <span th:text="${subCategory.name}"></span>
+            </li>
+        </ul>
+    </li>
+</ul>
+</div>
+</body>
+</html>
