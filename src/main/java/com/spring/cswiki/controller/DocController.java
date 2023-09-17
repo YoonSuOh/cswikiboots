@@ -283,10 +283,4 @@ public class DocController {
     }
 
     // 카테고리 출력
-    @GetMapping(value="/categorytest")
-    public String categories(Model model){
-        List<Category>category = service.getAllCategories();
-        model.addAttribute("rootcategory", category);
-        return "doc/categorytest";
-    }
 }

@@ -5,5 +5,6 @@
     <mappers>
         <mapper resource="MemberMapper.xml"/>
         <mapper resource="DocMapper.xml"/>
+        <mapper resource="TestMapper.xml"/>
     </mappers>
 </configuration>

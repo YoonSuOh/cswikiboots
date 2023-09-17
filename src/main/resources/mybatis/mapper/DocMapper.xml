@@ -167,26 +167,39 @@
 
     <!-- 카테고리 테스트 코드 -->
     <!-- 카테고리 전체 출력 -->
-    <select id="getAllCategories" resultType="com.spring.cswiki.domain.Category">
+    <!--<select id="getAllCategories" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM category WHERE parent_id IS NULL
     </select>
-    <!-- 카테고리 개별 출력 -->
+    &lt;!&ndash; 카테고리 개별 출력 &ndash;&gt;
     <select id="getCategoryById" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM category WHERE parent_id = #{parent_id}
-    </select>
+    </select>-->
 
     <!-- 카테고리 추가-->
-    <insert id="addCategory">
+    <!--<insert id="addCategory">
         INSERT INTO category (name, parent_id) VALUES (#{name}, #{parentCategory.id})
-    </insert>
+    </insert>-->
 
     <!-- 카테고리 수정 -->
-    <update id="updateCategory">
+    <!--<update id="&lt;!&ndash;    &lt;!&ndash; 카테고리 추가&ndash;&gt;
+    <insert id="addCategory">
+        INSERT INTO category (name, parent_id) VALUES (#{name}, #{parentCategory.id})
+    </insert>-->
+
+    <!-- 카테고리 수정 -->
+    <!--<update id="updateCategory">
+        UPDATE category SET name = #{name}, parent_id = #{parentCategory.id} WHERE id = #{id}
+    </update>-->
+
+    <!-- 카테고리 삭제 -->
+    <!--<delete id="deleteCategory">
+        DELETE FROM category WHERE id = #{id}
+    </delete>updateCategory">
         UPDATE category SET name = #{name}, parent_id = #{parentCategory.id} WHERE id = #{id}
     </update>
 
-    <!-- 카테고리 삭제 -->
+    &lt;!&ndash; 카테고리 삭제 &ndash;&gt;
     <delete id="deleteCategory">
         DELETE FROM category WHERE id = #{id}
-    </delete>
+    </delete>&ndash;&gt;-->
 </mapper>

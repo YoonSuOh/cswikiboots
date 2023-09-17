@@ -133,28 +133,4 @@ public class DocServiceImpl implements DocService{
 
 
     /* 카테고리 테스트 코드 출력 */
-    @Override
-    public List<Category> getAllCategories() {
-        return dao.getAllCategories();
-    }
-
-    @Override
-    public Category getCategoryById(int id) {
-        return dao.getCategoryById(id);
-    }
-
-    @Override
-    public void addCategory(Category category) {
-        dao.addCategory(category);
-    }
-
-    @Override
-    public void updateCategory(Category category) {
-        dao.updateCategory(category);
-    }
-
-    @Override
-    public void deleteCategory(int id) {
-        dao.deleteCategory(id);
-    }
 }
