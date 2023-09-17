@@ -4,7 +4,10 @@
     <link rel="stylesheet" href="/css/doc.css">
     <link rel="stylesheet" href="/css/doc/header.css">
     <link rel="stylesheet" href="/css/nav.css">
+
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
     <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
@@ -26,22 +29,10 @@
     </script>
 
     <div th:insert="/header :: header"></div>
-    <!--<aside>
-        <div id="sidebar">
-            <ul>
-                <div th:each="">
-
-                </div>
-            </ul>
-        </div>
-    </aside>-->
     <main>
         <div id="doc">
             <hr>
             <div class="doc_inner">
-            <div class="category">
-                분류 : [[${doc.b_ca_name}]] > [[${doc.s_ca_name}]]
-            </div>
             <span class="title">[[${doc.d_title}]]</span>
                 <div class="selectbox">
                     <ul>
@@ -68,14 +59,18 @@
                         </li>
                         <li>
                             <th:block th:if="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
-                                <th:block th:if="${session.member.ban == 1}">삭제</th:block>
-                                <th:block th:unless="${session.member.ban == 1}"><a th:href="@{/doc/delete(d_num=${doc.d_num})}">삭제</a></th:block>
+                                <a th:href="@{/doc/delete(d_num=${doc.d_num})}">삭제</a>
                             </th:block>
                             <th:block th:unless="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
                                 삭제
                             </th:block>
                         </li>
                     </ul>
+                </div>
+                <div class="doc_index_type">
+                    <div id="doc_index">
+
+                    </div>
                 </div>
                 <div class="content">
                     <div th:if="${doc.p_read == 1} or ${session.member != null} and ${session.member.p_id >= doc.p_read}" th:utext="${doc.d_content}">
@@ -86,6 +81,7 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="/js/indexLink.js"></script>
     </main>
 </body>
 </html>
