@@ -150,3 +150,25 @@ footer{
 .corp{
     font-weight:bold;
 }
+
+.doc_index_type{
+    padding: 70px 0 40px 0;
+}
+
+#doc_index{
+    width: 200px;
+    height: auto;
+    border: solid 2px #000000;
+    padding: 15px 5px 15px 5px;
+    margin-left:auto;
+}
+
+#doc_index span {
+    display: block;
+    padding: 5px 0 5px 0;
+}
+
+#doc_index .doc_index_list{
+    font-size: 25px;
+    padding-bottom: 20px;
+}

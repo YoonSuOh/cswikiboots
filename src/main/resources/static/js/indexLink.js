@@ -17,7 +17,7 @@ for (let i = 0; i < h1sValueArray.length; i++) {
     indexArea.appendChild(newIndex);
     let indexLink = document.createElement('a');
     indexLink.setAttribute('href', `#index${i+1}`);
-    indexLink.append(i + ". "s);
+    indexLink.append(i + ". ");
     indexLink.append(h1sValueArray[i]);
     newIndex.appendChild(indexLink);
 }
