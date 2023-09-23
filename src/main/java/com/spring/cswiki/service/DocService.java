@@ -2,6 +2,7 @@ package com.spring.cswiki.service;
 
 import com.spring.cswiki.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface DocService {
@@ -22,6 +23,8 @@ public interface DocService {
     public Doc version(int d_num, String d_version); // 문서 버전별 내용 확인
 
     public Doc doc(int d_num); // 문서 본문 보기
+    
+    public Doc setDocTime(Doc doc, LocalDateTime lastVisit); // 문서 방문 시간 추가
 
     public SmallCategory getcategory(int d_num);
 

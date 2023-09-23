@@ -6,6 +6,10 @@ import com.spring.cswiki.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -67,6 +71,11 @@ public class DocServiceImpl implements DocService{
         return dao.doc(d_num);
     }
 
+    @Override
+    public Doc setDocTime(Doc doc, LocalDateTime lastVisit) {
+        Timestamp time = Timestamp.valueOf(lastVisit);
+        return dao.setDocTime(doc, time);
+    }
     @Override
     public SmallCategory getcategory(int d_num) {
         return dao.getcategory(d_num);

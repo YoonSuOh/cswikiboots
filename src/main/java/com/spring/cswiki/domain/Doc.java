@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,4 +25,5 @@ public class Doc {
     private String b_ca_name;
     private String s_ca_name;
     private int d_available;
+    private LocalDateTime lastVisit;
 }

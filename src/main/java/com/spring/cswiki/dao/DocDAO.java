@@ -4,6 +4,8 @@ import com.spring.cswiki.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -19,6 +21,7 @@ public interface DocDAO {
     public List<DocHistory> getDocHistory(int d_num); // 문서 역사 보기
     public Doc version(@Param("d_num") int d_num, @Param("d_version")String d_version); // 문서 버전별 내용 확인
     public Doc doc(int d_num); // 문서 본문 보기
+    public Doc setDocTime(@Param("dto") Doc dto, @Param("lastVisit")Timestamp lastVisit); // 문서 방문 시간 추가
     public SmallCategory getcategory(int d_num);
     public int edit(Doc dto); // 문서 편집
     public void edithistory(DocHistory dto); // 문서 편집시 역사 생성

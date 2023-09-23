@@ -38,10 +38,14 @@
         WHERE d_num = #{d_num};
     </select>
 
+    <update id="setDocTime">
+        UPDATE doc (d_num, lastvisit) VALUES (#{dto.getD_num()}, #{lastVisit});
+    </update>
+
     <!-- 새 문서 작성 -->
     <insert id="create" useGeneratedKeys="true" keyProperty="d_num">
-        INSERT INTO doc (s_ca_num, p_read, p_insert, p_update, p_delete, d_title, d_content, d_summary, d_available)
-        VALUES (#{s_ca_num}, 1, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1);
+        INSERT INTO doc (s_ca_num, p_read, p_insert, p_update, p_delete, d_title, d_content, d_summary, d_available, lastvisit)
+        VALUES (#{s_ca_num}, 1, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1, null);
     </insert>
 
     <!-- 문서 작성 시 2단계 카테고리 선택 -->
