@@ -33,7 +33,7 @@
                 <span class="title">내 문서함</span>
                     <ul>
                         <div id="category" th:each="star : ${star}">
-                            <li><a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
+                            <li><span th:text="${star.lastVisit}"></span> <a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
                         </div>
                     </ul>
             </div>

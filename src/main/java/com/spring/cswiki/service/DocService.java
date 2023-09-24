@@ -2,6 +2,7 @@ package com.spring.cswiki.service;
 
 import com.spring.cswiki.domain.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public interface DocService {
     public void setDocTimeNum(int d_num, LocalDateTime lastVisit); // 문서번호로 방문시 방문 시간 업데이트
 
     public void setDocTimeTitle(String d_title, LocalDateTime lastVisit); // 문서제목으로 방문시 방문 시간 업데이트
+
+    public Timestamp getDocTimeTitle(String d_title); // 문서제목으로 방문시간 가져오기 
 
     public SmallCategory getcategory(int d_num);
 

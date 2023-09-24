@@ -88,6 +88,13 @@ public class DocServiceImpl implements DocService{
     }
 
     @Override
+    public Timestamp getDocTimeTitle(String d_title) {
+        Doc doc = this.search(d_title);
+        String docTitle= doc.getD_title();
+        return dao.getDocTimeTitle(docTitle);
+    }
+
+    @Override
     public SmallCategory getcategory(int d_num) {
         return dao.getcategory(d_num);
     }

@@ -1,5 +1,6 @@
 package com.spring.cswiki.controller;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -281,6 +282,15 @@ public class DocController {
     @RequestMapping(value="/userstar")
     public String userstar(Model model, @RequestParam("u_id") String u_id) throws Exception{
         List<Doc> star = service.userstar(u_id);
+
+        Timestamp timestamp;
+        for(int i = 0; i < star.size(); i++) {
+            Doc doc = star.get(i);
+            String docTitle = doc.getD_title();
+            timestamp = service.getDocTimeTitle(docTitle);
+            LocalDateTime lastVisit = timestamp.toLocalDateTime();
+            doc.setLastVisit(lastVisit);
+        }
         model.addAttribute("star", star);
         model.addAttribute("u_id", u_id);
         return "doc/userstar";
