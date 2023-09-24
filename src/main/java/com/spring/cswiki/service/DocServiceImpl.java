@@ -72,10 +72,21 @@ public class DocServiceImpl implements DocService{
     }
 
     @Override
-    public Doc setDocTime(Doc doc, LocalDateTime lastVisit) {
-        Timestamp time = Timestamp.valueOf(lastVisit);
-        return dao.setDocTime(doc, time);
+    public void setDocTimeNum(int d_num, LocalDateTime lastVisit) {
+        Doc doc = this.doc(d_num);
+        int docNum = doc.getD_num();
+        Timestamp timestamp = Timestamp.valueOf(lastVisit);
+        dao.setDocTimeNum(d_num, timestamp);
     }
+
+    @Override
+    public void setDocTimeTitle(String d_title, LocalDateTime lastVisit) {
+        Doc doc = this.search(d_title);
+        String docTitle = doc.getD_title();
+        Timestamp timestamp = Timestamp.valueOf(lastVisit);
+        dao.setDocTimeTitle(docTitle, timestamp);
+    }
+
     @Override
     public SmallCategory getcategory(int d_num) {
         return dao.getcategory(d_num);

@@ -30,6 +30,15 @@
         SELECT d_title, d_num FROM doc WHERE s_ca_num = #{s_ca_num} AND d_available = 1
     </select>
 
+    <!-- 문서번호 접속시 접속날짜 업데이트 -->
+    <update id="setDocTimeNum">
+        UPDATE doc SET d_num = #{d_num}, lastvisit = #{lastVisit} WHERE d_num = #{d_num}
+    </update>
+    <!-- 문서제목 접속시 접속날짜 업데이트-->
+    <update id="setDocTimeTitle">
+        UPDATE doc SET d_title = #{d_title}, lastvisit = #{lastVisit} WHERE d_title = #{d_title}
+    </update>
+
     <!-- 문서 상세정보 -->
     <select id="doc" resultType="com.spring.cswiki.domain.Doc">
         SELECT d.d_num, d.s_ca_num, d.p_read, d.p_insert, d.p_update, d.p_delete, d.d_title, d.d_content, sc.s_ca_name, b.b_ca_name FROM doc d

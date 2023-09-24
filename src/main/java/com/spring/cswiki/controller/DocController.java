@@ -156,24 +156,20 @@ public class DocController {
         LocalDateTime lastVisit = LocalDateTime.now();
         if (d_num != null) {
             Doc doc = service.doc(d_num);
-            Doc docTime = service.setDocTime(doc, lastVisit);
+            service.setDocTimeNum(d_num, lastVisit);
             log.info(String.valueOf(doc.getB_ca_name()));
             log.info(String.valueOf(doc.getS_ca_name()));
             log.info(String.valueOf(doc.getLastVisit()));
             log.info(String.valueOf(doc.getP_read()));
             model.addAttribute("doc", doc);
-            model.addAttribute("docTime", docTime);
         } else if (d_title != null) {
             Doc doc = service.search(d_title);
-            int docNum = doc.getD_num();
-            doc.setD_num(docNum);
-            Doc docTime = service.setDocTime(doc, lastVisit);
+            service.setDocTimeTitle(d_title, lastVisit);
             log.info(String.valueOf(doc.getB_ca_name()));
             log.info(String.valueOf(doc.getLastVisit()));
             log.info(String.valueOf(doc.getP_read()));
             model.addAttribute("doc", doc);
             model.addAttribute("d_title", d_title);
-            model.addAttribute("docTime", docTime);
         }
         return "doc/doc";
     }

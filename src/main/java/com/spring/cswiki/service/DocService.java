@@ -23,8 +23,10 @@ public interface DocService {
     public Doc version(int d_num, String d_version); // 문서 버전별 내용 확인
 
     public Doc doc(int d_num); // 문서 본문 보기
-    
-    public Doc setDocTime(Doc doc, LocalDateTime lastVisit); // 문서 방문 시간 추가
+
+    public void setDocTimeNum(int d_num, LocalDateTime lastVisit); // 문서번호로 방문시 방문 시간 업데이트
+
+    public void setDocTimeTitle(String d_title, LocalDateTime lastVisit); // 문서제목으로 방문시 방문 시간 업데이트
 
     public SmallCategory getcategory(int d_num);
 
