@@ -26,6 +26,12 @@ for (let i = 0; i < h1sValueArray.length; i++) {
 
 // content 클래스 하위 h1태그 지정
 const h1s = document.querySelectorAll(".content h1");
+const indexTitle = document.querySelectorAll(".content strong");
 for (let i = 0; i < h1s.length; i++) {
+    indexTitle[i].prepend(i+1 + ". ");
     h1s[i].id = `index${i+1}`;
+    h1s[i].addEventListener('click', () => {
+        indexArea.scrollIntoView(); // Object parameter
+    });
 }
+
