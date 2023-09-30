@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -19,9 +20,15 @@ public class MainController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @GetMapping("/")
     public String main(Model model){
-        List<Doc> sidebar;
-        sidebar = service.sidebar();
-        model.addAttribute("sidebar", sidebar);
+        List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
+        model.addAttribute("jsonData", jsonData);
         return "/main";
+    }
+
+    @GetMapping("/test")
+    public String test(Model model){
+        List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
+        model.addAttribute("jsonData", jsonData);
+        return "/test";
     }
 }

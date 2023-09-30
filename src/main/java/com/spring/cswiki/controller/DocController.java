@@ -178,7 +178,7 @@ public class DocController {
     // ?? ?? ???? ??
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String getcreate(Model model) throws Exception {
-        List<SmallCategory> list = service.selectcategory();
+        List<Category> list = service.selectSecondCategory();
         model.addAttribute("list", list);
         return "doc/create";
     }
@@ -199,11 +199,11 @@ public class DocController {
     @RequestMapping(value= "/edit", method = RequestMethod.GET)
     public String getedit(int d_num, Model model) throws Exception{
         Doc doc = service.doc(d_num);
-        SmallCategory ctg = service.getcategory(d_num);
-        List<SmallCategory> list = service.selectcategory();
-        model.addAttribute("ctg", ctg);
+        List<Category> list = service.selectSecondCategory();
+        Category idx = service.getByCategoryId(d_num);
         model.addAttribute("list", list);
         model.addAttribute("doc", doc);
+        model.addAttribute("idx", idx);
         return "doc/edit";
     }
 

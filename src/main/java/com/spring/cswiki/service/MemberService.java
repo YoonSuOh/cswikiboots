@@ -1,21 +1,63 @@
 package com.spring.cswiki.service;
 
+import com.spring.cswiki.dao.MemberDAO;
 import com.spring.cswiki.domain.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface MemberService {
-    void join(Member member);
-    Member login(Member member);
-    Member getUserByname(String name);
+@Service
+@RequiredArgsConstructor
+public class MemberService{
+    private final MemberDAO dao;
+     
+    public void join(Member member) {
+        dao.join(member);
+    }
 
-    int infomodify(Member member);
-    List<Member> list();
-    int ban(Member member);
-    int removeban(Member member);
-    List<Member> banlist(); // (관리자 전용) 차단된 회원 목록 조회
-//    PasswordEncoder passwordEncoder();
+     
+    public Member login(Member member) {
+        return dao.login(member);
+    }
 
-    List<Member> adminlist();
-    int grant(Member member);
+     
+    public Member getUserByname(String name) {
+        return null;
+    }
+
+     
+    public int infomodify(Member member) {
+        return dao.infomodify(member);
+    }
+
+     
+    public List<Member> list() {
+        return dao.list();
+    }
+
+     
+    public int ban(Member member) {
+        return dao.ban(member);
+    }
+
+     
+    public int removeban(Member member){
+        return dao.removeban(member);
+    }
+
+     
+    public List<Member> banlist() {
+        return dao.banlist();
+    }
+
+     
+    public List<Member> adminlist() {
+        return dao.adminlist();
+    }
+
+     
+    public int grant(Member member) {
+        return dao.grant(member);
+    }
 }

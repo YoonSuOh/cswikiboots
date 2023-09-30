@@ -12,27 +12,27 @@
 </head>
 <body style="overflow-x: hidden">
 <script>
-        function toggleMenu() {
-          var userInfo = document.getElementById("hmenu");
-          userInfo.classList.toggle("mhidden");
-        }
-    </script>
+    function toggleMenu() {
+        var userInfo = document.getElementById("hmenu");
+        userInfo.classList.toggle("mhidden");
+    }
+</script>
 <script>
-        document.getElementById("searchBtn").onclick = function () {
-         let keyword =  document.getElementsByName("title")[0].value;
-         console.log(title)
-         location.href = "/doc/search" + "&title=" + title;
-        }
-    </script>
+    document.getElementById("searchBtn").onclick = function () {
+        let keyword =  document.getElementsByName("title")[0].value;
+        console.log(title)
+        location.href = "/doc/search" + "&title=" + title;
+    }
+</script>
 <div th:insert="/header :: header"></div>
 <main>
     <div id="doc">
         <form class="editarea" method="post">
             <input type="hidden" name="u_id" id="u_id" th:value="${session.member.u_id}"/>
             <input type="text" name="d_title" id="d_title" th:value="${doc.d_title}"><br>
-            <select id="category" name="s_ca_num">
-                <option th:value="${ctg.s_ca_num}">[[${ctg.s_ca_num}]] : [[${ctg.s_ca_name}]]</option>
-                <option th:each="list : ${list}" th:value="${list.s_ca_num}" th:text="|${list.s_ca_num} : ${list.s_ca_name}|"></option>
+            <select id="category" name="id">
+                <option th:value="${idx.parent_id}">[[${idx.parent_id}]]</option>
+                <option th:each="list : ${list}" th:value="${list.id}" th:text="|${list.id} : ${list.name}|"></option>
             </select>
             <textarea name="d_content" id="editor" th:text="${doc.d_content}"></textarea><br>
             <input type="text" name="d_summary" id="d_summary" placeholder="편집요약에 남길 말을 입력해주세요."><br>
@@ -42,9 +42,9 @@
             <button id="save" type="submit">저장</button>
         </form>
         <script>
-                CKEDITOR.replace('editor', {
-                    filebrowserUploadUrl : '/doc/ckUpload'
-                });
+            CKEDITOR.replace('editor', {
+                filebrowserUploadUrl : '/doc/ckUpload'
+            });
         </script>
     </div>
 </main>

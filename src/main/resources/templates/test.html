@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Category Data</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li th:each="category : ${jsonData}">
+        <span th:text="${category.name}" class="category-toggle"></span>
+        <ul class="hidden">
+            <li th:each="child : ${category.children}">
+                <span th:text="${child.name}" class="category-toggle"></span>
+                <ul class="hidden">
+                    <li th:each="lastChild : ${child.children}">
+                        <a th:href="@{/doc/doc(d_num=${lastChild.d_num})}" th:text="${lastChild.name}"></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<script>
+    // JavaScript 코드
+    var toggleButtons = document.querySelectorAll('.category-toggle');
+
+    toggleButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var parentUl = button.parentElement.querySelector('ul');
+            if (parentUl) {
+                if (parentUl.classList.contains('hidden')) {
+                    parentUl.classList.remove('hidden');
+                } else {
+                    parentUl.classList.add('hidden');
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

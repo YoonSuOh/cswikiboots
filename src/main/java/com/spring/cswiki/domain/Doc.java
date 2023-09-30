@@ -26,4 +26,6 @@ public class Doc {
     private String s_ca_name;
     private int d_available;
     private LocalDateTime lastVisit;
+    private String parent_id;
+    private String id;
 }
