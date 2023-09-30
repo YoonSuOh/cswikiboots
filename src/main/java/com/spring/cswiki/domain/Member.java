@@ -10,7 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Member {
     private String u_id;
-    private int p_id;
+    private Integer p_id;
     private String email;
     private String name;
     private String pwd;

@@ -18,12 +18,12 @@
                 <img th:if="${#httpServletRequest.getSession(false) != null}" class="menu" src="/img/user30.png" onclick="toggleMenu()">
                 <img th:if="${#httpServletRequest.getSession(false) == null}" class="menu" src="/img/menu30.png" onclick="toggleMenu()">
                 <div id="hmenu" class="mhidden">
-                    <div th:if="${session.member.p_id<=2}" class="userInfo">
+                    <div th:if="${session.member?.p_id<=2}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
                             <img class="box-item" src="/img/uinfo50.png">
                             <span class="box-text">사용자 정보</span>
                         </div>
-                        <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member.u_id})}'|">
+                        <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
                             <img class="box-item" src="/img/userstar50.png">
                             <span class="box-text">즐겨찾기 목록</span>
                         </div>
@@ -64,12 +64,12 @@
                             <span class="box-text">새문서 만들기</span>
                         </div>
                     </div>
-                    <div th:if="${session.member.p_id==3}" class="userInfo">
+                    <div th:if="${session.member?.p_id==3}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
                             <img class="box-item" src="/img/uinfo50.png">
                             <span class="box-text">사용자 정보</span>
                         </div>
-                        <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member.u_id})}'|">
+                        <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
                             <img class="box-item" src="/img/userstar50.png">
                             <span class="box-text">즐겨찾기 목록</span>
                         </div>
@@ -122,12 +122,12 @@
                             <span class="box-text">카테고리 관리</span>
                         </div>
                     </div>
-                    <div th:if="${session.member.p_id==4}" class="userInfo">
+                    <div th:if="${session.member?.p_id==4}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
                             <img class="box-item" src="/img/uinfo50.png">
                             <span class="box-text">사용자 정보</span>
                         </div>
-                        <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member.u_id})}'|">
+                        <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
                             <img class="box-item" src="/img/userstar50.png">
                             <span class="box-text">즐겨찾기 목록</span>
                         </div>
@@ -184,7 +184,7 @@
                             <span class="box-text">권한 부여</span>
                         </div>
                     </div>
-                    <div th:if="${session.member == null}" class="userInfo">
+                    <div th:if="${session?.member == null}" class="userInfo">
                         <div class="box" style=" cursor: pointer;" onclick="location.href='/member/login';">
                             <img class="box-item" src="/img/login50.png">
                             <span class="box-text">로그인</span>
