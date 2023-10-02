@@ -14,6 +14,7 @@ public class Category {
     private String name;
     private String parent_id;
     private int d_num;
+    private int disable;
     private List<Category> children = new ArrayList<>();
 }
 

@@ -41,7 +41,7 @@ public interface DocDAO {
     List<Category> selectAll(); // 카테고리 조회
     public void insertFirstCategory(Category category); // 1단계 카테고리 삽입
     public void insertSecondCategory(Category category); // 2단계 카테고리 삽입
-    public void insertThirdCategory(Category category); // 3단계 카테고리 삽입
+    public void insertThirdCategory(@Param("id") String id, @Param("name") String name, @Param("parent_id") String parent_id, @Param("d_num") int d_num); // 3단계 카테고리 삽입
     public Category selectByCategoryId(int d_num); // 편집 시 해당하는 카테고리 가져오기
 
 }

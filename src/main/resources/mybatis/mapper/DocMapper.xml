@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.cswiki.dao.DocDAO">
     <select id="selectAll" resultType="com.spring.cswiki.domain.Category">
-        SELECT id, name, parent_id, d_num FROM category;
+        SELECT id, name, parent_id, d_num FROM category where disable = 0;
     </select>
 
     <!-- 1단계 분류
@@ -186,13 +186,6 @@
         ORDER BY s.star DESC;
     </select>
 
-    <!-- 사이드바 카테고리 출력 -->
-    <select id="sidebar" resultType="com.spring.cswiki.domain.Doc">
-        select b.b_ca_name, sc.s_ca_name, d.d_title from doc d
-        join small_category sc on sc.s_ca_num = d.s_ca_num
-        join big_category b on b.b_ca_num = sc.b_ca_num;
-    </select>
-
     <!-- 카테고리 테스트 코드 -->
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
@@ -224,20 +217,8 @@
     </insert>
     <!-- 3단계 카테고리(문서 목록) 생성 -->
     <insert id="insertThirdCategory">
-        INSERT INTO category
-        (
-            id
-        ,name
-        ,parent_id
-        ,d_num
-        )
-        VALUES
-            (
-                id = #{id}
-            ,name = #{name}
-            ,parent_id = #{parent_id}
-            ,d_num = #{d_num}
-            )
+        INSERT INTO category(id, name, parent_id, d_num)
+        VALUES(#{id}, #{name}, #{parent_id} ,#{d_num})
     </insert>
 
     <!-- 2단계 카테고리에 해당하는 문서 목록 가져오기 -->

@@ -53,7 +53,6 @@ public class DocService{
             dh.setD_content(dto.getD_content());
 
             // 새로운 문서가 추가될 때마다 parent_id를 증가시킴
-            Category category = new Category();
             List<Category> dblist = this.selectThirdCategory(); // 3단계 카테고리 가져오기
 
             // 이전 문서 ID에서 마지막 숫자를 추출하여 증가시킴
@@ -70,17 +69,17 @@ public class DocService{
                 }
             }
 
-            category.setD_num(dto.getD_num());
-            category.setName(dto.getD_title());
-            category.setParent_id(dto.getId());
-            category.setId(newId);
+            String id = newId;
+            String name = dto.getD_title();
+            String parent_id = dto.getId();
+            int d_num = dto.getD_num();
 
-            System.out.println("문서 번호 : " + category.getD_num());
-            System.out.println("카테고리 이름 : " + category.getName());
-            System.out.println("카테고리 부모 ID : " + category.getParent_id());
-            System.out.println("카테고리 ID : " + category.getId());
+            System.out.println("카테고리 ID : " + id);
+            System.out.println("카테고리 이름 : " + name);
+            System.out.println("카테고리 부모 ID : " + parent_id);
+            System.out.println("문서 번호 : " + d_num);
 
-            dao.insertThirdCategory(category);
+            dao.insertThirdCategory(id, name, parent_id, d_num);
             dao.createDocHistory(dh);
         }
         return result;
@@ -146,12 +145,14 @@ public class DocService{
             // 이전 문서 ID에서 마지막 숫자를 추출하여 증가시킴
             String lastNumberStr = dto.getId().substring(dto.getId().lastIndexOf("-") + 1);
             int lastNumber = Integer.parseInt(lastNumberStr);
-            String newId = dto.getId() + "-" + (lastNumber + 1);
+            String newId = "";
 
             for (Category existingCategory : dblist) {
                 if (existingCategory.getId().equals(newId)) {
                     lastNumber++;
                     newId = dto.getId() + "-" + lastNumber;
+                } else {
+                    newId = dto.getId() + "-" + (lastNumber + 1);
                 }
             }
 
@@ -223,26 +224,29 @@ public class DocService{
                     if (child.getParent_id() != null && child.getParent_id().equals(parent.getId())) {
                         Map<String, Object> childData = new HashMap<>();
                         childData.put("name", child.getName());
-                        List<Map<String, Object>> lastChildrenData = new ArrayList<>(); // 자식 목록을 저장할 List 생성
+                        List<Map<String, Object>> lastChildrenData = new ArrayList<>();
 
                         for (Category lastChild : dblist) {
                             if (lastChild.getParent_id() != null && lastChild.getParent_id().equals(child.getId())) {
                                 Map<String, Object> lastChildData = new HashMap<>();
                                 lastChildData.put("name", lastChild.getName());
                                 lastChildData.put("d_num", lastChild.getD_num());
-                                lastChildrenData.add(lastChildData); // 자식에 lastChildData 추가
+                                lastChildrenData.add(lastChildData);
                             }
                         }
 
-                        childData.put("children", lastChildrenData); // 자식 데이터를 "children" 속성에 설정
-                        childrenData.add(childData);
+                        if (!lastChildrenData.isEmpty()) {
+                            childData.put("children", lastChildrenData);
+                        }
+                        childrenData.add(childData); // Modified this line
                     }
                 }
 
                 if (!childrenData.isEmpty()) {
                     parentData.put("children", childrenData);
-                    jsonData.add(parentData);
                 }
+
+                jsonData.add(parentData);
             }
         }
 
