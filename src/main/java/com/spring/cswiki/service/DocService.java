@@ -57,6 +57,8 @@ public class DocService{
 
             // 이전 문서 ID에서 마지막 숫자를 추출하여 증가시킴
             String lastNumberStr = dto.getId().substring(dto.getId().lastIndexOf("-") + 1);
+            System.out.println("원본 ID : " + dto.getId());
+            System.out.println("추출된 ID : " + lastNumberStr);
             int lastNumber = Integer.parseInt(lastNumberStr);
             String newId="";
 
@@ -65,6 +67,7 @@ public class DocService{
                     lastNumber++;
                     newId = dto.getId() + "-" + lastNumber;
                 } else {
+
                     newId = dto.getId() + "-" + (lastNumber + 1);
                 }
             }
