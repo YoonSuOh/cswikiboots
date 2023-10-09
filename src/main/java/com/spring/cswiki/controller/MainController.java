@@ -1,13 +1,13 @@
 package com.spring.cswiki.controller;
 
-import com.spring.cswiki.domain.Doc;
 import com.spring.cswiki.service.DocService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -40,6 +40,13 @@ public class MainController {
         List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
         model.addAttribute("jsonData", jsonData);
         return "test";
+    }
+
+    // 1단계 카테고리 삽입
+    @PostMapping(value="/addcategory")
+    public String addCategory(@RequestParam("id") String id, @RequestParam("name") String name) throws Exception{
+        service.addFirstCategory(id, name);
+        return "redirect:/test";
     }
 }
 

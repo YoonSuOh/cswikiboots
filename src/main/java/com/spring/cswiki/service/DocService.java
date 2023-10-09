@@ -254,8 +254,8 @@ public class DocService{
         return jsonData;
     }
 
-    public void addFirstCategory(Category category){
-        dao.insertFirstCategory(category);
+    public void addFirstCategory(String id, String name){
+        dao.insertFirstCategory(id, name);
     } // 1단계 카테고리 삽입
     public void addSecondCategory(Category category){
         dao.insertSecondCategory(category);

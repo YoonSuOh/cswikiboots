@@ -9,6 +9,12 @@
     </style>
 </head>
 <body>
+    <p class="category-toggle">카테고리 추가 +</p>
+    <form method="post" action="/addcategory">
+        <input type="text" name="id" placeholder="카테고리 ID를 입력하세요."/>
+        <input type="text" name="name" placeholder="이름을 입력하세요."/>
+        <button type="submit">추가</button>
+    </form>
     <ul>
         <li th:each="category : ${jsonData}">
             <span th:text="${category['name']}" class="category-toggle"></span>

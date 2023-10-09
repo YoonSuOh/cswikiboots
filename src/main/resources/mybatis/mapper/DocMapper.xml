@@ -189,16 +189,7 @@
     <!-- 카테고리 테스트 코드 -->
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
-        INSERT INTO
-            (
-                id,
-                name
-            )
-            VALUES
-        (
-            id = #{id}
-            ,name = #{name}
-            )
+        INSERT INTO category(id, name) VALUES(#{id}, #{name})
     </insert>
     <!-- 2단계 카테고리 생성 -->
     <insert id="insertSecondCategory">
