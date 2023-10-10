@@ -95,62 +95,6 @@ public class DocController {
         return null;
     }
 
-    // 1?? ?? ???? ?? ? 1?? ?? ??
-    @RequestMapping(value="/category", method=RequestMethod.GET) //url mapping
-    public ModelAndView getBigCategoryList() {
-        ModelAndView modelAndView = new ModelAndView("doc/category");
-        List<BigCategory> category = service.list();
-        modelAndView.addObject("category", category);
-        return modelAndView;
-    }
-
-    // 1?? ?? ?? ?? ???
-    @RequestMapping(value="/createbigcategory", method=RequestMethod.GET)
-    public ModelAndView getcreatebigcategory() throws Exception{
-        ModelAndView modelAndView = new ModelAndView("doc/createbigcategory");
-        return modelAndView;
-    }
-
-    // 1?? ?? ?? 
-    @RequestMapping(value="/createbigcategory", method=RequestMethod.POST)
-    public String postcreatebigcategory(BigCategory vo) throws Exception {
-        service.createbigcategory(vo);
-        return "redirect:list";
-    }
-
-    // 2?? ?? ???? ?? ? 2?? ?? ??
-    @RequestMapping(value = "/scategory", method = RequestMethod.GET)
-    public String gets_category(Model model, @RequestParam("b_ca_num") int b_ca_num) throws Exception {
-        List<SmallCategory> scategory = service.s_category(b_ca_num);
-        model.addAttribute("scategory", scategory);
-        model.addAttribute("b_ca_num", b_ca_num);
-        System.out.println("?? ?? : " + b_ca_num);
-        return "doc/scategory";
-    }
-
-    // ??? ?? ??
-    @RequestMapping(value="/list", method=RequestMethod.GET) //url mapping
-    public String getdoc_list(Model model, @RequestParam("s_ca_num") int s_ca_num) throws Exception{
-        List<Doc> list = service.doc_list(s_ca_num);
-        model.addAttribute("list", list);
-        model.addAttribute("s_ca_num", s_ca_num);
-        return "doc/list";
-    }
-
-    // 2?? ?? ?? ?? ???
-    @RequestMapping(value="/createsmallcategory", method=RequestMethod.GET)
-    public String getcreatesmallcategory(Model model, @RequestParam("b_ca_num") int b_ca_num) throws Exception{
-        model.addAttribute("b_ca_num", b_ca_num);
-        return "doc/createsmallcategory";
-    }
-
-    // 2?? ?? ?? 
-    @RequestMapping(value="/createsmallcategory", method=RequestMethod.POST)
-    public String postsmallbigcategory(SmallCategory vo) throws Exception {
-        service.createsmallcategory(vo);
-        return "redirect:list";
-    }
-
     // ?? ???? ??
     @RequestMapping(value = "/doc", method = RequestMethod.GET)
     public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title) throws Exception {
