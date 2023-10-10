@@ -190,7 +190,7 @@
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
         INSERT INTO category(id, name) VALUES(#{id}, #{name})
-    </insert>
+</insert>
     <!-- 2단계 카테고리 생성 -->
     <insert id="insertSecondCategory">
         INSERT INTO
@@ -215,5 +215,10 @@
     <!-- 2단계 카테고리에 해당하는 문서 목록 가져오기 -->
     <select id="selectByCategoryId" resultType="com.spring.cswiki.domain.Category">
         SELECT parent_id, id, name FROM category WHERE d_num = #{d_num};
+    </select>
+
+    <!-- 부모 ID와 일치하는 3단계 카테고리의 마지막 문서 가져오기 -->
+    <select id="selectThirdCategoryByParentId" resultType="com.spring.cswiki.domain.Category">
+        SELECT * FROM category WHERE parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
 </mapper>

@@ -53,20 +53,20 @@ public class DocService{
             dh.setD_content(dto.getD_content());
 
             // 새로운 문서가 추가될 때마다 parent_id를 증가시킴
-            List<Category> dblist = this.selectThirdCategory(); // 3단계 카테고리 가져오기
+            Category item = dao.selectThirdCategoryByParentId(dto.getId()); // 3단계 카테고리 가져오기
 
-            // 이전 문서 ID에서 마지막 숫자를 추출하여 증가시킴
-            String lastNumberStr = dto.getId().substring(dto.getId().lastIndexOf("-") + 1);
-            int lastNumber = Integer.parseInt(lastNumberStr);
+
             String newId="";
-
-            for (Category existingCategory : dblist) {
-                if (existingCategory.getId().equals(newId)) {
-                    lastNumber++;
-                    newId = dto.getId() + "-" + lastNumber;
-                } else {
-                    newId = dto.getId() + "-" + (lastNumber + 1);
-                }
+            if(item != null){
+                System.out.println("dto.getParent_id : " + item.getId());
+                System.out.println("item 객체 : " + item);
+                String numstr = item.getId().substring(item.getId().lastIndexOf("-")+ 1);
+                int num= Integer.parseInt(numstr);
+                System.out.println("추출된 문자 : " + num);
+                num++;
+                newId = dto.getId() + "-" + num;
+            } else {
+                newId = dto.getId() + "-1";
             }
 
             String id = newId;
@@ -138,33 +138,10 @@ public class DocService{
             dh.setD_summary(dto.getD_summary());
             dh.setD_content(dto.getD_content());
             dao.edithistory(dh);
-
-            Category category = new Category();
-            List<Category> dblist = this.selectThirdCategory(); // 3단계 카테고리 가져오기
-
-            // 이전 문서 ID에서 마지막 숫자를 추출하여 증가시킴
-            String lastNumberStr = dto.getId().substring(dto.getId().lastIndexOf("-") + 1);
-            int lastNumber = Integer.parseInt(lastNumberStr);
-            String newId = "";
-
-            for (Category existingCategory : dblist) {
-                if (existingCategory.getId().equals(newId)) {
-                    lastNumber++;
-                    newId = dto.getId() + "-" + lastNumber;
-                } else {
-                    newId = dto.getId() + "-" + (lastNumber + 1);
-                }
-            }
-
-            category.setD_num(dto.getD_num());
-            category.setName(dto.getD_title());
-            category.setParent_id(dto.getId());
-            category.setId(newId);
         }
         return result;
     }
 
-     
     public List<SmallCategory> selectcategory() {
         return dao.selectcategory();
     }
@@ -268,7 +245,7 @@ public class DocService{
         for (Category item : dblist) {
             String parentId = item.getId();
             if (parentId != null && parentId.matches("[A-Z]-\\d")) {
-                System.out.println("Category name : " + item.getName());
+                System.out.println("[문서 이름 : " + item.getName() + "], [부모 카테고리 ID : " + item.getParent_id() + "], [카테고리 ID : " + item.getId() + "]");
                 secondCategory.add(item);
             } else {
                 System.out.println("no data");
@@ -279,19 +256,18 @@ public class DocService{
     }
 
     public List<Category> selectThirdCategory(){
-        List<Category> dblist = dao.selectAll(); // DB에서 조회
+        List<Category> dblist = dao.selectAll();
         List<Category> thirdCategory = new ArrayList<>();
 
         for (Category item : dblist) {
             String parentId = item.getId();
             if (parentId != null && parentId.matches("[A-Z]-\\d-\\d")) {
-                System.out.println("Category name : " + item.getName());
+                System.out.println("[문서 이름 : " + item.getName() + "], [부모 카테고리 ID : " + item.getParent_id() + "], [카테고리 ID : " + item.getId() + "]");
                 thirdCategory.add(item);
             } else {
                 System.out.println("no data");
             }
         }
-
         return thirdCategory;
     }
 
