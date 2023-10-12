@@ -274,4 +274,13 @@ public class DocService{
     public Category getByCategoryId(int d_num){
         return dao.selectByCategoryId(d_num);
     }
+
+    // 문서에 댓글 추가하기
+    public void writeComment(String u_id, int d_num, String cm_comment, LocalDateTime cm_time) {
+        dao.writeComment(u_id, d_num, cm_comment, cm_time);
+    }
+    // 문서에 달린 댓글 읽어오기
+    public List<Comment> readComment(int d_num) {
+        return dao.readComment(d_num);
+    }
 }
