@@ -14,94 +14,74 @@
     <title>[[${doc.d_title}]] - CS위키</title>
 </head>
 <body style="overflow-x: hidden">
-<script>
-    function toggleMenu() {
-        var userInfo = document.getElementById("hmenu");
-        userInfo.classList.toggle("mhidden");
-    }
-</script>
-<script>
-    document.getElementById("searchBtn").onclick = function () {
-        let keyword =  document.getElementsByName("d_title")[0].value;
-        console.log(title)
-        location.href = "/doc/search" + "&title=" + title;
-    }
-</script>
+    <script>
+        function toggleMenu() {
+          var userInfo = document.getElementById("hmenu");
+          userInfo.classList.toggle("mhidden");
+        }
+    </script>
+    <script>
+        document.getElementById("searchBtn").onclick = function () {
+         let keyword =  document.getElementsByName("d_title")[0].value;
+         console.log(title)
+         location.href = "/doc/search" + "&title=" + title;
+        }
+    </script>
 
-<div th:insert="/header :: header"></div>
-<main>
-    <div id="doc">
-        <hr>
-        <div class="doc_inner">
+    <div th:insert="/header :: header"></div>
+    <main>
+        <div id="doc">
+            <hr>
+            <div class="doc_inner">
             <span class="title">[[${doc.d_title}]]</span>
-            <div class="selectbox">
-                <ul>
-                    <li>
-                        <th:block th:if="${session.member != null}">
-                            <a th:href="@{/doc/starcheck(d_num=${doc.d_num}, u_id=${session.member.u_id})}" id="star"style="cursor:pointer;">★</a>
-                        </th:block>
-                        <th:block th:unless="${session.member != null}">
-                            ★
-                        </th:block>
-                    </li>
-                    <li>
-                        <th:block th:if="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_update}">
-                            <th:block th:if="${session.member.ban == 1}">편집</th:block>
-                            <th:block th:unless="${session.member.ban == 1}"><a th:href="@{/doc/edit(d_num=${doc.d_num})}">편집</a></th:block>
-                        </th:block>
-                        <th:block th:unless="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_update}">
-                            편집
-                        </th:block>
-                    </li>
-                    <li><a th:href="@{/doc/doc_history(d_num=${doc.d_num})}">역사</a></li>
-                    <li>
-                        <a th:href="@{/doc/acl(d_num=${doc.d_num})}">ACL</a>
-                    </li>
-                    <li>
-                        <th:block th:if="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
-                            <a th:href="@{/doc/delete(d_num=${doc.d_num})}">삭제</a>
-                        </th:block>
-                        <th:block th:unless="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
-                            삭제
-                        </th:block>
-                    </li>
-                </ul>
-            </div>
-            <div class="doc_index_type">
-                <div id="doc_index">
-                    <span class="doc_index_list">목차</span>
+                <div class="selectbox">
+                    <ul>
+                        <li>
+                            <th:block th:if="${session.member != null}">
+                                <a th:href="@{/doc/starcheck(d_num=${doc.d_num}, u_id=${session.member.u_id})}" id="star"style="cursor:pointer;">★</a>
+                            </th:block>
+                            <th:block th:unless="${session.member != null}">
+                                ★
+                            </th:block>
+                        </li>
+                        <li>
+                            <th:block th:if="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_update}">
+                                <th:block th:if="${session.member.ban == 1}">편집</th:block>
+                                <th:block th:unless="${session.member.ban == 1}"><a th:href="@{/doc/edit(d_num=${doc.d_num})}">편집</a></th:block>
+                            </th:block>
+                            <th:block th:unless="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_update}">
+                                편집
+                            </th:block>
+                        </li>
+                        <li><a th:href="@{/doc/doc_history(d_num=${doc.d_num})}">역사</a></li>
+                        <li>
+                            <a th:href="@{/doc/acl(d_num=${doc.d_num})}">ACL</a>
+                        </li>
+                        <li>
+                            <th:block th:if="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
+                                <a th:href="@{/doc/delete(d_num=${doc.d_num})}">삭제</a>
+                            </th:block>
+                            <th:block th:unless="${session.member != null} and ${session.member.ban != null} and ${session.member.p_id >= doc.p_delete}">
+                                삭제
+                            </th:block>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div class="content">
-                <div th:if="${doc.p_read == 1} or ${session.member != null} and ${session.member.p_id >= doc.p_read}" th:utext="${doc.d_content}">
+                <div class="doc_index_type">
+                    <div id="doc_index">
+                        <span class="doc_index_list">목차</span>
+                    </div>
                 </div>
-                <div th:unless="${doc.p_read == 1} or ${session.member != null} and ${session.member.p_id >= doc.p_read}">
-                    읽기 권한이 없습니다!
+                <div class="content">
+                    <div th:if="${doc.p_read == 1} or ${session.member != null} and ${session.member.p_id >= doc.p_read}" th:utext="${doc.d_content}">
+                    </div>
+                    <div th:unless="${doc.p_read == 1} or ${session.member != null} and ${session.member.p_id >= doc.p_read}">
+                        읽기 권한이 없습니다!
+                    </div>
                 </div>
             </div>
         </div>
-        <hr>
-        <form method="post" th:action="@{/doc/comment}" target="ifrmProcess">
-            <th:block th:if="${session.member != null}">
-                <p th:text="${session.member.u_id}"></p>
-                <input type="hidden" name="u_id" th:value="${session.member.u_id}">
-                <input type="hidden" name="d_num" th:value="${doc.d_num}">
-                <input type="hidden" name="d_title" th:value="${doc.d_title}">
-            </th:block>
-            <th:block th:if="${session.member == null}">
-                <p>비로그인 유저</p>
-            </th:block>
-            <input type="text" name="cm_comment" placeholder="댓글 작성 부분">
-            <input type="submit" id="writeButton" value="등록">
-        </form>
-        <br><br><hr>
-        <div id="commentBox" th:each="comment : ${comment}">
-            <strong><p th:text="${comment.u_id}"></p></strong>
-            <p th:text="${comment.cm_comment}"></p>
-        </div>
-    </div>
-    <script type="text/javascript" src="/js/indexLink.js"></script>
-</main>
-<iframe name="ifrmProcess" width="0" height="0"></iframe>
+        <script type="text/javascript" src="/js/indexLink.js"></script>
+    </main>
 </body>
 </html>
