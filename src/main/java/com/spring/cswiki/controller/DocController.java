@@ -28,6 +28,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -97,26 +98,56 @@ public class DocController {
 
     // ?? ???? ??
     @RequestMapping(value = "/doc", method = RequestMethod.GET)
-    public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title) throws Exception {
+    public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, HttpServletRequest request) throws Exception {
         LocalDateTime lastVisit = LocalDateTime.now();
+        HttpSession session = request.getSession();
+        String userId = (String)session.getAttribute("u_id");
         if (d_num != null) {
             Doc doc = service.doc(d_num);
+            List<Comment> comments = service.readComment(d_num);
             service.setDocTimeNum(d_num, lastVisit);
             log.info(String.valueOf(doc.getB_ca_name()));
             log.info(String.valueOf(doc.getS_ca_name()));
             log.info(String.valueOf(doc.getLastVisit()));
             log.info(String.valueOf(doc.getP_read()));
+            model.addAttribute("comment", comments);
+            model.addAttribute("u_id", userId);
             model.addAttribute("doc", doc);
         } else if (d_title != null) {
             Doc doc = service.search(d_title);
+            int docNum = doc.getD_num();
+            List<Comment> comments = service.readComment(docNum);
             service.setDocTimeTitle(d_title, lastVisit);
             log.info(String.valueOf(doc.getB_ca_name()));
             log.info(String.valueOf(doc.getLastVisit()));
             log.info(String.valueOf(doc.getP_read()));
+            model.addAttribute("comment", comments);
             model.addAttribute("doc", doc);
+            model.addAttribute("u_id", userId);
             model.addAttribute("d_title", d_title);
         }
         return "doc/doc";
+    }
+
+    // 문서 제목을 이용하여 댓글 작성하기
+    @PostMapping(value="/doc/comment")
+    public String writeComment(String u_id, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, @RequestParam String cm_comment, Model model) {
+        LocalDateTime cm_time = LocalDateTime.now();
+        if (d_num != null) {
+            Doc doc = service.doc(d_num);
+            service.writeComment(u_id, d_num, cm_comment, cm_time);
+            log.info(u_id);
+            log.info(cm_comment);
+        } else if (d_title != null) {
+            Doc doc = service.search(d_title);
+            int docNum = doc.getD_num();
+            service.writeComment(u_id, docNum, cm_comment, cm_time);
+            log.info(u_id);
+            log.info(cm_comment);
+        }
+        String script = "parent.location.reload();";
+        model.addAttribute("script", script);
+        return "doc/_execute_script";
     }
 
     // ?? ?? ???? ??

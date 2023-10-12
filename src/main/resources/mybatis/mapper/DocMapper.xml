@@ -48,9 +48,16 @@
         SELECT d_num, d_title, d_content, p_read, p_update, p_delete FROM doc where d_num = #{d_num}
     </select>
 
-    <update id="setDocTime">
-        UPDATE doc (d_num, lastvisit) VALUES (#{dto.getD_num()}, #{lastVisit});
-    </update>
+    <!-- 문서에 댓글 추가하기 -->
+    <insert id="writeComment">
+        INSERT INTO comment (u_id, d_num, cm_comment, cm_time)
+        VALUES (#{u_id}, #{d_num}, #{cm_comment}, #{cm_time});
+    </insert>
+
+    <!-- 문서에 달린 댓글 읽어오기 -->
+    <select id="readComment" resultType="com.spring.cswiki.domain.Comment">
+        SELECT * FROM comment WHERE d_num = #{d_num};
+    </select>
 
     <!-- 새 문서 작성 -->
     <insert id="create" useGeneratedKeys="true" keyProperty="d_num">
