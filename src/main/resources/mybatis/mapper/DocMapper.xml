@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.cswiki.dao.DocDAO">
+    <!-- 카테고리 전체 조회 -->
     <select id="selectAll" resultType="com.spring.cswiki.domain.Category">
         SELECT id, name, parent_id, d_num FROM category where disable = 0;
     </select>
@@ -38,10 +39,6 @@
         VALUES (1, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1, null);
     </insert>
 
-    <!-- 문서 작성 시 2단계 카테고리 선택 -->
-    <select id="selectcategory">
-        select * from small_category
-    </select>
     <!-- 새 문서 작성 시 역사 생성 -->
     <insert id="createDocHistory" useGeneratedKeys="true" keyProperty="d_num">
         INSERT INTO doc_history (d_version, d_num, d_date, u_id, d_summary, d_content)
@@ -110,10 +107,7 @@
 
     <!-- 문서 검색 -->
     <select id="search" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d.d_num, d.s_ca_num, d.p_read, d.p_insert, d.p_update, d.p_delete, d.d_title, d.d_content, sc.s_ca_name, b.b_ca_name FROM doc d
-        JOIN small_category sc on sc.s_ca_num = d.s_ca_num
-        JOIN big_category b on b.b_ca_num = sc.b_ca_num
-        WHERE d_title = #{d_title};
+        SELECT * FROM doc WHERE d_title = #{d_title};
     </select>
 
     <!-- 문서 역사  -->
@@ -166,14 +160,14 @@
         ORDER BY s.star DESC;
     </select>
 
-    <!-- 카테고리 테스트 코드 -->
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
         INSERT INTO category(id, name) VALUES(#{id}, #{name})
-</insert>
+    </insert>
+
     <!-- 2단계 카테고리 생성 -->
     <insert id="insertSecondCategory">
-        INSERT INTO
+        INSERT INTO cateogry
             (
                 id,
                 name,
@@ -181,11 +175,12 @@
             )
             VALUES
         (
-            id = #{id}
-            ,name = #{name}
-            ,parent_id = #{parent_id}
+            #{id}
+            ,#{name}
+            ,#{parent_id}
             )
     </insert>
+
     <!-- 3단계 카테고리(문서 목록) 생성 -->
     <insert id="insertThirdCategory">
         INSERT INTO category(id, name, parent_id, d_num)
@@ -206,4 +201,12 @@
     <select id="selectThirdCategoryByParentId" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM category WHERE parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
+
+    <!-- 카테고리 수정 -->
+
+    <!-- 카테고리 삭제 -->
+    <delete id="deleteCategory">
+        DELETE from categorty;
+    </delete>
+
 </mapper>

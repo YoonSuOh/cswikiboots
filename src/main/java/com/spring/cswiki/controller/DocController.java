@@ -9,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.spring.cswiki.domain.*;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
+import org.thymeleaf.exceptions.TemplateProcessingException;
 
 
 @Controller
@@ -99,36 +101,40 @@ public class DocController {
 
     // ?? ???? ??
     @RequestMapping(value = "/doc", method = RequestMethod.GET)
-    public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, HttpServletRequest request) throws Exception {
+    public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, HttpServletRequest request, HttpServletResponse resp) throws Exception {
         LocalDateTime lastVisit = LocalDateTime.now();
         HttpSession session = request.getSession();
+
         String userId = (String)session.getAttribute("u_id");
-        if (d_num != null) {
-            List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
-            model.addAttribute("jsonData", jsonData);
-            Doc doc = service.doc(d_num);
-            List<Comment> comments = service.readComment(d_num);
-            service.setDocTimeNum(d_num, lastVisit);
-            log.info(String.valueOf(doc.getB_ca_name()));
-            log.info(String.valueOf(doc.getS_ca_name()));
-            log.info(String.valueOf(doc.getLastVisit()));
-            log.info(String.valueOf(doc.getP_read()));
-            model.addAttribute("comment", comments);
-            model.addAttribute("u_id", userId);
-            model.addAttribute("doc", doc);
-        } else if (d_title != null) {
-            Doc doc = service.search(d_title);
-            int docNum = doc.getD_num();
-            List<Comment> comments = service.readComment(docNum);
-            service.setDocTimeTitle(d_title, lastVisit);
-            log.info(String.valueOf(doc.getB_ca_name()));
-            log.info(String.valueOf(doc.getLastVisit()));
-            log.info(String.valueOf(doc.getP_read()));
-            model.addAttribute("comment", comments);
-            model.addAttribute("doc", doc);
-            model.addAttribute("u_id", userId);
-            model.addAttribute("d_title", d_title);
+        List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
+        model.addAttribute("jsonData", jsonData);
+
+        try{
+            if(d_num != null){
+                Doc doc = service.doc(d_num);
+                List<Comment> comments = service.readComment(d_num);
+                service.setDocTimeNum(d_num, lastVisit);
+                model.addAttribute("comment", comments);
+                model.addAttribute("u_id", userId);
+                model.addAttribute("doc", doc);
+            } else if(d_title != null){
+                Doc doc = service.search(d_title);
+                int docNum = doc.getD_num();
+                List<Comment> comments = service.readComment(docNum);
+                service.setDocTimeTitle(d_title, lastVisit);
+                // log.info(String.valueOf(doc.getB_ca_name()));
+                // log.info(String.valueOf(doc.getLastVisit()));
+                // log.info(String.valueOf(doc.getP_read()));
+                model.addAttribute("comment", comments);
+                model.addAttribute("doc", doc);
+                model.addAttribute("u_id", userId);
+                model.addAttribute("d_title", d_title);
+            }
+        } catch(NullPointerException e) {
+            System.out.println("NullPointerException e 발생 :" + e);
+            return "doc/notfind";
         }
+
         return "doc/doc";
     }
 

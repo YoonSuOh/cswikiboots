@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/doc.css">
+    <link rel="stylesheet" href="/css/doc/header.css">
+    <link rel="stylesheet" href="/css/nav.css">
+
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
+    <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
+    <title>찾을 수 없는 문서 - CS위키</title>
+</head>
+<body style="overflow-x: hidden">
+<script>
+    function toggleMenu() {
+        var userInfo = document.getElementById("hmenu");
+        userInfo.classList.toggle("mhidden");
+    }
+</script>
+<script>
+    document.getElementById("searchBtn").onclick = function () {
+        let keyword =  document.getElementsByName("d_title")[0].value;
+        console.log(title)
+        location.href = "/doc/search" + "&title=" + title;
+    }
+</script>
+
+<div th:insert="/header :: header"></div>
+<main>
+    <div id="doc">
+        <hr>
+        <div class="doc_inner">
+            <span class="title">찾을 수 없는 문서</span>
+            <div class="content">
+                존재하지 않는 문서입니다!
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -17,31 +17,6 @@ import java.util.Map;
 public class DocService{
     private final DocDAO dao;
 
-    public List<BigCategory> list() {
-        return dao.list();
-    }
-
-     
-    public List<SmallCategory> s_category(int b_ca_num) {
-        return dao.s_category(b_ca_num);
-    }
-
-     
-    public List<Doc> doc_list(int s_ca_num) {
-        return dao.doc_list(s_ca_num);
-    }
-
-     
-    public void createbigcategory(BigCategory vo) {
-        dao.createbigcategory(vo);
-    }
-
-     
-    public void createsmallcategory(SmallCategory vo) {
-        dao.createsmallcategory(vo);
-    }
-
-
     public int create(Doc dto) {
         int result = dao.create(dto);
         if (result > 0) {
@@ -123,12 +98,6 @@ public class DocService{
         return dao.getDocTimeTitle(docTitle);
     }
 
-     
-    public SmallCategory getcategory(int d_num) {
-        return dao.getcategory(d_num);
-    }
-
-
     public int edit(Doc dto) {
         int result = dao.edit(dto);
         if(result > 0) {
@@ -142,11 +111,6 @@ public class DocService{
         return result;
     }
 
-    public List<SmallCategory> selectcategory() {
-        return dao.selectcategory();
-    }
-
-     
     public void delete(int d_num) {
         dao.delete(d_num);
     }
@@ -180,12 +144,6 @@ public class DocService{
     public List<Doc> popular() {
         return dao.popular();
     }
-
-     
-    public List<Doc> sidebar() {
-        return dao.sidebar();
-    }
-
 
     public List<Map<String, Object>> generateCategoryTreeJson() {
         List<Category> dblist = dao.selectAll();
@@ -241,11 +199,14 @@ public class DocService{
         id = String.valueOf(alphabet);
         System.out.println("category_id : " + id);
         dao.insertFirstCategory(id, name);
-    } // 1단계 카테고리 삽입
+    }
+
+    // 1단계 카테고리 삽입
     public void addSecondCategory(Category category){
         dao.insertSecondCategory(category);
-    } // 2단계 카테고리 삽입
+    }
 
+    // 2단계 카테고리 삽입
     public List<Category> selectSecondCategory() {
         List<Category> dblist = dao.selectAll(); // DB에서 조회
         List<Category> secondCategory = new ArrayList<>();
