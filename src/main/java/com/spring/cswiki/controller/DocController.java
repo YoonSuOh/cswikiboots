@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,6 +101,8 @@ public class DocController {
     public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title) throws Exception {
         LocalDateTime lastVisit = LocalDateTime.now();
         if (d_num != null) {
+            List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
+            model.addAttribute("jsonData", jsonData);
             Doc doc = service.doc(d_num);
             service.setDocTimeNum(d_num, lastVisit);
             log.info(String.valueOf(doc.getB_ca_name()));

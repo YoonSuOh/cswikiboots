@@ -7,33 +7,6 @@
         SELECT id, name, parent_id, d_num FROM category where disable = 0;
     </select>
 
-    <!-- 1단계 분류
-    <select id="list" resultType="com.spring.cswiki.domain.BigCategory">
-        SELECT
-        b_ca_name, b_ca_num
-        FROM big_category WHERE b_ca_avaliable = 1
-    </select>
-
-    &lt;!&ndash; 2단계 분류 &ndash;&gt;
-    <select id="s_category" resultType="com.spring.cswiki.domain.SmallCategory">
-        SELECT s_ca_name, s_ca_num FROM small_category WHERE b_ca_num = #{b_ca_num} and s_ca_avaliable = 1
-    </select>
-
-    &lt;!&ndash; 1단계 분류 추가 &ndash;&gt;
-    <insert id="createbigcategory" useGeneratedKeys="true" keyProperty="b_ca_num">
-        INSERT INTO big_category (b_ca_name, b_ca_avaliable)
-        VALUES (#{b_ca_name}, 1)
-    </insert>
-    &lt;!&ndash; 2단계 분류 추가 &ndash;&gt;
-    <insert id="createsmallcategory" useGeneratedKeys="true" keyProperty="s_ca_num">
-        INSERT INTO small_category (s_ca_name, b_ca_num, s_ca_avaliable)
-        VALUES (#{s_ca_name}, #{b_ca_num}, 1)
-    </insert>
-    &lt;!&ndash; 문서 리스트 &ndash;&gt;
-    <select id="doc_list" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d_title, d_num FROM doc WHERE s_ca_num = #{s_ca_num} AND d_available = 1
-    </select>-->
-
     <!-- 문서번호 접속시 접속날짜 업데이트 -->
     <update id="setDocTimeNum">
         UPDATE doc SET d_num = #{d_num}, lastvisit = #{lastVisit} WHERE d_num = #{d_num}
@@ -211,6 +184,11 @@
         INSERT INTO category(id, name, parent_id, d_num)
         VALUES(#{id}, #{name}, #{parent_id} ,#{d_num})
     </insert>
+
+    <!-- 1단계 카테고리 중 마지막 카테고리 가져오기 -->
+    <select id="selectFirstCategory" resultType="com.spring.cswiki.domain.Category">
+        SELECT * FROM cswiki.category where parent_id IS NULL ORDER BY idx DESC LIMIT 1;
+    </select>
 
     <!-- 2단계 카테고리에 해당하는 문서 목록 가져오기 -->
     <select id="selectByCategoryId" resultType="com.spring.cswiki.domain.Category">

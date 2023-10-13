@@ -44,7 +44,8 @@ public class MainController {
 
     // 1단계 카테고리 삽입
     @PostMapping(value="/addcategory")
-    public String addCategory(@RequestParam("id") String id, @RequestParam("name") String name) throws Exception{
+    public String addCategory(@RequestParam("name") String name) throws Exception{
+        String id ="";
         service.addFirstCategory(id, name);
         return "redirect:/test";
     }

@@ -232,6 +232,14 @@ public class DocService{
     }
 
     public void addFirstCategory(String id, String name){
+        Category category = dao.selectFirstCategory();
+        System.out.println("[카테고리 코드 :" + category.getId() + "]");
+        System.out.println("[카테고리 이름 :" + name + "]");
+        int asciiCode = (int) category.getId().charAt(0);
+
+        char alphabet = (char)(asciiCode+1);
+        id = String.valueOf(alphabet);
+        System.out.println("category_id : " + id);
         dao.insertFirstCategory(id, name);
     } // 1단계 카테고리 삽입
     public void addSecondCategory(Category category){
