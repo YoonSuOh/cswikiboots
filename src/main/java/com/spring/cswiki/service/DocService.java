@@ -240,8 +240,14 @@ public class DocService{
         return thirdCategory;
     }
 
+    // 카테고리 ID 가져오기
     public Category getByCategoryId(int d_num){
         return dao.selectByCategoryId(d_num);
+    }
+
+    // 카테고리 삭제
+    public int deleteCategory(int d_num){
+        return dao.deleteCategory(d_num);
     }
 
     // 문서에 댓글 추가하기

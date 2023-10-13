@@ -47,7 +47,8 @@ public class DocController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @Inject
     private DocService service;
-    // ?? ???
+
+    // CK에디터에 파일 업로드
     @RequestMapping(value="/ckUpload", method=RequestMethod.POST)
     @ResponseBody
     public String fileUpload(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile) throws Exception {
@@ -99,7 +100,7 @@ public class DocController {
         return null;
     }
 
-    // ?? ???? ??
+    // 문서 보기
     @RequestMapping(value = "/doc", method = RequestMethod.GET)
     public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, HttpServletRequest request, HttpServletResponse resp) throws Exception {
         LocalDateTime lastVisit = LocalDateTime.now();
@@ -159,7 +160,7 @@ public class DocController {
         return "doc/_execute_script";
     }
 
-    // ?? ?? ???? ??
+    // 새 문서 작성창 이동
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String getcreate(Model model) throws Exception {
         List<Category> list = service.selectSecondCategory();
@@ -167,7 +168,7 @@ public class DocController {
         return "doc/create";
     }
 
-    // ?? ??
+    // 새 문서 작성
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String postcreate(Doc domain) throws Exception {
         log.info(String.valueOf("??? ?" + domain.getS_ca_num()));
@@ -179,7 +180,7 @@ public class DocController {
         }
     }
 
-    // ?? ????? ??
+    // 문서 편집창 이동
     @RequestMapping(value= "/edit", method = RequestMethod.GET)
     public String getedit(int d_num, Model model) throws Exception{
         Doc doc = service.doc(d_num);
@@ -191,7 +192,7 @@ public class DocController {
         return "doc/edit";
     }
 
-    // ?? ?? ?? ? ?? ??
+    // 문서 편집
     @RequestMapping(value="/edit", method=RequestMethod.POST)
     public String postedit(Doc domain) throws Exception{
         int result = service.edit(domain);
@@ -202,14 +203,14 @@ public class DocController {
         }
     }
 
-    // ?? ?? ? ?? ??
+    // 문서 삭제
     @RequestMapping(value="/delete", method=RequestMethod.GET)
     public String postdelete(int d_num) throws Exception{
         service.delete(d_num);
         return "redirect:/";
     }
 
-    // ?? ACL ?? ??? ??(??? ??)
+    // 접근 제한 설정 창 이동
     @RequestMapping(value="/acl", method=RequestMethod.GET)
     public String getacl(Model model, int d_num) throws Exception{
         Doc doc = service.doc(d_num);
@@ -217,14 +218,14 @@ public class DocController {
         return "doc/acl";
     }
 
-    // ?? ACL ?? ? ACL?? ??(??? ??)
+    // 접근 제한 처리
     @RequestMapping(value="/acl", method=RequestMethod.POST)
     public String postacl(Doc domain, int d_num) throws Exception{
         service.acl(domain);
         return "redirect:acl?d_num=" + d_num;
     }
 
-    // ?? ?? ??
+    // 문서 역사 보기
     @RequestMapping("/doc_history")
     public String getDocumentHistory(@RequestParam("d_num") int d_num, Model model) {
         List<DocHistory> historyList = service.getDocHistory(d_num);
@@ -235,7 +236,7 @@ public class DocController {
         return "doc/doc_history";
     }
 
-    // ?? ? ?? ?? ??
+    // 문서 버전별 보기
     @RequestMapping("/doc_version")
     public String version(@RequestParam("d_num") int d_num, @RequestParam("d_version") String d_version, Model model) {
         Doc version = service.version(d_num, d_version);
@@ -243,7 +244,7 @@ public class DocController {
         return "doc/doc_version";
     }
 
-    // ???? ??
+    // 즐겨찾기 추가
     @RequestMapping(value="/starcheck")
     public String starin(Model model, Star vo, int d_num, String u_id) {
         Doc doc = service.doc(d_num);
@@ -254,7 +255,7 @@ public class DocController {
         return "redirect:doc?d_num=" + d_num;
     }
 
-    // ???? ??
+    // 즐겨찾기 삭제
     @RequestMapping(value="/starout")
     public String starout(Model model, Star vo, @RequestParam("d_num")int d_num, @RequestParam("u_id")String u_id) {
         service.starout(vo);
@@ -262,7 +263,7 @@ public class DocController {
         return "redirect:userstar?u_id=" + u_id;
     }
 
-    // ???? ??
+    // 사용자 즐겨찾기 목록 확인
     @RequestMapping(value="/userstar")
     public String userstar(Model model, @RequestParam("u_id") String u_id) throws Exception{
         List<Doc> star = service.userstar(u_id);
@@ -280,7 +281,7 @@ public class DocController {
         return "doc/userstar";
     }
 
-    // ????? ?? ?? ? ???? ??
+    // 인기 문서 출력
     @GetMapping(value="/popular")
     public String popular(Model model) throws Exception{
         List<Doc> list = service.popular();
@@ -294,4 +295,11 @@ public class DocController {
         service.addFirstCategory(id, name);
         return "redirect:test";
     }
+
+    @PostMapping(value="/deletecategory")
+    public String deleteCategory(@RequestParam("d_num")int d_num){
+        service.deleteCategory(d_num);
+        return "redirect:/test";
+    }
+
 }
