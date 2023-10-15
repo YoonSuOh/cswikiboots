@@ -18,8 +18,8 @@
     font-style: 'normal';
     src: url("/font/InterparkGothicBold.ttf"); /* IE9 Compat Modes */
 }
-
 html, body{
+
     margin : 0;
     padding : 0;
     font-family: Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif;
@@ -330,7 +330,7 @@ table {
     width: 100%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
-  }
+}
 th, td{
     border-bottom: 1px solid #444444;
     padding: 10px;
@@ -361,3 +361,117 @@ th, td{
 .corp{
     font-weight:bold;
 }
+
+:root{
+    --gray-color:#717271;
+    --light-gray-color:#dee0e5;
+    --midium-color:solid 2px skyblue;
+    --button-gray-color:#f0f1f0;
+
+    --button-text-gray-color:#5F6368;
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-family);
+}
+
+.top-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+.nav-logo img {
+    padding-left: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding-left: 0;
+    vertical-align: middle;
+}
+
+.nav-menu li {
+    padding: 8px 10px;
+    font-size: 13px;
+    margin: auto;
+}
+
+.nav-menu li a {
+    color: var(--gray-color);
+
+}
+
+.top-header .top-nav ul li a:hover {
+    text-decoration: underline;
+}
+
+
+.main-section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-section .logo img{
+    width: 200px;
+}
+
+.main-section .logo a {
+    display: block;
+    padding-top: 120px;
+    padding-bottom: 50px;
+}
+
+.main-section .searchbar{
+    border: solid 1.5px skyblue;
+    width: 490px;
+    height: 55px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.main-section .searchbar i{
+    line-height: 50px;
+    color: var(--midium-color);
+}
+
+.main-section .searchbar .m-search-input{
+    width: 400px;
+    height: 50px;
+    font-size: 13px;
+    border: none;
+    outline: none;
+    color: var(--button-text-gray-color);
+}
+
+.main-section .buttons{
+    padding-top: 35px;
+}
+
+.main-section .buttons button{
+    background-color: var(--button-gray-color);
+    border: 0;
+    height: 38px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: var(--button-text-gray-color);
+}
+
