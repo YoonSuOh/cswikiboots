@@ -167,7 +167,7 @@
 
     <!-- 2단계 카테고리 생성 -->
     <insert id="insertSecondCategory">
-        INSERT INTO cateogry
+        INSERT INTO category
             (
                 id,
                 name,
@@ -190,6 +190,11 @@
     <!-- 1단계 카테고리 중 마지막 카테고리 가져오기 -->
     <select id="selectFirstCategory" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM cswiki.category where parent_id IS NULL ORDER BY idx DESC LIMIT 1;
+    </select>
+
+    <!-- 2단계 카테고리 중 마지막 카테고리 가져오기 -->
+    <select id="selectSecondCategory" resultType="com.spring.cswiki.domain.Category">
+        SELECT * FROM cswiki.category where parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
 
     <!-- 2단계 카테고리에 해당하는 문서 목록 가져오기 -->

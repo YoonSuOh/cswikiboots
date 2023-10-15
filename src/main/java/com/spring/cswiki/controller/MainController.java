@@ -1,5 +1,6 @@
 package com.spring.cswiki.controller;
 
+import com.spring.cswiki.domain.Category;
 import com.spring.cswiki.service.DocService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,19 @@ public class MainController {
     @PostMapping(value="/addcategory")
     public String addCategory(@RequestParam("name") String name) throws Exception{
         String id ="";
+        System.out.println("1단계 카테고리 삽입");
         service.addFirstCategory(id, name);
+        return "redirect:/test";
+    }
+
+    // 2단계 카테고리 삽입
+    @PostMapping(value="/addsecondcategory")
+    public String addCategory(@RequestParam("name") String name, @RequestParam(value="parent_id")String parent_id) throws Exception{
+        Category category = new Category();
+        System.out.println("2단계 카테고리 삽입");
+        category.setId(parent_id);
+        category.setName(name);
+        service.addSecondCategory(category);
         return "redirect:/test";
     }
 }

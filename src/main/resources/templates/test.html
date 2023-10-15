@@ -7,18 +7,21 @@
             display: none;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <p class="category-toggle">카테고리 추가 +</p>
-    <form method="post" action="/addcategory">
-        <input type="text" name="id" placeholder="카테고리 ID를 입력하세요."/>
-        <input type="text" name="name" placeholder="이름을 입력하세요."/>
-        <button type="submit">추가</button>
-    </form>
     <ul>
+        <form action="/addcategory" method="post">
+            <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+        </form>
         <li th:each="category : ${jsonData}">
             <span th:text="${category['name']}" class="category-toggle"></span>
+            <span style="display:none" th:text="${category['id']}" class="category-toggle" id="p"></span>
             <ul class="hidden">
+                <form action="/addsecondcategory" method="post">+
+                    <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+                    <input type="hidden" name="parent_id" id="parent"/>
+                </form>
                 <li th:each="child : ${category['children']}">
                     <span th:text="${child['name']}" class="category-toggle"></span>
                     <ul class="hidden">
@@ -32,6 +35,7 @@
     </ul>
 <script>
     // JavaScript 코드
+    // JavaScript 코드
     var toggleButtons = document.querySelectorAll('.category-toggle');
 
     toggleButtons.forEach(function(button) {
@@ -43,6 +47,13 @@
                 } else {
                     parentUl.classList.add('hidden');
                 }
+            }
+
+            var idElement = button.parentElement.querySelector('#p');
+            if (idElement) {
+                // 선택한 카테고리의 id 값을 가져와서 parent_id 필드에 할당
+                var parentIdInput = button.parentElement.querySelector('input[name="parent_id"]');
+                parentIdInput.value = idElement.textContent;
             }
         });
     });

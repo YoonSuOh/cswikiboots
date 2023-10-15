@@ -17,6 +17,7 @@ import java.util.Map;
 public class DocService{
     private final DocDAO dao;
 
+    // 문서 생성
     public int create(Doc dto) {
         int result = dao.create(dto);
         if (result > 0) {
@@ -60,22 +61,22 @@ public class DocService{
         return result;
     }
 
-     
+    // 문서 역사 보기
     public List<DocHistory> getDocHistory(int d_num) {
         return dao.getDocHistory(d_num);
     }
 
-     
+    // 문서 버전별 보기
     public Doc version(int d_num, String d_version) {
         return dao.version(d_num, d_version);
     }
 
-     
+    // 문서 보기
     public Doc doc(int d_num) {
         return dao.doc(d_num);
     }
 
-     
+    // 문서 방문 시각 설정
     public void setDocTimeNum(int d_num, LocalDateTime lastVisit) {
         Doc doc = this.doc(d_num);
         int docNum = doc.getD_num();
@@ -83,7 +84,7 @@ public class DocService{
         dao.setDocTimeNum(d_num, timestamp);
     }
 
-     
+    // 문서 방문 시각 설정
     public void setDocTimeTitle(String d_title, LocalDateTime lastVisit) {
         Doc doc = this.search(d_title);
         String docTitle = doc.getD_title();
@@ -91,13 +92,14 @@ public class DocService{
         dao.setDocTimeTitle(docTitle, timestamp);
     }
 
-     
+    // 문서 방문 시각 가져오기
     public Timestamp getDocTimeTitle(String d_title) {
         Doc doc = this.search(d_title);
         String docTitle= doc.getD_title();
         return dao.getDocTimeTitle(docTitle);
     }
 
+    // 문서 방문 시각 가져오기
     public int edit(Doc dto) {
         int result = dao.edit(dto);
         if(result > 0) {
@@ -111,40 +113,42 @@ public class DocService{
         return result;
     }
 
+    // 문서 삭제
     public void delete(int d_num) {
         dao.delete(d_num);
     }
 
-     
+    // 문서 접근 제한 설정
     public void acl(Doc dto) {
         dao.acl(dto);
     }
 
-     
+    // 문서 검색
     public Doc search(String d_title) {
         return dao.search(d_title);
     }
 
-     
+    // 문서 즐겨찾기 등록
     public int starin(Star vo) {
         return dao.starin(vo);
     }
 
-     
+    // 문서 즐겨찾기 삭제
     public int starout(Star vo) {
         return dao.starout(vo);
     }
 
-     
+    // 사용자 별 즐겨찾기 목록 확인
     public List<Doc> userstar(String u_id) {
         return dao.userstar(u_id);
     }
 
-     
+    // 인기 있는 문서 조회
     public List<Doc> popular() {
         return dao.popular();
     }
 
+    // 전체 카테고리 조회
     public List<Map<String, Object>> generateCategoryTreeJson() {
         List<Category> dblist = dao.selectAll();
         List<Map<String, Object>> jsonData = new ArrayList<>();
@@ -153,6 +157,7 @@ public class DocService{
             if (parent.getParent_id() == null) {
                 Map<String, Object> parentData = new HashMap<>();
                 parentData.put("name", parent.getName());
+                parentData.put("id", parent.getId());
                 List<Map<String, Object>> childrenData = new ArrayList<>();
 
                 for (Category child : dblist) {
@@ -189,6 +194,7 @@ public class DocService{
         return jsonData;
     }
 
+    // 1단계 카테고리 삽입
     public void addFirstCategory(String id, String name){
         Category category = dao.selectFirstCategory();
         System.out.println("[카테고리 코드 :" + category.getId() + "]");
@@ -201,12 +207,31 @@ public class DocService{
         dao.insertFirstCategory(id, name);
     }
 
-    // 1단계 카테고리 삽입
+    // 2단계 카테고리 삽입
     public void addSecondCategory(Category category){
+        String parent_id = category.getId();
+        Category value = dao.selectSecondCategory(parent_id);
+        String newId = "";
+        category.setParent_id(parent_id);
+        if(value != null){
+            String numstr = value.getId().substring(value.getId().lastIndexOf("-") + 1);
+            int num= Integer.parseInt(numstr);
+            System.out.println("추출된 문자 : " + num);
+            num++;
+            newId = value.getParent_id() + "-" + num;
+            category.setId(newId);
+
+        } else {
+            newId = category.getId() + "-1";
+            category.setId(newId);
+        }
+
+        System.out.println("item.getId();" + newId);
+        System.out.println("item.getName();" + category.getName());
         dao.insertSecondCategory(category);
     }
 
-    // 2단계 카테고리 삽입
+    // 2단계 카테고리 조회
     public List<Category> selectSecondCategory() {
         List<Category> dblist = dao.selectAll(); // DB에서 조회
         List<Category> secondCategory = new ArrayList<>();
@@ -224,6 +249,7 @@ public class DocService{
         return secondCategory;
     }
 
+    // 3단계(문서) 카테고리 조회
     public List<Category> selectThirdCategory(){
         List<Category> dblist = dao.selectAll();
         List<Category> thirdCategory = new ArrayList<>();

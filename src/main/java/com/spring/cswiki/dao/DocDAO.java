@@ -10,13 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface DocDAO {
-    public List<BigCategory> list(); // 1단계 분류 조회
-    public List<SmallCategory> s_category(int b_ca_num); // 2단계 분류 조회
-    public List<Doc> doc_list(int s_ca_num); // 분류별 문서 조회
-    public void createbigcategory(BigCategory vo);
-    public void createsmallcategory(SmallCategory vo);
     public int create(Doc dto); // 새 문서 작성
-    public List<SmallCategory> selectcategory(); // 문서 작성 시 분류 선택
     public void createDocHistory(DocHistory dto); // 문서 역사 생성
     public List<DocHistory> getDocHistory(int d_num); // 문서 역사 보기
     public Doc version(@Param("d_num") int d_num, @Param("d_version")String d_version); // 문서 버전별 내용 확인
@@ -42,6 +36,7 @@ public interface DocDAO {
     public void insertThirdCategory(@Param("id") String id, @Param("name") String name, @Param("parent_id") String parent_id, @Param("d_num") int d_num); // 3단계 카테고리 삽입
     public Category selectByCategoryId(int d_num); // 편집 시 해당하는 카테고리 가져오기
     public Category selectFirstCategory(); // 제일 최근에 추가된 1단계 카테고리 가져오기
+    public Category selectSecondCategory(String parent_id); // 부모 id와 일치되는 2단계 카테고리 중 제일 마지막에 추가된 카테고리 가져오기
     public Category selectThirdCategoryByParentId(String parent_id); // 부모 ID와 일치하는 3단계 카테고리 가져오기
     public int deleteCategory(int d_num); // 카테고리 삭제
     public void writeComment(@Param("u_id") String u_id, @Param("d_num") int d_num, @Param("cm_comment") String cm_comment, @Param("cm_time")LocalDateTime cm_time); // 특정 문서 댓글 추가 기능

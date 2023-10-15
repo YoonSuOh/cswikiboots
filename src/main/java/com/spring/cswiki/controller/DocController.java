@@ -9,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.spring.cswiki.domain.*;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +36,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
-import org.thymeleaf.exceptions.TemplateProcessingException;
 
 
 @Controller
@@ -47,8 +45,7 @@ public class DocController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @Inject
     private DocService service;
-
-    // CK에디터에 파일 업로드
+    // CK에디터 파일 업로드
     @RequestMapping(value="/ckUpload", method=RequestMethod.POST)
     @ResponseBody
     public String fileUpload(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile) throws Exception {
@@ -100,9 +97,9 @@ public class DocController {
         return null;
     }
 
-    // 문서 보기
+    // 문서 조회
     @RequestMapping(value = "/doc", method = RequestMethod.GET)
-    public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, HttpServletRequest request, HttpServletResponse resp) throws Exception {
+    public String getdoc(Model model, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, HttpServletRequest request) throws Exception {
         LocalDateTime lastVisit = LocalDateTime.now();
         HttpSession session = request.getSession();
 
@@ -139,6 +136,26 @@ public class DocController {
         return "doc/doc";
     }
 
+    // 문서 생성창 이동
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String getcreate(Model model) throws Exception {
+        List<Category> list = service.selectSecondCategory();
+        model.addAttribute("list", list);
+        return "doc/create";
+    }
+
+    // 문서 생성
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String postcreate(Doc domain) throws Exception {
+        log.info(String.valueOf("??? ?" + domain.getS_ca_num()));
+        int result = service.create(domain);
+        if(result > 0) {
+            return "redirect:doc?d_num=" + domain.getD_num();
+        } else {
+            return "redirect:list";
+        }
+    }
+
     // 문서 제목을 이용하여 댓글 작성하기
     @PostMapping(value="/doc/comment")
     public String writeComment(String u_id, @RequestParam(required = false) Integer d_num, @RequestParam(required = false) String d_title, @RequestParam String cm_comment, Model model) {
@@ -159,27 +176,6 @@ public class DocController {
         model.addAttribute("script", script);
         return "doc/_execute_script";
     }
-
-    // 새 문서 작성창 이동
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String getcreate(Model model) throws Exception {
-        List<Category> list = service.selectSecondCategory();
-        model.addAttribute("list", list);
-        return "doc/create";
-    }
-
-    // 새 문서 작성
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String postcreate(Doc domain) throws Exception {
-        log.info(String.valueOf("??? ?" + domain.getS_ca_num()));
-        int result = service.create(domain);
-        if(result > 0) {
-            return "redirect:doc?d_num=" + domain.getD_num();
-        } else {
-            return "redirect:list";
-        }
-    }
-
     // 문서 편집창 이동
     @RequestMapping(value= "/edit", method = RequestMethod.GET)
     public String getedit(int d_num, Model model) throws Exception{
@@ -210,7 +206,7 @@ public class DocController {
         return "redirect:/";
     }
 
-    // 접근 제한 설정 창 이동
+    // 접근 제한 페이지 이동
     @RequestMapping(value="/acl", method=RequestMethod.GET)
     public String getacl(Model model, int d_num) throws Exception{
         Doc doc = service.doc(d_num);
@@ -218,14 +214,14 @@ public class DocController {
         return "doc/acl";
     }
 
-    // 접근 제한 처리
+    // 접근 제한 설정
     @RequestMapping(value="/acl", method=RequestMethod.POST)
     public String postacl(Doc domain, int d_num) throws Exception{
         service.acl(domain);
         return "redirect:acl?d_num=" + d_num;
     }
 
-    // 문서 역사 보기
+    // 문서 역사 조회
     @RequestMapping("/doc_history")
     public String getDocumentHistory(@RequestParam("d_num") int d_num, Model model) {
         List<DocHistory> historyList = service.getDocHistory(d_num);
@@ -236,7 +232,7 @@ public class DocController {
         return "doc/doc_history";
     }
 
-    // 문서 버전별 보기
+    // 버전 별 문서 조호
     @RequestMapping("/doc_version")
     public String version(@RequestParam("d_num") int d_num, @RequestParam("d_version") String d_version, Model model) {
         Doc version = service.version(d_num, d_version);
@@ -244,7 +240,7 @@ public class DocController {
         return "doc/doc_version";
     }
 
-    // 즐겨찾기 추가
+    // 즐겨찾기 등록
     @RequestMapping(value="/starcheck")
     public String starin(Model model, Star vo, int d_num, String u_id) {
         Doc doc = service.doc(d_num);
@@ -263,7 +259,7 @@ public class DocController {
         return "redirect:userstar?u_id=" + u_id;
     }
 
-    // 사용자 즐겨찾기 목록 확인
+    // 사용자 즐겨찾기 목록 조회
     @RequestMapping(value="/userstar")
     public String userstar(Model model, @RequestParam("u_id") String u_id) throws Exception{
         List<Doc> star = service.userstar(u_id);
@@ -281,25 +277,11 @@ public class DocController {
         return "doc/userstar";
     }
 
-    // 인기 문서 출력
+    // 인기 있는 문서 조회
     @GetMapping(value="/popular")
     public String popular(Model model) throws Exception{
         List<Doc> list = service.popular();
         model.addAttribute("list", list);
         return "doc/popular";
     }
-
-    // 1단계 카테고리 삽입
-    @PostMapping(value="/addcategory")
-    public String addCategory(@RequestParam("id") String id, @RequestParam("name") String name) throws Exception{
-        service.addFirstCategory(id, name);
-        return "redirect:test";
-    }
-
-    @PostMapping(value="/deletecategory")
-    public String deleteCategory(@RequestParam("d_num")int d_num){
-        service.deleteCategory(d_num);
-        return "redirect:/test";
-    }
-
 }
