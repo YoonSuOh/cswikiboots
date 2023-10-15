@@ -1,225 +1,45 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<header id="header">
-    <div class="center-align">
-        <div id="header-search" style="clear:both">
-            <a href="/"><h1><span>CS위키</span></h1></a>
-            <h2 class="blind">검색창</h2>
-            <fieldset id="fieldset-doc">
-                <legend class="blind">검색</legend>
-                <form action="/doc/doc" method="get">
-                    <input type="text" name="d_title" placeholder="찾으시는 문서의 이름을 입력하세요."/>
-                    <button type="submit" id="searchBtn">
-                        <span class="blind">검색</span>
-                        <span id="search-image"></span>
-                    </button>
-                </form>
-            </fieldset>
-            <div id="menu">
-                <img th:if="${#httpServletRequest.getSession(false) != null}" class="menu" src="/img/user30.png" onclick="toggleMenu()">
-                <img th:if="${#httpServletRequest.getSession(false) == null}" class="menu" src="/img/menu30.png" onclick="toggleMenu()">
-                <div id="hmenu" class="mhidden">
-                    <th:block th:if="${#httpServletRequest.getSession(false) != null}">
-                        <div th:if="${session.member?.p_id<=2}" class="userInfo">
-                            <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
-                                <img class="box-item" src="/img/uinfo50.png">
-                                <span class="box-text">사용자 정보</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
-                                <img class="box-item" src="/img/userstar50.png">
-                                <span class="box-text">즐겨찾기 목록</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" onclick="togglemodify()">
-                                <img class="box-item" src="/img/security50.png">
-                                <span class="box-text">개인정보 수정</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" onclick="location.href='/member/logout';">
-                                <img class="box-item" src="/img/logout50.png">
-                                <span class="box-text">로그아웃</span>
-                            </div>
-                            <div class="box" href="/board/list">
-                                <img class="box-item" src="/img/board50.png">
-                                <span class="box-text">게시판</span>
-                            </div>
-                            <div class="box" href="/doc/help">
-                                <img class="box-item" src="/img/help50.png">
-                                <span class="box-text">도움말</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
-                                <img class="box-item" src="/img/rule50.png">
-                                <span class="box-text">규정</span>
-                            </div>
-                            <div class="box" onclick="location.href='/doc/category';">
-                                <img class="box-item" src="/img/category50.png">
-                                <span class="box-text">문서 분류</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/popular}'|">
-                                <img class="box-item" src="/img/popular50.png">
-                                <span class="box-text">인기있는 문서 목록</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
-                                <img class="box-item" src="/img/notice50.png">
-                                <span class="box-text">공지사항</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/create}'|">
-                                <img class="box-item" src="/img/newdoc50.png">
-                                <span class="box-text">새문서 만들기</span>
-                            </div>
-                        </div>
-                        <div th:if="${session.member?.p_id==3}" class="userInfo">
-                            <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
-                                <img class="box-item" src="/img/uinfo50.png">
-                                <span class="box-text">사용자 정보</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
-                                <img class="box-item" src="/img/userstar50.png">
-                                <span class="box-text">즐겨찾기 목록</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" onclick="togglemodify()">
-                                <img class="box-item" src="/img/security50.png">
-                                <span class="box-text">개인정보 수정</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" onclick="location.href='/member/logout';">
-                                <img class="box-item" src="/img/logout50.png">
-                                <span class="box-text">로그아웃</span>
-                            </div>
-                            <div class="box" href="/board/list">
-                                <img class="box-item" src="/img/board50.png">
-                                <span class="box-text">게시판</span>
-                            </div>
-                            <div class="box" href="/doc/help">
-                                <img class="box-item" src="/img/help50.png">
-                                <span class="box-text">도움말</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
-                                <img class="box-item" src="/img/rule50.png">
-                                <span class="box-text">규정</span>
-                            </div>
-                            <div class="box" onclick="location.href='/doc/category';">
-                                <img class="box-item" src="/img/category50.png">
-                                <span class="box-text">문서 분류</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/popular}'|">
-                                <img class="box-item" src="/img/popular50.png">
-                                <span class="box-text">인기있는 문서 목록</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
-                                <img class="box-item" src="/img/notice50.png">
-                                <span class="box-text">공지사항</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/create}'|">
-                                <img class="box-item" src="/img/newdoc50.png">
-                                <span class="box-text">새문서 만들기</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/memberlist}'|">
-                                <img class="box-item" src="/img/userselect50.png">
-                                <span class="box-text">사용자 조회</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/ban}'|">
-                                <img class="box-item" src="/img/ban50.png">
-                                <span class="box-text">사용자 차단</span>
-                            </div>
-                        </div>
-                        <div th:if="${session.member?.p_id==4}" class="userInfo">
-                            <div class="box" style=" cursor: pointer;" onclick="toggleInfo()">
-                                <img class="box-item" src="/img/uinfo50.png">
-                                <span class="box-text">사용자 정보</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
-                                <img class="box-item" src="/img/userstar50.png">
-                                <span class="box-text">즐겨찾기 목록</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" onclick="togglemodify()">
-                                <img class="box-item" src="/img/security50.png">
-                                <span class="box-text">개인정보 수정</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" onclick="location.href='/member/logout';">
-                                <img class="box-item" src="/img/logout50.png">
-                                <span class="box-text">로그아웃</span>
-                            </div>
-                            <div class="box" href="/board/list">
-                                <img class="box-item" src="/img/board50.png">
-                                <span class="box-text">게시판</span>
-                            </div>
-                            <div class="box" href="/doc/help">
-                                <img class="box-item" src="/img/help50.png">
-                                <span class="box-text">도움말</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
-                                <img class="box-item" src="/img/rule50.png">
-                                <span class="box-text">규정</span>
-                            </div>
-                            <div class="box" onclick="location.href='/doc/category';">
-                                <img class="box-item" src="/img/category50.png">
-                                <span class="box-text">문서 분류</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/popular}'|">
-                                <img class="box-item" src="/img/popular50.png">
-                                <span class="box-text">인기있는 문서 목록</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
-                                <img class="box-item" src="/img/notice50.png">
-                                <span class="box-text">공지사항</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/create}'|">
-                                <img class="box-item" src="/img/newdoc50.png">
-                                <span class="box-text">새문서 만들기</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/memberlist}'|">
-                                <img class="box-item" src="/img/userselect50.png">
-                                <span class="box-text">사용자 조회</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/ban}'|">
-                                <img class="box-item" src="/img/ban50.png">
-                                <span class="box-text">사용자 차단</span>
-                            </div>
-                            <div class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/member/grant}'|">
-                                <img class="box-item" src="/img/grant50.png">
-                                <span class="box-text">권한 부여</span>
-                            </div>
-                        </div>
-                    </th:block>
-                    <th:block th:unless="${#httpServletRequest.getSession(false) != null}">
-                        <div class="userInfo">
-                            <div class="box" style=" cursor: pointer;" onclick="location.href='/member/login';">
-                                <img class="box-item" src="/img/login50.png">
-                                <span class="box-text">로그인</span>
-                            </div>
-                            <div class="box" href="/board/list">
-                                <img class="box-item" src="/img/board50.png">
-                                <span class="box-text">게시판</span>
-                            </div>
-                            <div class="box" onclick="location.href='/member/join';">
-                                <img class="box-item" src="/img/join50.png">
-                                <span class="box-text">회원가입</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
-                                <img class="box-item" src="/img/rule50.png">
-                                <span class="box-text">규정</span>
-                            </div>
-                            <div class="box" onclick="location.href='/doc/category';">
-                                <img class="box-item" src="/img/category50.png">
-                                <span class="box-text">문서 분류</span>
-                            </div>
-                            <div class="box" href="/member/banlist">
-                                <img class="box-item" src="/img/ban50.png">
-                                <span class="box-text">차단 내역</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/popular}'|">
-                                <img class="box-item" src="/img/popular50.png">
-                                <span class="box-text">인기있는 문서 목록</span>
-                            </div>
-                            <div class="box" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
-                                <img class="box-item" src="/img/notice50.png">
-                                <span class="box-text">공지사항</span>
-                            </div>
-                            <div class="box" href="/board/report">
-                                <img class="box-item" src="/img/report50.png">
-                                <span class="box-text">신고</span>
-                            </div>
-                        </div>
-                    </th:block>
-                </div>
-            </div>
-        </div>
+<html>
+<link rel="stylesheet" href="/css/header.css">
+<header>
+    <div class="h-nav">
+        <ul class="h-ul">
+            <li class="h-ul-user"><a href="/html/login.html">로그인</a></li>
+            <li class="h-ul-user"><a href="/html/join.html">회원가입</a></li>
+            <li class="h-menu-img"><img class="menu-img" src="/img/menu.png">
+                <ul class="h-subdrop">
+                    <div class="dropdown">
+                        <li class="box">
+                            <img src="#">
+                            <span>공지사항</span>
+                        </li>
+                        <li class="box">
+                            <img src="#">
+                            <span>규정</span>
+                        </li>
+                        <li class="box">
+                            <img src="#">
+                            <span>문서분류</span>
+                        </li>
+                        <li class="box">
+                            <img src="#">
+                            <span>인기문서</span>
+                        </li>
+                        <li class="box">
+                            <img src="#">
+                            <span>게시판</span>
+                        </li>
+                        <li class="box">
+                            <img src="#">
+                            <span>차단내역</span>
+                        </li>
+                        <li class="box">
+                            <img src="#">
+                            <span>신고</span>
+                        </li>
+                    </div>
+                </ul>
+            </li>
+        </ul>
     </div>
 </header>
+</html>

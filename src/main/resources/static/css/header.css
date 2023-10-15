@@ -1,209 +1,84 @@
-@font-face{
-    font-family:'InterparkGothic'; /*font 이름*/
-    font-style: 'normal';
-    src: url("/font/InterparkGothicLight.ttf"); /* IE9 Compat Modes */
-}
-@font-face{
-    font-family:'InterparkGothicMedium'; /*font 이름*/
-    font-style: 'normal';
-    src: url("/font/InterparkGothicMedium.ttf"); /* IE9 Compat Modes */
-}
-@font-face{
-    font-family:'InterparkGothicBold'; /*font 이름*/
-    font-style: 'normal';
-    src: url("/font/InterparkGothicBold.ttf"); /* IE9 Compat Modes */
+:root{
+    --gray-color:#717271;
+    --light-gray-color:#dee0e5;
+    --midium-color:solid 2px skyblue;
+    --button-gray-color:#f0f1f0;
+
+    --button-text-gray-color:#5F6368;
 }
 
-a{
-    text-decoration:none;
-    color:blue;
+*{
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-family);
 }
 
-a:hover{
-    color:skyblue;
-}
-
-.blind{
-    position:absolute;
-    overflow:hidden;
-    clip : rect(0, 0, 0, 0);
-    margin : -1px;
-    width : 1px;
-    height : 1px;
-}
-
-.center-align{
-    margin:0 auto;
-    width:1080px;
-}
-
-header{
-    height: 170px;
-}
-
-#header-top{
-    float:right;
-    margin-top:8px;
-}
-
-#header-top span{
-    color: #888;
-    letter-spacing: -1px;
-    font-size:  11px;
-    line-height: 22px;
-}
-
-#header-top span a{
-    text-decoration:none;
-    color:inherit;
-}
-
-#header-top span a:hover{
-    color:skyblue;
-}
-
-#header-search{
-    clear:both;
-}
-
-#header-search a{
+a {
     text-decoration: none;
 }
 
-#header-search h1{
-    width:198px;
-    height:62px;
-    display:inline-block;
-    /* background-image : url(./sp_search.png);*/
-    /*background-position : 0px -1px;*/
-    /*background-repeat:no-repeat; */
-    background : url(/img/logo_skyblue.png) 0px 2px no-repeat;
-    vertical-align: middle;
-    position:relative;
-    top: 43px;
-    left: 145px;
+.h-nav {
+    padding: 10px;
+    display: flex;
 }
 
-#header-search h1 span{
-    display:none;
+.h-nav .h-ul {
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+    margin-top: 6px;
 }
 
-#header-search h2{
-    display:none;
+.h-subdrop {
+    list-style: none;
 }
 
-#header-search fieldset{
-    margin-left:18px;
-    padding: 12px 0 12px 10px;
-    width:521px;
-    height:49px;
-    display:inline-block;
-    border-radius:20px;
-    border: 2px solid skyblue;
-    vertical-align: middle;
-    position:relative;
-    left: 83px;
-    top:46px;
+.h-nav ul li {
+    margin-left: 15px;
 }
 
-#header-search fieldset input{
-    border: none;
-    padding : 0;
-    outline:none;
-    vertical-align: top;
-    width:405px;
-    height:23px;
+.h-nav ul li a{
+    color: var(--gray-color);
 }
 
-#header-search fieldset button{
-    width:49px;
-    height:49px;
-    border-radius:15px;
-    padding : 0;
-    background : skyblue;
-    position:relative;
-    top: -14px;
-    left: 49px;
-
+.h-nav ul li a:hover {
+    text-decoration: underline;
 }
 
-#search-image{
-    background-image: url(../img/sp_searchbtn.png);
-    background-position: 0px 0px;
-    background-repeat:no-repeat;
-    width:21px;
-    height:21px;
-    display:inline-block;
-    margin:14px;
+.h-drop img {
+    margin-left: 10px;
 }
 
-#logininfo{
-    position: absolute;
-    top: 0px;
-    left: -258px;
-}
-#menu{
-    position:relative;
-    top : -114px;
-    left : 1770px;
-    transition: background-color 0.3s, border-radius 0.3s;
+.h-ul-user{
+    margin-top: 6px;
 }
 
-@media (max-width: 1440px){
-    #menu{
-        position:relative;
-        top : -114px;
-        left : 1210px;
-        transition: background-color 0.3s, border-radius 0.3s;
-    }
+.h-menu-img{
+    position: relative;
+    display: inline-block;
+    border-radius: 10px;
 }
-.hidden {
+
+.h-menu-img:hover {
+    background-color:skyblue;
+}
+
+.dropdown{
     display: none;
-}
-.mhidden {
-	display: none;
-}
-.userInfo{
-    position:fixed;
-    display: flex;
-    flex-wrap: wrap;
-    left:2295px;
-    top: 60px;
-    width: 242px;
-    height:auto;
-    border-radius: 7px;
-    border: 1px solid #d1d8e4;
-    background-color:white;
+    position: absolute;
+    background-color: white;
+    right: 0px;
+    width: 160px;
+    padding: 8px;
+    border: 1.5px solid skyblue;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-@media (max-width: 1440px){
-    .userInfo{
-    	position:fixed;
-        display: flex;
-        flex-wrap: wrap;
-        left:1178px;
-        top: 60px;
-        width: 242px;
-        height:auto;
-        border-radius: 7px;
-        border: 1px solid #d1d8e4;
-    }
-}
-.box{
-    width: 80px;
-    height: 80px;
-    display: flex;
-    justify-content: center; /* 수평 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
+.h-menu-img:hover .dropdown {
+    display: block;
 }
 
-.box-item{
-    position: fixed;
-}
-
-.box-text {
-    font-family:InterparkGothicBold;
-    font-size:12px;
-    margin-top: 65px; /* 원하는 간격으로 조정 */
-    text-align: center; /* 가운데 정렬 */
+.box {
+    margin: 25px 0;
 }
