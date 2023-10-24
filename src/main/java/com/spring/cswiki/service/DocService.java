@@ -289,4 +289,8 @@ public class DocService{
     public void updateComment(int cm_num, String u_id, String cm_comment, LocalDateTime cm_time) {
         dao.updateComment(cm_num, u_id, cm_comment, cm_time);
     }
+    // 댓글 삭제하기
+    public void deleteComment(int cm_num, String u_id, int d_num) {
+        dao.deleteComment(cm_num, u_id, d_num);
+    }
 }

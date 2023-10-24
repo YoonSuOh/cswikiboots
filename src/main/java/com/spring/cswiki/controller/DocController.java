@@ -170,20 +170,13 @@ public class DocController {
     // 댓글 삭제
     @GetMapping("/comment/delete/{cm_num}")
     public String deleteComment(@PathVariable Integer cm_num, Model model, HttpSession session) {
-        Member member = (Member)session.getAttribute("member");
-        /*
-        if (member == null || !member.getU_id().equals(댓글 사용자 아이디)) {
-          직접 작성한 댓글이 아닌 경우 alert 또는 예외 처리
-          model.addAttribute("script", "alert('직접 작성한 댓글이 아닙니다.');history.back();");
-          return "doc/_execute_script";
-
-        }
-         */
         // 삭제 처리
+        Member member = (Member)session.getAttribute("member");
+        Comment comment = service.selectComment(cm_num);
+        service.deleteComment(cm_num, member.getU_id(), comment.getD_num());
 
         // 삭제 완료 후 현재 페이지 새로고침 후 마지막 위치로 이동
-
-        String script = "parent.location.href=parent.location.href.replace('&isDone=true', '') + '&isDone=true';";
+        String script = "parent.location.reload();";
         model.addAttribute("script", script);
         return "doc/_execute_script";
     }

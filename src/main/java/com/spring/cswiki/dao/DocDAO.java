@@ -53,4 +53,6 @@ public interface DocDAO {
     public Comment selectComment(@Param("cm_num")int cm_num);
     // 댓글 수정 기능
     public void updateComment(@Param("cm_num")int cm_num, @Param("u_id")String u_id, @Param("cm_comment")String cm_comment, @Param("cm_time")LocalDateTime cm_time);
+    // 댓글 삭제
+    public void deleteComment(@Param("cm_num")int cm_num, @Param("u_id")String u_id, @Param("d_num")int d_num);
 }

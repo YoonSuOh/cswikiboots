@@ -69,6 +69,11 @@
         UPDATE comment SET cm_comment = #{cm_comment}, cm_time = #{cm_time} WHERE cm_num = #{cm_num};
     </update>
 
+    <delete id="deleteComment">
+        DELETE FROM comment
+        WHERE cm_num = #{cm_num} AND d_num = #{d_num};
+    </delete>
+
     <!-- 새 문서 작성 -->
     <insert id="create" useGeneratedKeys="true" keyProperty="d_num">
         INSERT INTO doc (p_read, p_insert, p_update, p_delete, d_title, d_content, d_summary, d_available, lastvisit)
