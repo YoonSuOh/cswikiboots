@@ -59,7 +59,16 @@ public class MainController {
         System.out.println("2단계 카테고리 삽입");
         category.setId(parent_id);
         category.setName(name);
+        System.out.println("category id= " + category.getId());
+        System.out.println("category name= " + category.getName());
         service.addSecondCategory(category);
+        return "redirect:/test";
+    }
+
+    // 카테고리 수정
+    @PostMapping(value="/updatecategory")
+    public String updateCategory(@RequestParam("id") String id, @RequestParam("name") String name){
+        service.updateCategory(id, name);
         return "redirect:/test";
     }
 }

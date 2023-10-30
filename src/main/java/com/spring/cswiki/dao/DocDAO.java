@@ -38,6 +38,7 @@ public interface DocDAO {
     public Category selectFirstCategory(); // 제일 최근에 추가된 1단계 카테고리 가져오기
     public Category selectSecondCategory(String parent_id); // 부모 id와 일치되는 2단계 카테고리 중 제일 마지막에 추가된 카테고리 가져오기
     public Category selectThirdCategoryByParentId(String parent_id); // 부모 ID와 일치하는 3단계 카테고리 가져오기
+    public void updateCategory(@Param("id")String id, @Param("name")String name); // 카테고리 수정
     public int deleteCategory(int d_num); // 카테고리 삭제
     public void writeComment(@Param("u_id") String u_id, @Param("d_num") int d_num, @Param("cm_comment") String cm_comment, @Param("cm_time")LocalDateTime cm_time); // 특정 문서 댓글 추가 기능
     public List<Comment> readComment(int d_num); // 문서에 달린 댓글 읽어오기 기능

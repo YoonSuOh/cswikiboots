@@ -271,6 +271,8 @@ public class DocService{
         return dao.selectByCategoryId(d_num);
     }
 
+    // 카테고리 수정
+    public void updateCategory(String id, String name){dao.updateCategory(id, name);}
     // 카테고리 삭제
     public int deleteCategory(int d_num){
         return dao.deleteCategory(d_num);

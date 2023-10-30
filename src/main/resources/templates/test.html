@@ -6,57 +6,86 @@
         .hidden {
             display: none;
         }
+
+        .context-hidden{
+            display:none;
+        }
+
+        .delete-button {
+            display: none;
+        }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <ul>
-        <form action="/addcategory" method="post">
-            <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
-        </form>
-        <li th:each="category : ${jsonData}">
-            <span th:text="${category['name']}" class="category-toggle"></span>
-            <span style="display:none" th:text="${category['id']}" class="category-toggle" id="p"></span>
-            <ul class="hidden">
-                <form action="/addsecondcategory" method="post">+
-                    <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
-                    <input type="hidden" name="parent_id" id="parent"/>
-                </form>
-                <li th:each="child : ${category['children']}">
-                    <span th:text="${child['name']}" class="category-toggle"></span>
-                    <ul class="hidden">
-                        <li th:each="lastChild : ${child['children']}">
-                            <a th:href="@{/doc/doc(d_num=${lastChild['d_num']})}" th:text="${lastChild['name']}"></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
+<ul> <!-- 1단계 카테고리 -->
+    <form action="/addcategory" method="post">
+        <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+    </form>
+    <li th:each="category : ${jsonData}">
+        <div>
+            <span class="category-toggle" th:text="${category['name']}"></span>
+            <input type="text" value="" class="edit-input hidden" />
+            <button class="delete-button">삭제</button>
+        </div>
+        <span style="display:none" th:text="${category['id']}" class="p"></span>
+        <ul class="hidden"> <!-- 2단계 카테고리 -->
+            <form action="/addsecondcategory" method="post">
+                <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+                <input type="hidden" name="parent_id" id="parent"/>
+            </form>
+            <li th:each="child : ${category['children']}">
+                <div>
+                    <span class="category-toggle" th:text="${child['name']}"></span>
+                    <input type="text" value="" class="edit-input hidden" />
+                    <button class="delete-button">삭제</button>
+                </div>
+                <span style="display:none" th:text="${category['id']}" class="p"></span>
+                <ul class="hidden"> <!-- 3단계 카테고리 -->
+                    <li th:each="lastChild : ${child['children']}">
+                        <a th:href="@{/doc/doc(d_num=${lastChild['d_num']})}" th:text="${lastChild['name']}"></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
 <script>
-    // JavaScript 코드
-    // JavaScript 코드
-    var toggleButtons = document.querySelectorAll('.category-toggle');
-
-    toggleButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            var parentUl = button.parentElement.querySelector('ul');
-            if (parentUl) {
-                if (parentUl.classList.contains('hidden')) {
-                    parentUl.classList.remove('hidden');
+    $(document).ready(function() {
+        // 카테고리 펼치기/접기 이벤트 처리
+        $('.category-toggle').on('click',function() {
+            var parentUl = $(this).parent().find('ul');
+            if (parentUl.length) {
+                if (parentUl.hasClass('hidden')) {
+                    parentUl.removeClass('hidden');
                 } else {
-                    parentUl.classList.add('hidden');
+                    parentUl.addClass('hidden');
                 }
             }
 
-            var idElement = button.parentElement.querySelector('#p');
-            if (idElement) {
-                // 선택한 카테고리의 id 값을 가져와서 parent_id 필드에 할당
-                var parentIdInput = button.parentElement.querySelector('input[name="parent_id"]');
-                parentIdInput.value = idElement.textContent;
+            var idElement = $(this).parent().find('.p');
+            if (idElement.length) {
+                var parentIdInput = $(this).parent().find('input[name="parent_id"]');
+                parentIdInput.val(idElement.text());
             }
+        });
+        $('.category-name').on('dblclick', function() {
+            var parent = $(this).parent();
+            var categoryText = $(this);
+            var editInput = parent.find('.edit-input');
+            var deleteButton = parent.find('.delete-button');
+
+            categoryText.hide();
+            editInput.val(categoryText.text()).removeClass('hidden').focus();
+            deleteButton.show();
         });
     });
 </script>
+
 </body>
 </html>
+
+
+
+
+
