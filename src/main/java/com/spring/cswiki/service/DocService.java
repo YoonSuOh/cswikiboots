@@ -17,6 +17,31 @@ import java.util.Map;
 public class DocService{
     private final DocDAO dao;
 
+    public List<BigCategory> list() {
+        return dao.list();
+    }
+
+
+    public List<SmallCategory> s_category(int b_ca_num) {
+        return dao.s_category(b_ca_num);
+    }
+
+
+    public List<Doc> doc_list(int s_ca_num) {
+        return dao.doc_list(s_ca_num);
+    }
+
+
+    public void createbigcategory(BigCategory vo) {
+        dao.createbigcategory(vo);
+    }
+
+
+    public void createsmallcategory(SmallCategory vo) {
+        dao.createsmallcategory(vo);
+    }
+
+
     public int create(Doc dto) {
         int result = dao.create(dto);
         if (result > 0) {
@@ -60,22 +85,22 @@ public class DocService{
         return result;
     }
 
-     
+
     public List<DocHistory> getDocHistory(int d_num) {
         return dao.getDocHistory(d_num);
     }
 
-     
+
     public Doc version(int d_num, String d_version) {
         return dao.version(d_num, d_version);
     }
 
-     
+
     public Doc doc(int d_num) {
         return dao.doc(d_num);
     }
 
-     
+
     public void setDocTimeNum(int d_num, LocalDateTime lastVisit) {
         Doc doc = this.doc(d_num);
         int docNum = doc.getD_num();
@@ -83,7 +108,7 @@ public class DocService{
         dao.setDocTimeNum(d_num, timestamp);
     }
 
-     
+
     public void setDocTimeTitle(String d_title, LocalDateTime lastVisit) {
         Doc doc = this.search(d_title);
         String docTitle = doc.getD_title();
@@ -91,12 +116,18 @@ public class DocService{
         dao.setDocTimeTitle(docTitle, timestamp);
     }
 
-     
+
     public Timestamp getDocTimeTitle(String d_title) {
         Doc doc = this.search(d_title);
         String docTitle= doc.getD_title();
         return dao.getDocTimeTitle(docTitle);
     }
+
+
+    public SmallCategory getcategory(int d_num) {
+        return dao.getcategory(d_num);
+    }
+
 
     public int edit(Doc dto) {
         int result = dao.edit(dto);
@@ -111,39 +142,50 @@ public class DocService{
         return result;
     }
 
+    public List<SmallCategory> selectcategory() {
+        return dao.selectcategory();
+    }
+
+
     public void delete(int d_num) {
         dao.delete(d_num);
     }
 
-     
+
     public void acl(Doc dto) {
         dao.acl(dto);
     }
 
-     
+
     public Doc search(String d_title) {
         return dao.search(d_title);
     }
 
-     
+
     public int starin(Star vo) {
         return dao.starin(vo);
     }
 
-     
+
     public int starout(Star vo) {
         return dao.starout(vo);
     }
 
-     
+
     public List<Doc> userstar(String u_id) {
         return dao.userstar(u_id);
     }
 
-     
+
     public List<Doc> popular() {
         return dao.popular();
     }
+
+
+    public List<Doc> sidebar() {
+        return dao.sidebar();
+    }
+
 
     public List<Map<String, Object>> generateCategoryTreeJson() {
         List<Category> dblist = dao.selectAll();
@@ -190,23 +232,12 @@ public class DocService{
     }
 
     public void addFirstCategory(String id, String name){
-        Category category = dao.selectFirstCategory();
-        System.out.println("[카테고리 코드 :" + category.getId() + "]");
-        System.out.println("[카테고리 이름 :" + name + "]");
-        int asciiCode = (int) category.getId().charAt(0);
-
-        char alphabet = (char)(asciiCode+1);
-        id = String.valueOf(alphabet);
-        System.out.println("category_id : " + id);
         dao.insertFirstCategory(id, name);
-    }
-
-    // 1단계 카테고리 삽입
+    } // 1단계 카테고리 삽입
     public void addSecondCategory(Category category){
         dao.insertSecondCategory(category);
-    }
+    } // 2단계 카테고리 삽입
 
-    // 2단계 카테고리 삽입
     public List<Category> selectSecondCategory() {
         List<Category> dblist = dao.selectAll(); // DB에서 조회
         List<Category> secondCategory = new ArrayList<>();
@@ -240,14 +271,8 @@ public class DocService{
         return thirdCategory;
     }
 
-    // 카테고리 ID 가져오기
     public Category getByCategoryId(int d_num){
         return dao.selectByCategoryId(d_num);
-    }
-
-    // 카테고리 삭제
-    public int deleteCategory(int d_num){
-        return dao.deleteCategory(d_num);
     }
 
     // 문서에 댓글 추가하기
@@ -257,5 +282,15 @@ public class DocService{
     // 문서에 달린 댓글 읽어오기
     public List<Comment> readComment(int d_num) {
         return dao.readComment(d_num);
+    }
+    // 댓글 번호로 댓글 찾기
+    public Comment selectComment(int cm_num) { return dao.selectComment(cm_num); }
+    // 댓글 수정하기
+    public void updateComment(int cm_num, String u_id, String cm_comment, LocalDateTime cm_time) {
+        dao.updateComment(cm_num, u_id, cm_comment, cm_time);
+    }
+    // 댓글 삭제하기
+    public void deleteComment(int cm_num, String u_id, int d_num) {
+        dao.deleteComment(cm_num, u_id, d_num);
     }
 }

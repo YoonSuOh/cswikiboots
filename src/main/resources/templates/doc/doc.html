@@ -23,19 +23,19 @@
 </script>
 <script>
     document.getElementById("searchBtn").onclick = function () {
-        let keyword =  document.getElementsByName("d_title")[0].value;
+        let keyword = document.getElementsByName("d_title")[0].value;
         console.log(title)
         location.href = "/doc/search" + "&title=" + title;
     }
 </script>
 
 <div th:insert="/header :: header"></div>
-<div th:insert="/sidebarnav.html"></div>
+<div th:insert="/sidebarnav"></div>
 <main>
     <div id="doc">
         <hr>
         <div class="doc_inner">
-            <span class="title">[[${doc?.d_title}]]</span>
+            <span class="title">[[${doc.d_title}]]</span>
             <div class="selectbox">
                 <ul>
                     <li>
@@ -85,21 +85,38 @@
         <hr>
         <form method="post" th:action="@{/doc/comment}" target="ifrmProcess">
             <th:block th:if="${session.member != null}">
-                <p th:text="${session.member.u_id}"></p>
+                <p class="comment" th:text="${session.member.u_id}"></p>
                 <input type="hidden" name="u_id" th:value="${session.member.u_id}">
                 <input type="hidden" name="d_num" th:value="${doc.d_num}">
                 <input type="hidden" name="d_title" th:value="${doc.d_title}">
             </th:block>
             <th:block th:if="${session.member == null}">
-                <p>비로그인 유저</p>
+                <p class="comment">비로그인 유저</p>
             </th:block>
-            <input type="text" name="cm_comment" placeholder="댓글 작성 부분">
-            <input type="submit" id="writeButton" value="등록">
+            <input class="commentbox" type="text" name="cm_comment" placeholder="댓글 작성 부분">
+            <input class="writebtn" type="submit" id="writeButton" value="등록">
         </form>
         <br><br><hr>
-        <div id="commentBox" th:each="comment : ${comment}">
-            <strong><p th:text="${comment.u_id}"></p></strong>
-            <p th:text="${comment.cm_comment}"></p>
+        <div class="commentBox" th:each="c, status : ${comment}">
+            <strong><p class="comment" th:text="${c.u_id}"></p></strong>
+            <input type="hidden" th:value="${c.cm_num}">
+            <p class="commenttext" th:text="${c.cm_comment}"></p>
+            <div th:if="${session.u_id == c.u_id}">
+                <details>
+                    <summary style="cursor: pointer">수정/삭제하기</summary>
+                    <div>
+                        <form method="post" th:action="@{/doc/comment/update}" target="ifrmProcess">
+                            <input type="hidden" name="cm_num" th:value="${c.cm_num}">
+                            <input class="commentbox" type="text" name="cm_comment" placeholder="댓글 수정 부분">
+                            <input style="cursor: pointer" class="writebtn" type="submit" id="updateLink" value="수정">
+                        </form>
+                        <button class="deletebtn">
+                            <a th:href="@{/doc/comment/delete/{cm_num}(cm_num=${c.cm_num})}" id="deleteLink" onclick="return confirm('정말 삭제하시겠습니까?');" target="ifrmProcess">삭제</a>
+                        </button>
+                    </div>
+                </details>
+            </div>
+            <a th:if="${status.last}" id="comment_last"></a>
         </div>
     </div>
     <script type="text/javascript" src="/js/indexLink.js"></script>
