@@ -100,9 +100,16 @@ body {
     transition: .5s;
 }
 
-.side-bar ul > li > a {
+.side-bar .parentmenu > li > a {
     color: white;
     font-size: 20pt;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.side-bar .childmenu > li > a {
+    color: white;
+    font-size: 12pt;
     padding: 10px 20px;
     white-space: nowrap;
 }
@@ -132,7 +139,7 @@ body {
     position: relative;
 }
 
-.side-bar > ul > li:hover > ul {
+.side-bar > ul > li:hover > .childmenu {
     display: block;
 }
 
@@ -143,6 +150,11 @@ body {
 .side-bar:hover li a{
     display: block;
 }
+
+.childmenu {
+    display: none;
+}
+
 /* 사이드바-메뉴 끝 */
 
 /* 커스텀 끝 */
