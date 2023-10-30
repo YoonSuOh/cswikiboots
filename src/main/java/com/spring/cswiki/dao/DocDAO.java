@@ -30,11 +30,14 @@ public interface DocDAO {
     public List<Doc> userstar(String u_id); // 즐겨찾기 한 문서 목록 조회
     public List<Doc> popular(); // 즐겨찾기가 가장 많이 된 문서 목록 출력
     public List<Doc> sidebar(); // 사이드바 카테고리 출력
+
+    /* 카테고리 트리뷰 테스트 코드 */
     List<Category> selectAll(); // 카테고리 조회
     public void insertFirstCategory(@Param("id") String id, @Param("name") String name); // 1단계 카테고리 삽입
     public void insertSecondCategory(Category category); // 2단계 카테고리 삽입
     public void insertThirdCategory(@Param("id") String id, @Param("name") String name, @Param("parent_id") String parent_id, @Param("d_num") int d_num); // 3단계 카테고리 삽입
     public Category selectByCategoryId(int d_num); // 편집 시 해당하는 카테고리 가져오기
+<<<<<<< HEAD
     public Category selectFirstCategory(); // 제일 최근에 추가된 1단계 카테고리 가져오기
     public Category selectSecondCategory(String parent_id); // 부모 id와 일치되는 2단계 카테고리 중 제일 마지막에 추가된 카테고리 가져오기
     public Category selectThirdCategoryByParentId(String parent_id); // 부모 ID와 일치하는 3단계 카테고리 가져오기
@@ -43,3 +46,18 @@ public interface DocDAO {
     public void writeComment(@Param("u_id") String u_id, @Param("d_num") int d_num, @Param("cm_comment") String cm_comment, @Param("cm_time")LocalDateTime cm_time); // 특정 문서 댓글 추가 기능
     public List<Comment> readComment(int d_num); // 문서에 달린 댓글 읽어오기 기능
 }
+=======
+    public Category selectThirdCategoryByParentId(String parent_id); // 부모 ID와 일치하는 3단계 카테고리 가져오기
+
+    // 특정 문서 댓글 추가 기능
+    public void writeComment(@Param("u_id") String u_id, @Param("d_num") int d_num, @Param("cm_comment") String cm_comment, @Param("cm_time")LocalDateTime cm_time);
+    // 문서에 달린 댓글 읽어오기 기능
+    public List<Comment> readComment(@Param("d_num")int d_num);
+    // 댓글 번호로 댓글 찾기
+    public Comment selectComment(@Param("cm_num")int cm_num);
+    // 댓글 수정 기능
+    public void updateComment(@Param("cm_num")int cm_num, @Param("u_id")String u_id, @Param("cm_comment")String cm_comment, @Param("cm_time")LocalDateTime cm_time);
+    // 댓글 삭제
+    public void deleteComment(@Param("cm_num")int cm_num, @Param("u_id")String u_id, @Param("d_num")int d_num);
+}
+>>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8

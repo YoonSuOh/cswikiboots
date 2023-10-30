@@ -68,8 +68,8 @@ a {
     position: absolute;
     background-color: white;
     right: 0px;
-    width: 160px;
-    padding: 8px;
+    width: 170px;
+    padding: 10px;
     border: 1.5px solid skyblue;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -81,4 +81,14 @@ a {
 
 .box {
     margin: 25px 0;
+}
+
+.box:hover .box-text{
+    text-decoration-color: skyblue;
+}
+
+.box-item {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }

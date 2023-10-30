@@ -3,10 +3,36 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.cswiki.dao.DocDAO">
-    <!-- 카테고리 전체 조회 -->
     <select id="selectAll" resultType="com.spring.cswiki.domain.Category">
         SELECT id, name, parent_id, d_num FROM category where disable = 0;
     </select>
+
+    <!-- 1단계 분류
+    <select id="list" resultType="com.spring.cswiki.domain.BigCategory">
+        SELECT
+        b_ca_name, b_ca_num
+        FROM big_category WHERE b_ca_avaliable = 1
+    </select>
+
+    &lt;!&ndash; 2단계 분류 &ndash;&gt;
+    <select id="s_category" resultType="com.spring.cswiki.domain.SmallCategory">
+        SELECT s_ca_name, s_ca_num FROM small_category WHERE b_ca_num = #{b_ca_num} and s_ca_avaliable = 1
+    </select>
+
+    &lt;!&ndash; 1단계 분류 추가 &ndash;&gt;
+    <insert id="createbigcategory" useGeneratedKeys="true" keyProperty="b_ca_num">
+        INSERT INTO big_category (b_ca_name, b_ca_avaliable)
+        VALUES (#{b_ca_name}, 1)
+    </insert>
+    &lt;!&ndash; 2단계 분류 추가 &ndash;&gt;
+    <insert id="createsmallcategory" useGeneratedKeys="true" keyProperty="s_ca_num">
+        INSERT INTO small_category (s_ca_name, b_ca_num, s_ca_avaliable)
+        VALUES (#{s_ca_name}, #{b_ca_num}, 1)
+    </insert>
+    &lt;!&ndash; 문서 리스트 &ndash;&gt;
+    <select id="doc_list" resultType="com.spring.cswiki.domain.Doc">
+        SELECT d_title, d_num FROM doc WHERE s_ca_num = #{s_ca_num} AND d_available = 1
+    </select>-->
 
     <!-- 문서번호 접속시 접속날짜 업데이트 -->
     <update id="setDocTimeNum">
@@ -33,12 +59,31 @@
         SELECT * FROM comment WHERE d_num = #{d_num};
     </select>
 
+    <!-- 댓글 번호로 댓글 찾기 -->
+    <select id="selectComment" resultType="com.spring.cswiki.domain.Comment">
+        SELECT * FROM comment WHERE cm_num = #{cm_num};
+    </select>
+
+    <!-- 댓글 수정하기 -->
+    <update id="updateComment">
+        UPDATE comment SET cm_comment = #{cm_comment}, cm_time = #{cm_time} WHERE cm_num = #{cm_num};
+    </update>
+
+    <delete id="deleteComment">
+        DELETE FROM comment
+        WHERE cm_num = #{cm_num} AND d_num = #{d_num};
+    </delete>
+
     <!-- 새 문서 작성 -->
     <insert id="create" useGeneratedKeys="true" keyProperty="d_num">
         INSERT INTO doc (p_read, p_insert, p_update, p_delete, d_title, d_content, d_summary, d_available, lastvisit)
         VALUES (1, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1, null);
     </insert>
 
+    <!-- 문서 작성 시 2단계 카테고리 선택 -->
+    <select id="selectcategory">
+        select * from small_category
+    </select>
     <!-- 새 문서 작성 시 역사 생성 -->
     <insert id="createDocHistory" useGeneratedKeys="true" keyProperty="d_num">
         INSERT INTO doc_history (d_version, d_num, d_date, u_id, d_summary, d_content)
@@ -54,11 +99,11 @@
     <update id="edit">
         UPDATE doc
         SET
-        s_ca_num = #{s_ca_num},
-        d_title = #{d_title},
-        d_content = #{d_content},
-        d_summary = #{d_summary},
-        u_id = #{u_id}
+            s_ca_num = #{s_ca_num},
+            d_title = #{d_title},
+            d_content = #{d_content},
+            d_summary = #{d_summary},
+            u_id = #{u_id}
         WHERE d_num = #{d_num}
     </update>
 
@@ -76,8 +121,8 @@
     <update id="acl">
         UPDATE doc
         SET p_read = #{p_read},
-        p_update = #{p_update},
-        p_delete = #{p_delete}
+            p_update = #{p_update},
+            p_delete = #{p_delete}
         WHERE d_num = #{d_num}
     </update>
 
@@ -85,7 +130,7 @@
     <update id="aclwipe">
         UPDATE doc
         SET p_read = 1
-        p_update = 2
+            p_update = 2
         p_delete = 2
         WHERE d_num = #{d_num}
     </update>
@@ -107,14 +152,17 @@
 
     <!-- 문서 검색 -->
     <select id="search" resultType="com.spring.cswiki.domain.Doc">
-        SELECT * FROM doc WHERE d_title = #{d_title};
+        SELECT d.d_num, d.s_ca_num, d.p_read, d.p_insert, d.p_update, d.p_delete, d.d_title, d.d_content, sc.s_ca_name, b.b_ca_name FROM doc d
+                                                                                                                                             JOIN small_category sc on sc.s_ca_num = d.s_ca_num
+                                                                                                                                             JOIN big_category b on b.b_ca_num = sc.b_ca_num
+        WHERE d_title = #{d_title};
     </select>
 
     <!-- 문서 역사  -->
     <select id="getDocHistory" resultType="com.spring.cswiki.domain.DocHistory">
         SELECT d.d_num, d.d_content, dh.d_version, dh.d_date, dh.d_summary, dh.u_id
         FROM doc d
-        JOIN doc_history dh ON d.d_num = dh.d_num
+                 JOIN doc_history dh ON d.d_num = dh.d_num
         WHERE d.d_num = #{d_num} AND d_available = 1
         ORDER BY d_date DESC
     </select>
@@ -123,7 +171,7 @@
     <select id="version" resultType="com.spring.cswiki.domain.Doc">
         SELECT d.d_num, d.d_title, d.p_read, d.p_insert, d.p_update, d.p_delete, dh.d_content, dh.d_version, dh.d_date, dh.d_summary, dh.u_id
         FROM doc d
-        JOIN doc_history dh ON d.d_num = dh.d_num
+                 JOIN doc_history dh ON d.d_num = dh.d_num
         WHERE d.d_num = #{d_num} AND d_available = 1 AND dh.d_version = #{d_version} order by dh.d_version DESC
     </select>
 
@@ -152,22 +200,26 @@
     <select id="popular" resultType="com.spring.cswiki.domain.Doc">
         SELECT d.d_num, d.d_title, d.p_read, d.p_insert, d.p_update, d.p_delete, s.star, s.d_num
         FROM doc d
-        JOIN (
-        SELECT d_num, MAX(star) AS star
-        FROM star
-        GROUP BY d_num
+                 JOIN (
+            SELECT d_num, MAX(star) AS star
+            FROM star
+            GROUP BY d_num
         ) s ON d.d_num = s.d_num
         ORDER BY s.star DESC;
     </select>
 
+    <!-- 카테고리 테스트 코드 -->
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
         INSERT INTO category(id, name) VALUES(#{id}, #{name})
     </insert>
-
     <!-- 2단계 카테고리 생성 -->
     <insert id="insertSecondCategory">
+<<<<<<< HEAD
         INSERT INTO category
+=======
+        INSERT INTO
+>>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
             (
                 id,
                 name,
@@ -175,18 +227,18 @@
             )
             VALUES
         (
-            #{id}
-            ,#{name}
-            ,#{parent_id}
+            id = #{id}
+            ,name = #{name}
+            ,parent_id = #{parent_id}
             )
     </insert>
-
     <!-- 3단계 카테고리(문서 목록) 생성 -->
     <insert id="insertThirdCategory">
         INSERT INTO category(id, name, parent_id, d_num)
         VALUES(#{id}, #{name}, #{parent_id} ,#{d_num})
     </insert>
 
+<<<<<<< HEAD
     <!-- 1단계 카테고리 중 마지막 카테고리 가져오기 -->
     <select id="selectFirstCategory" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM cswiki.category where parent_id IS NULL ORDER BY idx DESC LIMIT 1;
@@ -197,6 +249,8 @@
         SELECT * FROM cswiki.category where parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
 
+=======
+>>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     <!-- 2단계 카테고리에 해당하는 문서 목록 가져오기 -->
     <select id="selectByCategoryId" resultType="com.spring.cswiki.domain.Category">
         SELECT parent_id, id, name FROM category WHERE d_num = #{d_num};
@@ -206,6 +260,7 @@
     <select id="selectThirdCategoryByParentId" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM category WHERE parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
+<<<<<<< HEAD
 
     <!-- 카테고리 수정 -->
     <update id="updateCategory">
@@ -218,4 +273,6 @@
         DELETE from categorty;
     </delete>
 
+=======
+>>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
 </mapper>

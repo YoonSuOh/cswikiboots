@@ -102,7 +102,7 @@ table {
     width: 100%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
-  }
+}
 th, td{
     border-bottom: 1px solid #444444;
     padding: 10px;
@@ -171,4 +171,65 @@ footer{
 #doc_index .doc_index_list{
     font-size: 25px;
     padding-bottom: 20px;
+}
+
+details summary:hover {
+    color: skyblue;
+}
+
+.comment {
+    padding-top: 50px;
+    font-size: 13pt;
+}
+
+.writebtn {
+    width: 80px;
+    height: 40px;
+    background-color: skyblue;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.writebtn:hover {
+    background-color: #00B9CE;
+}
+
+.deletebtn {
+    width: 80px;
+    height: 41px;
+    background-color: skyblue;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin-top: 6px;
+    margin-left: 3px;
+}
+
+.deletebtn:hover {
+    background-color: #00B9CE;
+}
+
+.commentbox {
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    margin-top: 5px;
+}
+
+details {
+    margin-top: 20px;
+}
+
+details a {
+    padding-top: 20px;
+}
+
+details div {
+    display: flex;
+}
+
+.commenttext {
+    margin-top: 10px;
 }

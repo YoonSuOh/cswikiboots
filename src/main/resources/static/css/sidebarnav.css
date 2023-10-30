@@ -84,14 +84,7 @@ a {
 /* 사이드바-아이콘 끝 */
 
 /* 사이드바-메뉴 시작 */
-.side-bar > ul ul {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 100%;
-    background-color: #666;
-}
+
 
 body {
     height: auto;
@@ -107,26 +100,18 @@ body {
     transition: .5s;
 }
 
-.side-bar ul > li > a {
-    display: block;
+.side-bar .parentmenu > li > a {
     color: white;
-    font-size: 1.7rem;
+    font-size: 20pt;
     padding: 10px 20px;
     white-space: nowrap;
 }
 
-.side-bar > ul > li > a > span:first-child {
-    position: relative;
-    display: inline-block;
-    border: 5px solid white;
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-    margin-right: 15px;
-}
-
-.side-bar > ul > li > a > span:last-child {
-    opacity: 0;
+.side-bar .childmenu > li > a {
+    color: white;
+    font-size: 12pt;
+    padding: 10px 20px;
+    white-space: nowrap;
 }
 
 .side-bar > ul > li > a > span > i {
@@ -134,10 +119,6 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.side-bar ul > li > a > span {
-    vertical-align: middle;
 }
 
 .side-bar:hover {
@@ -158,9 +139,22 @@ body {
     position: relative;
 }
 
-.side-bar > ul > li:hover > ul {
+.side-bar > ul > li:hover > .childmenu {
     display: block;
 }
+
+.side-bar ul li a {
+    display: none;
+}
+
+.side-bar:hover li a{
+    display: block;
+}
+
+.childmenu {
+    display: none;
+}
+
 /* 사이드바-메뉴 끝 */
 
 /* 커스텀 끝 */

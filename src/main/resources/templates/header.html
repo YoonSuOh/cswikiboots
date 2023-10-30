@@ -3,38 +3,39 @@
 <header>
     <div class="h-nav">
         <ul class="h-ul">
-            <li class="h-ul-user"><a href="/html/login.html">로그인</a></li>
-            <li class="h-ul-user"><a href="/html/join.html">회원가입</a></li>
+            <li th:if="${#httpServletRequest.getSession(false) != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/logout';">로그아웃</a></li>
+            <li th:if="${#httpServletRequest.getSession(false) == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/login';">로그인</a></li>
+            <li th:if="${#httpServletRequest.getSession(false) == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/join';">회원가입</a></li>
             <li class="h-menu-img"><img class="menu-img" src="/img/menu.png">
                 <ul class="h-subdrop">
                     <div class="dropdown">
-                        <li class="box">
-                            <img src="#">
-                            <span>공지사항</span>
+                        <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
+                            <img class="box-item" src="/img/notice50.png">
+                            <span class="box-text">공지사항</span>
                         </li>
-                        <li class="box">
-                            <img src="#">
-                            <span>규정</span>
+                        <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
+                            <img class="box-item" src="/img/rule50.png">
+                            <span class="box-text">규정</span>
                         </li>
-                        <li class="box">
-                            <img src="#">
-                            <span>문서분류</span>
+                        <li class="box" style="cursor: pointer" onclick="location.href='/doc/category';">
+                            <img class="box-item" src="/img/category50.png">
+                            <span class="box-text">문서분류</span>
                         </li>
-                        <li class="box">
-                            <img src="#">
-                            <span>인기문서</span>
+                        <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/popular}'|">
+                            <img class="box-item" src="/img/popular50.png">
+                            <span class="box-text">인기문서</span>
                         </li>
-                        <li class="box">
-                            <img src="#">
-                            <span>게시판</span>
+                        <li class="box" style="cursor: pointer" onclick="location.href='/board/list';">
+                            <img class="box-item" src="/img/board50.png">
+                            <span class="box-text">게시판</span>
                         </li>
-                        <li class="box">
-                            <img src="#">
-                            <span>차단내역</span>
+                        <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/member/banlist}'|">
+                            <img class="box-item" src="/img/ban50.png">
+                            <span class="box-text">차단내역</span>
                         </li>
-                        <li class="box">
-                            <img src="#">
-                            <span>신고</span>
+                        <li class="box" style="cursor: pointer" onclick="location.href='board/report';">
+                            <img class="box-item" src="/img/report50.png">
+                            <span class="box-text">신고</span>
                         </li>
                     </div>
                 </ul>
