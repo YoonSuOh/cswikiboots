@@ -114,6 +114,13 @@ body {
     white-space: nowrap;
 }
 
+.side-bar .child2menu > li > a {
+    color: black;
+    font-size: 10pt;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
 .side-bar > ul > li > a > span > i {
     position: absolute;
     top: 50%;
