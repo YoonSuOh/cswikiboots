@@ -3,7 +3,6 @@
 <head>
     <link rel="stylesheet" href="/css/doc.css">
     <link rel="stylesheet" href="/css/doc/header.css">
-    <link rel="stylesheet" href="/css/sidebarnav.css">
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
@@ -21,33 +20,31 @@
 </head>
 <body style="overflow-x: hidden">
 <script>
-        function toggleMenu() {
-          var userInfo = document.getElementById("hmenu");
-          userInfo.classList.toggle("mhidden");
-        }
-    </script>
+    function toggleMenu() {
+        var userInfo = document.getElementById("hmenu");
+        userInfo.classList.toggle("mhidden");
+    }
+</script>
 <script>
-        document.getElementById("searchBtn").onclick = function () {
-         let keyword =  document.getElementsByName("d_title")[0].value;
-         console.log(title)
-         location.href = "/doc/search" + "&title=" + title;
-        }
-    </script>
+    document.getElementById("searchBtn").onclick = function () {
+        let keyword =  document.getElementsByName("d_title")[0].value;
+        console.log(title)
+        location.href = "/doc/search" + "&title=" + title;
+    }
+</script>
 
 <div th:insert="/header :: header"></div>
-<div th:insert="/sidebarnav.html"></div>
-
 <main>
     <div id="doc">
         <hr>
         <div id="list">
             <div class="list_inner">
                 <span class="title">내 문서함</span>
-                    <ul>
-                        <div id="category" th:each="star : ${star}">
-                            <li><span th:text="${star.lastVisit}"></span> <a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
-                        </div>
-                    </ul>
+                <ul>
+                    <div id="category" th:each="star : ${star}">
+                        <li><span th:text="${star.lastVisit}"></span> <a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
+                    </div>
+                </ul>
             </div>
         </div>
     </div>
