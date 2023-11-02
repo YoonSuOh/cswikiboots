@@ -1,84 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/templates/sidebar.css">
-</head>
-<body>
 <aside class="side-bar">
-    <section class="side-bar__icon-box">
-        <section class="side-bar__icon-1">
-            <div></div>
-            <div></div>
-            <div></div>
-        </section>
+<section class="side-bar__icon-box">
+    <section class="side-bar__icon-1">
+        <div></div>
+        <div></div>
+        <div></div>
     </section>
-<<<<<<< HEAD
-    <ul>
-        <li th:each="category : ${jsonData}">
-            <a href="#">
-                <span><i class="fa-solid fa-cat"></i></span>
-                <span th:text="${category['name']}"></span>
-                <span style="display:none" th:text="${category['id']}" class="category-toggle" id="p"></span>
-            </a>
-            <ul class="hidden">
-                <li th:each="child : ${category['children']}">
-                    <a href="#"><span th:text="${child['name']}" class="category-toggle"></span></a>
-                    <ul class="hidden">
+</section>
+    <ul class="parentmenu">
+        <div class="add-area">
+            <span>분류 (3)</span>
+            <span class="add-btn">+</span>
+        </div>
+        <div class="add-form">
+            <form method="post" action="/addcategory">
+                <input type="text" name="name" placeholder="1단계 카테고리 추가"/>
+            </form>
+        </div>
+        <li th:each="category : ${jsonData}" class="ct">
+            <a th:text="${category['name']}" class="category-toggle category-name" th:value="${category['name']}"></a>
+            <span style="display:none" th:text="${category['id']}" class="category-toggle" id="p"></span>
+            <span class="add-btn-child">+</span>
+            <ul class="hidden childmenu">
+                <div class="add-form-child">
+                    <form method="post" action="/addsecondcategory">
+                        <input class="category-input category-child" type="text" value="" name="name" placeholder="2단계 카테고리 추가"/>
+                        <input type="hidden" name="parent_id" id="parent"/>
+                    </form>
+                </div>
+                <li th:each="child : ${category['children']}" class="ct">
+                    <a><span th:text="${child['name']}" class="category-name-child p"></span></a>
+                    <ul class="hidden child2menu">
                         <li th:each="lastChild : ${child['children']}">
                             <a th:href="@{/doc/doc(d_num=${lastChild['d_num']})}" th:text="${lastChild['name']}"></a>
                         </li>
                     </ul>
                 </li>
-=======
-    <ul class="parentmenu">
-        <li>
-            <a href="#">
-                <span>test1</span>
-            </a>
-            <ul class="childmenu">
-                <li><a href="#">C</a></li>
-                <li><a href="#">Java</a></li>
-                <li><a href="#">Javascript</a></li>
-                <li><a href="#">Spring</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">
-                <span>menu2</span>
-            </a>
-            <ul class="childmenu">
-                <li><a href="#">text1</a></li>
-                <li><a href="#">text2</a></li>
-                <li><a href="#">text3</a></li>
-                <li><a href="#">text4</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">
-                <span>menu3</span>
-            </a>
-            <ul class="childmenu">
-                <li><a href="#">text1</a></li>
-                <li><a href="#">text2</a></li>
-                <li><a href="#">text3</a></li>
-                <li><a href="#">text4</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">
-                <span>menu4</span>
-            </a>
-            <ul class="childmenu">
-                <li><a href="#">text1</a></li>
-                <li><a href="#">text2</a></li>
-                <li><a href="#">text3</a></li>
-                <li><a href="#">text4</a></li>
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
             </ul>
         </li>
     </ul>
 </aside>
-</body>
-</html>

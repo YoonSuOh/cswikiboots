@@ -40,7 +40,7 @@ public class MainController {
     public String test(Model model){
         List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
         model.addAttribute("jsonData", jsonData);
-        return "test";
+        return "/";
     }
 
     // 1단계 카테고리 삽입
@@ -49,7 +49,7 @@ public class MainController {
         String id ="";
         System.out.println("1단계 카테고리 삽입");
         service.addFirstCategory(id, name);
-        return "redirect:/test";
+        return "redirect:/";
     }
 
     // 2단계 카테고리 삽입
@@ -62,14 +62,14 @@ public class MainController {
         System.out.println("category id= " + category.getId());
         System.out.println("category name= " + category.getName());
         service.addSecondCategory(category);
-        return "redirect:/test";
+        return "redirect:/";
     }
 
     // 카테고리 수정
     @PostMapping(value="/updatecategory")
     public String updateCategory(@RequestParam("id") String id, @RequestParam("name") String name){
-        service.updateCategory(id, name);
-        return "redirect:/test";
+        // service.updateCategory(id, name);
+        return "redirect:/";
     }
 }
 

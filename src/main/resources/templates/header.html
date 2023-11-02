@@ -17,9 +17,9 @@
                             <img class="box-item" src="/img/rule50.png">
                             <span class="box-text">규정</span>
                         </li>
-                        <li class="box" style="cursor: pointer" onclick="location.href='/doc/category';">
-                            <img class="box-item" src="/img/category50.png">
-                            <span class="box-text">문서분류</span>
+                        <li class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
+                            <img class="box-item" src="/img/userstar50.png">
+                            <span class="box-text">즐겨찾기 목록</span>
                         </li>
                         <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/popular}'|">
                             <img class="box-item" src="/img/popular50.png">

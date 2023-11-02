@@ -3,48 +3,21 @@
 <head>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/sidebarnav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale-1">
     <title>환영합니다! - CS위키</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body style="overflow-x: hidden">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script>
-    document.getElementById("searchBtn").onclick = function () {
-        let keyword =  document.getElementsByName("d_title")[0].value;
-        console.log(title)
-        location.href = "/doc/doc" + "&title=" + title;
-    };
-</script>
 <div th:insert="/header :: header"></div>
-<div th:insert="/sidebarnav.html"></div>
 <script src="/js/header.js"></script>
-
-<aside>
-    <div id="sidebar">
-        <ul>
-            <div th:each="list : ${sidebar}">
-                <li>
-                    [[${list.b_ca_name}]]
-                    <ul>
-                        <li>
-                            [[${list.s_ca_name}]]
-                            <ul>
-                                <li>[[${list.d_title}]]</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </div>
-        </ul>
-    </div>
-</aside>
+<div th:insert="/sidebarnav"></div>
 <main>
     <section class="main-section">
         <!-- logo -->
         <div class="logo">
-            <a href="main.html"><img src="/img/logo.png"></a>
+            <a href="main.html"><img src="/img/logo_skyblue.png"></a>
         </div>
         <!-- searchbar -->
         <div class="searchbar">
@@ -61,5 +34,47 @@
         </div>
     </section>
 </main>
+<script>
+    $(document).ready(function() {
+        $(".add-btn").click(function() {
+            $(".add-form").toggle();
+        });
+
+        $(".add-btn-child").click(function() {
+            $(".add-form-child").toggle();
+            var idElement = $('.category-name-child').parent().find('#p');
+            if (idElement.length) {
+                var parentIdInput = $(this).parent().find('input[name="parent_id"]');
+                parentIdInput.val(idElement.text());
+            }
+        });
+
+        // 더블 클릭 시 수정 화면 추가 및 수정 처리
+        $('.category-name').dblclick(function () {
+            let categoryName = $(this).text();
+
+            $(this).html('<div class="edit-area">' +
+                '<input type="text" class="category-edit" value="' + categoryName + '">' +
+                '<input type="hidden" class="category-id" data-category-id="${category.id}">' +
+                '<button class="delete-btn">삭제</button>' +
+                '</div>');
+            $('.add-btn-child').hide();
+
+            let name = $('.category-edit').text();
+            let id = $('category-id').data('category-id');
+
+            $('.edit-area').mouseout(function (e) {
+                $(this).html('<a th:text="${category[\'name\']}" class="category-toggle category-name" th:value="${category[\'name\']}"></a>');
+                $('.add-btn-child').show();
+            });
+            $('.category-edit').on('keydown', function(event) {
+                if (event.keyCode === 13) { // Enter 키의 keyCode는 13입니다.
+                    alert(name);
+                    alert(id);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

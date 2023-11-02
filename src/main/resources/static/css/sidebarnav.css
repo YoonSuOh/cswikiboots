@@ -52,25 +52,25 @@ a {
 
 .side-bar__icon-1 > div:nth-of-type(2) {
     top: 40%;
-    transform-origin:bottom left;
+    transform-origin: bottom left;
 }
 
 .side-bar__icon-1 > div:nth-of-type(3) {
     top: 80%;
     left: auto;
     right: 0;
-    transform-origin:bottom right;
+    transform-origin: bottom right;
 }
 
 .side-bar:hover .side-bar__icon-1 > div:nth-of-type(2) {
-    transform:rotate(45deg);
+    transform: rotate(45deg);
     width: 70.5%;
     height: 25%;
 }
 
 .side-bar:hover .side-bar__icon-1 > div:nth-of-type(3) {
     top: 40%;
-    transform:rotate(-45deg);
+    transform: rotate(-45deg);
     width: 70.5%;
     height: 25%;
 }
@@ -84,7 +84,6 @@ a {
 /* 사이드바-아이콘 끝 */
 
 /* 사이드바-메뉴 시작 */
-
 
 body {
     height: auto;
@@ -102,7 +101,7 @@ body {
 
 .side-bar .parentmenu > li > a {
     color: white;
-    font-size: 20pt;
+    font-size: 15pt;
     padding: 10px 20px;
     white-space: nowrap;
 }
@@ -114,11 +113,26 @@ body {
     white-space: nowrap;
 }
 
+.side-bar .child2menu > li > a {
+    color: black;
+    font-size: 10pt;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
 .side-bar > ul > li > a > span > i {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.side-bar .childmenu:hover .child2menu {
+    display: block;
+}
+
+.childmenu .child2menu {
+    display: none;
 }
 
 .side-bar:hover {
@@ -132,7 +146,7 @@ body {
 }
 
 .side-bar ul > li:hover > a {
-    background-color: #00B9CE
+    background-color: #00B9CE;
 }
 
 .side-bar > ul > li {
@@ -147,7 +161,7 @@ body {
     display: none;
 }
 
-.side-bar:hover li a{
+.side-bar:hover li a {
     display: block;
 }
 
@@ -155,6 +169,59 @@ body {
     display: none;
 }
 
+.category-input{
+    margin-left : 8%;
+    border : 0;
+    font-size: 15pt;
+}
+
+.category-child{
+    font-size: 12pt;
+}
+
+.edit-input{
+    margin-left : 8%;
+    border : 0;
+    font-size: 15pt;
+}
+
+.add-area{
+    display:flex;
+    margin-left:8%;
+}
+.add-btn{
+    display:none;
+}
+.add-btn-child{
+    display:none;
+}
+
+.add-area:hover > .add-btn{
+    display:block;
+    padding-left:26%;
+}
+
+.side-bar ul > li:hover > .add-btn-child{
+    display:block;
+    position:relative;
+    top:-35px;
+    left:70%;
+    color:white;
+}
+.hidden {
+    display: none;
+}
+.add-form{
+    display:none;
+    margin-left : 8%;
+}
+.add-form-child{
+    display:none;
+    margin-left : 0%;
+}
+.delete-button {
+    display: none;
+}
 /* 사이드바-메뉴 끝 */
 
 /* 커스텀 끝 */

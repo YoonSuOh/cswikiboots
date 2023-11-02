@@ -17,35 +17,7 @@ import java.util.Map;
 public class DocService{
     private final DocDAO dao;
 
-<<<<<<< HEAD
     // 문서 생성
-=======
-    public List<BigCategory> list() {
-        return dao.list();
-    }
-
-
-    public List<SmallCategory> s_category(int b_ca_num) {
-        return dao.s_category(b_ca_num);
-    }
-
-
-    public List<Doc> doc_list(int s_ca_num) {
-        return dao.doc_list(s_ca_num);
-    }
-
-
-    public void createbigcategory(BigCategory vo) {
-        dao.createbigcategory(vo);
-    }
-
-
-    public void createsmallcategory(SmallCategory vo) {
-        dao.createsmallcategory(vo);
-    }
-
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public int create(Doc dto) {
         int result = dao.create(dto);
         if (result > 0) {
@@ -89,38 +61,22 @@ public class DocService{
         return result;
     }
 
-<<<<<<< HEAD
     // 문서 역사 보기
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public List<DocHistory> getDocHistory(int d_num) {
         return dao.getDocHistory(d_num);
     }
 
-<<<<<<< HEAD
     // 문서 버전별 보기
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public Doc version(int d_num, String d_version) {
         return dao.version(d_num, d_version);
     }
 
-<<<<<<< HEAD
     // 문서 보기
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public Doc doc(int d_num) {
         return dao.doc(d_num);
     }
 
-<<<<<<< HEAD
     // 문서 방문 시각 설정
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public void setDocTimeNum(int d_num, LocalDateTime lastVisit) {
         Doc doc = this.doc(d_num);
         int docNum = doc.getD_num();
@@ -128,11 +84,7 @@ public class DocService{
         dao.setDocTimeNum(d_num, timestamp);
     }
 
-<<<<<<< HEAD
     // 문서 방문 시각 설정
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public void setDocTimeTitle(String d_title, LocalDateTime lastVisit) {
         Doc doc = this.search(d_title);
         String docTitle = doc.getD_title();
@@ -140,27 +92,14 @@ public class DocService{
         dao.setDocTimeTitle(docTitle, timestamp);
     }
 
-<<<<<<< HEAD
     // 문서 방문 시각 가져오기
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public Timestamp getDocTimeTitle(String d_title) {
         Doc doc = this.search(d_title);
         String docTitle= doc.getD_title();
         return dao.getDocTimeTitle(docTitle);
     }
 
-<<<<<<< HEAD
     // 문서 방문 시각 가져오기
-=======
-
-    public SmallCategory getcategory(int d_num) {
-        return dao.getcategory(d_num);
-    }
-
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public int edit(Doc dto) {
         int result = dao.edit(dto);
         if(result > 0) {
@@ -174,83 +113,42 @@ public class DocService{
         return result;
     }
 
-<<<<<<< HEAD
     // 문서 삭제
-=======
-    public List<SmallCategory> selectcategory() {
-        return dao.selectcategory();
-    }
-
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public void delete(int d_num) {
         dao.delete(d_num);
     }
 
-<<<<<<< HEAD
     // 문서 접근 제한 설정
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public void acl(Doc dto) {
         dao.acl(dto);
     }
 
-<<<<<<< HEAD
     // 문서 검색
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public Doc search(String d_title) {
         return dao.search(d_title);
     }
 
-<<<<<<< HEAD
     // 문서 즐겨찾기 등록
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public int starin(Star vo) {
         return dao.starin(vo);
     }
 
-<<<<<<< HEAD
     // 문서 즐겨찾기 삭제
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public int starout(Star vo) {
         return dao.starout(vo);
     }
 
-<<<<<<< HEAD
     // 사용자 별 즐겨찾기 목록 확인
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public List<Doc> userstar(String u_id) {
         return dao.userstar(u_id);
     }
 
-<<<<<<< HEAD
     // 인기 있는 문서 조회
-=======
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public List<Doc> popular() {
         return dao.popular();
     }
 
-<<<<<<< HEAD
     // 전체 카테고리 조회
-=======
-
-    public List<Doc> sidebar() {
-        return dao.sidebar();
-    }
-
-
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public List<Map<String, Object>> generateCategoryTreeJson() {
         List<Category> dblist = dao.selectAll();
         List<Map<String, Object>> jsonData = new ArrayList<>();
@@ -298,14 +196,18 @@ public class DocService{
 
     // 1단계 카테고리 삽입
     public void addFirstCategory(String id, String name){
+        Category category = dao.selectFirstCategory();
+        System.out.println("[카테고리 코드 :" + category.getId() + "]");
+        System.out.println("[카테고리 이름 :" + name + "]");
+        int asciiCode = (int) category.getId().charAt(0);
+
+        char alphabet = (char)(asciiCode+1);
+        id = String.valueOf(alphabet);
+        System.out.println("category_id : " + id);
         dao.insertFirstCategory(id, name);
-<<<<<<< HEAD
     }
 
     // 2단계 카테고리 삽입
-=======
-    } // 1단계 카테고리 삽입
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public void addSecondCategory(Category category){
         String parent_id = category.getId();
         Category value = dao.selectSecondCategory(parent_id);
@@ -327,12 +229,9 @@ public class DocService{
         System.out.println("item.getId();" + newId);
         System.out.println("item.getName();" + category.getName());
         dao.insertSecondCategory(category);
-    } // 2단계 카테고리 삽입
+    }
 
-<<<<<<< HEAD
     // 2단계 카테고리 조회
-=======
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     public List<Category> selectSecondCategory() {
         List<Category> dblist = dao.selectAll(); // DB에서 조회
         List<Category> secondCategory = new ArrayList<>();
@@ -367,20 +266,16 @@ public class DocService{
         return thirdCategory;
     }
 
+    // 카테고리 ID 가져오기
     public Category getByCategoryId(int d_num){
         return dao.selectByCategoryId(d_num);
     }
 
-<<<<<<< HEAD
-    // 카테고리 수정
-    public void updateCategory(String id, String name){dao.updateCategory(id, name);}
     // 카테고리 삭제
     public int deleteCategory(int d_num){
         return dao.deleteCategory(d_num);
     }
 
-=======
->>>>>>> a2acb7bdef78d0daaecf9acdcd5689bc8c592ee8
     // 문서에 댓글 추가하기
     public void writeComment(String u_id, int d_num, String cm_comment, LocalDateTime cm_time) {
         dao.writeComment(u_id, d_num, cm_comment, cm_time);
@@ -389,6 +284,7 @@ public class DocService{
     public List<Comment> readComment(int d_num) {
         return dao.readComment(d_num);
     }
+
     // 댓글 번호로 댓글 찾기
     public Comment selectComment(int cm_num) { return dao.selectComment(cm_num); }
     // 댓글 수정하기
