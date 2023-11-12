@@ -164,6 +164,7 @@ public class DocService{
                     if (child.getParent_id() != null && child.getParent_id().equals(parent.getId())) {
                         Map<String, Object> childData = new HashMap<>();
                         childData.put("name", child.getName());
+                        childData.put("id", child.getId());
                         List<Map<String, Object>> lastChildrenData = new ArrayList<>();
 
                         for (Category lastChild : dblist) {
@@ -271,6 +272,10 @@ public class DocService{
         return dao.selectByCategoryId(d_num);
     }
 
+    // 카테고리 수정
+    public void editCategory(String id, String name){
+        dao.updateCategory(id, name);
+    }
     // 카테고리 삭제
     public int deleteCategory(int d_num){
         return dao.deleteCategory(d_num);

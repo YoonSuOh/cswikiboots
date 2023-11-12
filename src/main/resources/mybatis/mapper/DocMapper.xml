@@ -223,7 +223,12 @@
     </select>
 
     <!-- 카테고리 수정 -->
-
+    <update id="updateCategory">
+        UPDATE category
+        SET name = #{name}
+        WHERE
+            id = #{id}
+    </update>
     <!-- 카테고리 삭제 -->
     <delete id="deleteCategory">
         DELETE from categorty;
