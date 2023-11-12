@@ -18,7 +18,6 @@
         </div>
         <li th:each="category : ${jsonData}" class="ct">
             <a th:text="${category['name']}" class="category-toggle category-name" th:value="${category['name']}"></a>
-            <span style="display:none" th:text="${category['id']}" class="category-toggle" id="p"></span>
             <span class="add-btn-child">+</span>
             <ul class="hidden childmenu">
                 <div class="add-form-child">
@@ -28,7 +27,7 @@
                     </form>
                 </div>
                 <li th:each="child : ${category['children']}" class="ct">
-                    <a><span th:text="${child['name']}" class="category-name-child p"></span></a>
+                    <a><span th:text="${child['name']}" class="category-name-child category-toggle"></span></a>
                     <ul class="hidden child2menu">
                         <li th:each="lastChild : ${child['children']}">
                             <a th:href="@{/doc/doc(d_num=${lastChild['d_num']})}" th:text="${lastChild['name']}"></a>

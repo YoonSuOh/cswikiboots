@@ -40,7 +40,7 @@ public class MainController {
     public String test(Model model){
         List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
         model.addAttribute("jsonData", jsonData);
-        return "/";
+        return "/test";
     }
 
     // 1단계 카테고리 삽입

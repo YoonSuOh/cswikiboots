@@ -6,33 +6,25 @@
         .hidden {
             display: none;
         }
-
-        .delete-button {
-            display: none;
-        }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <ul>
     <form action="/addcategory" method="post">
         <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
     </form>
-    <li th:each="category : ${jsonData}">
-            <span th:text="${category['name']}" class="category-toggle" th:value="${category['name']}">
-            </span>
-            <input type="text" value="" class="edit-input hidden" />
-            <button class="delete-button">삭제</button>
+    <li class="edit" th:each="category : ${jsonData}">
+        <span th:text="${category['name']}" class="category-toggle category-parent"></span>
+        <input type="hidden" name="name" class="parent-edit" th:value="${category['name']}">
         <ul class="hidden">
-            <form action="/addsecondcategory" method="post">
+            <form action="/addsecondcategory" method="post">+
                 <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
                 <input type="hidden" name="parent_id" id="parent"/>
             </form>
             <li th:each="child : ${category['children']}">
-                    <span th:text="${child['name']}" class="category-toggle" id=“p” th:value="${child['name']}">
-                    </span>
-                    <input type="text" value="" class="edit-input hidden" />
-                    <button class="delete-button">삭제</button>
+                <span th:text="${child['name']}" class="category-toggle category-child"></span>
+                <span style="display:none" th:text="${child['id']}" class="category-child-id"></span>
                 <ul class="hidden">
                     <li th:each="lastChild : ${child['children']}">
                         <a th:href="@{/doc/doc(d_num=${lastChild['d_num']})}" th:text="${lastChild['name']}"></a>
@@ -43,89 +35,41 @@
     </li>
 </ul>
 <script>
-    $(document).ready(function() {
-        // 카테고리 펼치기/접기 이벤트 처리
-        $('.category-toggle').click(function() {
-            var idElement = $(this).parent().find('#p');
-            if (idElement.length) {
-                var parentIdInput = $(this).parent().find('input[name="parent_id"]');
-                parentIdInput.val(idElement.text());
+    // JavaScript 코드
+    var toggleButtons = document.querySelectorAll('.category-toggle');
+
+    toggleButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var parentUl = button.parentElement.querySelector('ul');
+            if (parentUl) {
+                if (parentUl.classList.contains('hidden')) {
+                    parentUl.classList.remove('hidden');
+                } else {
+                    parentUl.classList.add('hidden');
+                }
             }
-        });
 
-        $('.category-toggle').on('dblclick', function() {
-            var parent = $(this).parent();
-            var categoryText = $(this);
-            var editInput = parent.find('.edit-input');
-            var deleteButton = parent.find('.delete-button');
-
-            categoryText.hide();
-            editInput.val(categoryText.text()).removeClass('hidden').focus();
-            deleteButton.show();
-        });
-
-        // Handle Enter key press in the edit input
-        $('.edit-input').on('keyup', function(e) {
-            if (e.keyCode === 13) {
-                var parent = $(this).parent();
-                var categoryText = parent.find('.category-toggle');
-                var editInput = $(this);
-                var modifiedValue = editInput.val();
-                var categoryToggle = parent.find('.category-toggle');
-
-                categoryText.text(modifiedValue).show();
-                editInput.addClass('hidden');
-                parent.find('.delete-button').hide();
-
-                // Get the category ID by using the text content of the hidden span associated with this category
-                var categoryID = parent.find('.p').text();
-
-                // Display alert with modified value and category ID
-                alert("수정된 값: " + modifiedValue + "\n카테고리 ID: " + categoryID);
+            var idElement = button.parentElement.querySelector('#p');
+            if (idElement) {
+                // 선택한 카테고리의 id 값을 가져와서 parent_id 필드에 할당
+                var parentIdInput = button.parentElement.querySelector('input[name="parent_id"]');
+                parentIdInput.value = idElement.textContent;
             }
-        });
-
-        // Handle delete button click
-        $('.delete-button').on('click', function() {
-            var parent = $(this).parent();
-            parent.remove();
-        });
-
-        // Handle click outside input to cancel editing
-        $('body').on('click', function(e) {
-            if (!$(e.target).is('.edit-input')) {
-                var editInputs = $('.edit-input:not(.hidden)');
-                editInputs.each(function() {
-                    var editInput = $(this);
-                    var parent = editInput.parent();
-                    var categoryText = parent.find('.category-name');
-                    var originalValue = categoryText.text();
-                    var categoryToggle = parent.find('.category-toggle');
-
-                    categoryText.show();
-                    editInput.addClass('hidden');
-                    editInput.val(originalValue);
-                    parent.find('.delete-button').hide();
-
-                    // Get the category ID by using the text content of the hidden span associated with this category
-                    var categoryID = parent.find('.p').text();
-
-                    // Display alert with the original value and category ID
-                    alert("취소된 값: " + originalValue + "\n카테고리 ID: " + categoryID);
-                });
-            }
-        });
-
-        // Prevent click outside input from triggering a page reload
-        $('.edit-input').on('click', function(e) {
-            e.stopPropagation();
         });
     });
-</script>
 
+    $(document).ready(function(){
+        $('.category-parent').on('dblclick', function(){
+            let name = $(this).text();
+            $(this).remove();
+            $('.edit').append("<input type='text' name='name' value='' class='parent-edit'>");
+            $('.parent-edit').val(name);
+        });
+        $('.category-child').on('dblclick', function(){
+            $(this).remove();
+            $('#hiddenInput').prop('type', 'text');
+        })
+    });
+</script>
 </body>
 </html>
-
-
-
-

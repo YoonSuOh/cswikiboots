@@ -50,29 +50,15 @@
         });
 
         // 더블 클릭 시 수정 화면 추가 및 수정 처리
-        $('.category-name').dblclick(function () {
-            let categoryName = $(this).text();
+        $(".category-toggle").on('dblclick', function(){
+            let parent = $('.category-name').text();
+            let child = $('.category-child').text();
 
-            $(this).html('<div class="edit-area">' +
-                '<input type="text" class="category-edit" value="' + categoryName + '">' +
-                '<input type="hidden" class="category-id" data-category-id="${category.id}">' +
-                '<button class="delete-btn">삭제</button>' +
-                '</div>');
-            $('.add-btn-child').hide();
-
-            let name = $('.category-edit').text();
-            let id = $('category-id').data('category-id');
-
-            $('.edit-area').mouseout(function (e) {
-                $(this).html('<a th:text="${category[\'name\']}" class="category-toggle category-name" th:value="${category[\'name\']}"></a>');
-                $('.add-btn-child').show();
-            });
-            $('.category-edit').on('keydown', function(event) {
-                if (event.keyCode === 13) { // Enter 키의 keyCode는 13입니다.
-                    alert(name);
-                    alert(id);
-                }
-            });
+            if(!parent && child){
+                $('#hiddenInput').prop('type', 'text');
+            } else {
+                alert(child);
+            }
         });
     });
 </script>
