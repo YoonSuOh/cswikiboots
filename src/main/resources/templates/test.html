@@ -10,15 +10,15 @@
         #edit{
             display:none;
             border:1px solid black;
-            border-radius: 1px;
+            border-radius: 5px;
             margin-right:20%;
             margin-left:20%;
             width:20%;
-            height:50%;
+            height:100px;
             text-align:center;
         }
 
-        #edit-inner{
+        .edit-inner{
             display:inline-block;
         }
     </style>
@@ -49,10 +49,12 @@
     </li>
 </ul>
 <div id="edit">
-    <div id="edit-inner">
-        <p>카테고리 수정</p>
+    <div class="edit-inner">
         <input name="edit-category" type="text" placeholder="수정할 카테고리 이름 입력"/>
-        <button id="editBtn" type="button">수정하기</button>
+    </div>
+    <div class="edit-inner">
+        <button id="editBtn" type="button">수정</button>
+        <button id="delBtn" type="button">삭제</button>
     </div>
 </div>
 <script>
@@ -70,12 +72,12 @@
                 }
             }
 
-            /*var idElement = button.parentElement.querySelector('#p');
+            var idElement = button.parentElement.querySelector('#p');
             if (idElement) {
                 // 선택한 카테고리의 id 값을 가져와서 parent_id 필드에 할당
                 var parentIdInput = button.parentElement.querySelector('input[name="parent_id"]');
                 parentIdInput.value = idElement.textContent;
-            }*/
+            }
         });
     });
 
@@ -83,8 +85,11 @@
 
         $('.category-toggle').on('dblclick', function(){
             let id = $(this).data("id");
+            let name = $(this).text();
             console.log(id);
+            console.log(name);
             $('#edit').css("display", "block");
+            $('input[name="edit-category"]').val(name);
 
             $('#editBtn').on('click', function(e){
                 e.preventDefault();
@@ -105,6 +110,29 @@
                         alert('카테고리 수정에 실패했습니다.');
                     }
                 });
+            });
+            $('#delBtn').on('click', function(e){
+                e.preventDefault();
+                if(confirm("정말 카테고리를 삭제하시겠습니까? 하위 카테고리도 모두 삭제됩니다.")){
+                    $.ajax({
+                        type: 'delete'
+                        ,url: '/doc/categoryDelete'
+                        ,data:{"id":id}
+                        , success : function(data){
+                            if(data.code == 200){
+                                alert('카테고리가 삭제되었습니다!');
+                                location.reload(true);
+                            } else {
+                                alert('서버 오류가 발생했습니다.')
+                            }
+                        }
+                        ,error : function(){
+                            alert('카테고리 삭제에 실패했습니다.');
+                        }
+                    });
+                } else {
+                    return false;
+                }
             });
         });
     });

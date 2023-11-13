@@ -4,10 +4,7 @@ import com.spring.cswiki.service.DocService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,4 +36,23 @@ public class DocRestController {
 
         return result;
     }
+
+
+    /** 카테고리 삭제 API
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/categoryDelete")
+    public Map<String, Object> deleteCategory(
+            @RequestParam("id") String id){
+        service.deleteCategory(id);
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("code", 200);
+        result.put("result", "성공");
+
+        return result;
+    }
+
 }

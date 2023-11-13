@@ -276,9 +276,10 @@ public class DocService{
     public void editCategory(String id, String name){
         dao.updateCategory(id, name);
     }
+
     // 카테고리 삭제
-    public int deleteCategory(int d_num){
-        return dao.deleteCategory(d_num);
+    public void deleteCategory(String id){
+        dao.deleteCategory(id);
     }
 
     // 문서에 댓글 추가하기

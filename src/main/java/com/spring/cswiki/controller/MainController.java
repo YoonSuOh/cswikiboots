@@ -49,7 +49,7 @@ public class MainController {
         String id ="";
         System.out.println("1단계 카테고리 삽입");
         service.addFirstCategory(id, name);
-        return "redirect:/";
+        return "redirect:/test";
     }
 
     // 2단계 카테고리 삽입
@@ -62,7 +62,7 @@ public class MainController {
         System.out.println("category id= " + category.getId());
         System.out.println("category name= " + category.getName());
         service.addSecondCategory(category);
-        return "redirect:/";
+        return "redirect:test/";
     }
 
     // 카테고리 수정
