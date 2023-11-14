@@ -17,7 +17,7 @@ public interface DocDAO {
     public Doc doc(int d_num); // 문서 본문 보기
     public void setDocTimeNum(@Param("d_num")int d_num, @Param("lastVisit")Timestamp lastVisit); // 문서번호 방문시간 업데이트
     public void setDocTimeTitle(@Param("d_title")String d_title, @Param("lastVisit")Timestamp lastVisit); // 문서제목 방문시간 업데이트
-    public Timestamp getDocTimeTitle(String d_title); // 문서제목으로 방문시간 가져오기
+    public Timestamp getDocTimeTitle(String d_title); // 문서 제목으로 방문시간 가져오기
     public SmallCategory getcategory(int d_num);
     public int edit(Doc dto); // 문서 편집
     public void edithistory(DocHistory dto); // 문서 편집시 역사 생성
@@ -28,8 +28,9 @@ public interface DocDAO {
     public int starin(Star vo); // 즐겨찾기 등록
     public int starout(Star vo); // 즐겨찾기 삭제
     public List<Doc> userstar(String u_id); // 즐겨찾기 한 문서 목록 조회
-    public List<Doc> popular(); // 즐겨찾기가 가장 많이 된 문서 목록 출력
-    public List<Doc> sidebar(); // 사이드바 카테고리 출력
+    public List<Doc> popular(); // 즐겨찾기가 가장 많이 된 문서 목록 조회
+    public List<DocHistory> selectRecent(); // 최근에 수정된 문서 목록 조회
+    public List<Doc> sidebar(); // 사이드바 카테고리 조회
     List<Category> selectAll(); // 카테고리 조회
     public void insertFirstCategory(@Param("id") String id, @Param("name") String name); // 1단계 카테고리 삽입
     public void insertSecondCategory(Category category); // 2단계 카테고리 삽입

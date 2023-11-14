@@ -148,6 +148,9 @@ public class DocService{
         return dao.popular();
     }
 
+    // 최근에 수정된 문서 목록 조회
+    public List<DocHistory> getRecent(){return dao.selectRecent();}
+
     // 전체 카테고리 조회
     public List<Map<String, Object>> generateCategoryTreeJson() {
         List<Category> dblist = dao.selectAll();

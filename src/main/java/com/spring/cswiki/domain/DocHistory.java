@@ -20,4 +20,5 @@ public class DocHistory {
     private Time d_time;
     private String d_summary;
     private String d_content;
+    private String d_title;
 }

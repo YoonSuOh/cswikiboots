@@ -1,66 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/sidebarnav.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale-1">
     <title>환영합니다! - CS위키</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body style="overflow-x: hidden">
-<div th:insert="/header :: header"></div>
-<script src="/js/header.js"></script>
-<div th:insert="/sidebarnav"></div>
+<header>
+    <div th:insert="/header :: header"></div>
+</header>
+<aside>
+    <div th:insert="/sidebarnav"></div>
+</aside>
 <main>
-    <section class="main-section">
-        <!-- logo -->
-        <div class="logo">
-            <a href="main.html"><img src="/img/logo_skyblue.png"></a>
+    <div class="up frame">
+        <p class="strong">컴퓨터 공학에 대한 모든 것,</p> <br>
+        <p class="wiki_font">CS위키</p> <br> <br>
+        <p>CS위키에 오신 여러분을 환영합니다! 컴퓨터에 대한 많은 정보를 가지고 있으며 기여자들이 직접 편집할 수 있는 인터넷 사이트 입니다.</p>
+    </div>
+    <div class="middle">
+        <div class="rule frame">
+            <p>규정/도움말</p> <hr>
         </div>
-        <!-- searchbar -->
-        <div class="searchbar">
-            <form class="search-form" action="/doc/doc" method="get">
-                <input type="text" name="d_title" class="m-search-input" placeholder="찾으시는 문서의 이름을 입력하세요.">
-                <i></i>
-            </form>
+        <div class="down_p">
+            <div class="login_p frame">
+                로그인 후 더 많은 기능을 이용해보세요. <br>
+                <button style="cursor: pointer;">로그인</button> <br>
+                <a href="#">회원가입</a> |
+                <a href="#">아이디 찾기</a> |
+                <a href="#">비밀번호 찾기</a>
+            </div>
+            <div class="doc frame">
+                <p>최근 변경된 문서</p> <hr>
+                <ul th:each="list : ${recent}">
+                    <li><a th:href="" th:text="${list.d_title}" : [[${list.d_date}]] [[${list.u_id}]]</li>
+                </ul>
+            </div>
         </div>
-        <div class="buttons">
-            <button>C</button>
-            <button>Java</button>
-            <button>C++</button>
-            <button>C#</button>
-        </div>
-    </section>
+    </div>
+    <div class="down frame">
+        공지사항 <hr>
+    </div>
 </main>
-<script>
-    $(document).ready(function() {
-        $(".add-btn").click(function() {
-            $(".add-form").toggle();
-        });
-
-        $(".add-btn-child").click(function() {
-            $(".add-form-child").toggle();
-            var idElement = $('.category-name-child').parent().find('#p');
-            if (idElement.length) {
-                var parentIdInput = $(this).parent().find('input[name="parent_id"]');
-                parentIdInput.val(idElement.text());
-            }
-        });
-
-        // 더블 클릭 시 수정 화면 추가 및 수정 처리
-        $(".category-toggle").on('dblclick', function(){
-            let parent = $('.category-name').text();
-            let child = $('.category-child').text();
-
-            if(!parent && child){
-                $('#hiddenInput').prop('type', 'text');
-            } else {
-                alert(child);
-            }
-        });
-    });
-</script>
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script src="/js/sidebarnav.js"></script>
 </body>
 </html>

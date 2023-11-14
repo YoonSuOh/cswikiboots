@@ -1,6 +1,7 @@
 package com.spring.cswiki.controller;
 
 import com.spring.cswiki.domain.Category;
+import com.spring.cswiki.domain.DocHistory;
 import com.spring.cswiki.service.DocService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,9 @@ public class MainController {
     @GetMapping("/")
     public String main(Model model){
         List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
+        List<DocHistory> recent = service.getRecent();
         model.addAttribute("jsonData", jsonData);
+        model.addAttribute("recent", recent);
         return "/main";
     }
 

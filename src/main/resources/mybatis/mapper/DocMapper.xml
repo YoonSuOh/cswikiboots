@@ -175,6 +175,19 @@
         ORDER BY s.star DESC;
     </select>
 
+    <!-- 최근에 수정됬던 문서 출력 -->
+    <select id="selectRecent" resultType="com.spring.cswiki.domain.DocHistory">
+        SELECT dh.*, d.d_title
+        FROM doc_history dh
+                 JOIN cswiki.doc d ON dh.d_num = d.d_num
+        WHERE (dh.d_num, dh.d_version, dh.d_date) IN (
+            SELECT dh2.d_num, MAX(dh2.d_version), MAX(dh2.d_date)
+            FROM cswiki.doc_history dh2
+            GROUP BY dh2.d_num
+        )
+        ORDER BY dh.d_date DESC
+            LIMIT 4;
+    </select>
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
         INSERT INTO category(id, name) VALUES(#{id}, #{name})
@@ -234,5 +247,4 @@
         DELETE from category
         WHERE id = #{id}
     </delete>
-
 </mapper>
