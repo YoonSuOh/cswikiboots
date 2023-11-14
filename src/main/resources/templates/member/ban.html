@@ -54,10 +54,11 @@
 <div class="acl" th:if="${session.member.p_id>=3}">
   <table id="b-table">
     <thead>
-    <th>사용자 ID</th>
-    <th>권한</th>
-    <th>차단 사유</th>
-    <th>해제</th>
+      <th>사용자 ID</th>
+      <th>권한</th>
+      <th>차단 사유</th>
+      <th>기간</th>
+      <th>해제</th>
     </thead>
     <tbody class="b-list" th:each="list : ${list}">
     <tr class="tr">
@@ -67,6 +68,7 @@
         <span th:if="${list.p_id==3}">관리자</span>
       </td>
       <td>[[${list.ban_reason}]]</td>
+      <td>영구</td>
       <td><a th:href="@{/member/unban(u_id=${list.u_id})}">해제</a></td>
     </tr>
     </tbody>
