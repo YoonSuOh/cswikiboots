@@ -144,8 +144,8 @@
 
     <!-- 즐겨찾기 등록 -->
     <insert id="starin">
-        INSERT INTO star (star, u_id, d_num)
-        VALUES (star, #{u_id}, #{d_num})
+        INSERT INTO star (star, u_id, d_num, editdoc)
+        VALUES (star, #{u_id}, #{d_num}, 0);
     </insert>
 
     <!-- 즐겨찾기 삭제 -->
@@ -247,4 +247,14 @@
         DELETE from category
         WHERE id = #{id}
     </delete>
+
+    <!-- 즐겨찾기 등록한 유저 찾기 -->
+    <select id="starUsers" resultType="com.spring.cswiki.domain.Star">
+        SELECT * FROM star WHERE d_num = #{d_num};
+    </select>
+
+    <!-- 문서 변경시 변경됨을 표시 -->
+    <update id="editDoc">
+        UPDATE star SET editdoc = 1 WHERE d_num = #{d_num};
+    </update>
 </mapper>

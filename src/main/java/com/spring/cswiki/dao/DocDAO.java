@@ -49,4 +49,9 @@ public interface DocDAO {
     public void updateComment(@Param("cm_num")int cm_num, @Param("u_id")String u_id, @Param("cm_comment")String cm_comment, @Param("cm_time")LocalDateTime cm_time);
     // 댓글 삭제
     public void deleteComment(@Param("cm_num")int cm_num, @Param("u_id")String u_id, @Param("d_num")int d_num);
+
+    // 즐겨찾기 등록한 유저 찾기
+    public List<Star> starUsers(@Param("d_num")int d_num);
+    // 문서 변경시 테이블에 반영
+    public void editDoc(@Param("d_num")int d_num);
 }

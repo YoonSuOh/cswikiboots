@@ -16,4 +16,5 @@ public class Star {
     private String u_id;
     private int d_num;
     private LocalDateTime lastVisit;
+    private int editdoc;
 }
