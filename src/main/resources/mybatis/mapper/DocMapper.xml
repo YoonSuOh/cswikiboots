@@ -184,7 +184,7 @@
             SELECT dh2.d_num, MAX(dh2.d_version), MAX(dh2.d_date)
             FROM cswiki.doc_history dh2
             GROUP BY dh2.d_num
-        )
+        ) AND dh.d_version = 1
         ORDER BY dh.d_date DESC
             LIMIT 4;
     </select>

@@ -24,7 +24,7 @@
     </div>
     <div class="middle">
         <div class="rule frame">
-            <p>규정/도움말</p> <hr>
+            <p>추천 문서</p> <hr>
         </div>
         <div class="down_p">
             <div class="login_p frame">
@@ -35,15 +35,15 @@
                 <a href="#">비밀번호 찾기</a>
             </div>
             <div class="doc frame">
-                <p>최근 변경된 문서</p> <hr>
+                <p>새로 추가된 문서</p> <hr>
                 <ul th:each="list : ${recent}">
-                    <li><a th:href="" th:text="${list.d_title}" : [[${list.d_date}]] [[${list.u_id}]]</li>
+                    <li><b><a th:href="@{/doc/doc(d_num=${list.d_num})}" th:text="${list.d_title}"/></b> : <th:block th:text="${#dates.format(list.d_date, 'yyyy-MM-dd HH:mm:ss')}" /> [[${list.u_id}]]</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="down frame">
-        공지사항 <hr>
+        규정/도움말 <hr>
     </div>
 </main>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
