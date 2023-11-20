@@ -67,4 +67,19 @@
     <select id="banlist" resultType="com.spring.cswiki.domain.Member">
         select * from user where ban = 1;
     </select>
+
+    <!-- 로그인한 유저의 즐겨찾기 문서 중 변경된 문서 조회 -->
+    <select id="findStars">
+        SELECT * FROM star WHERE u_id = #{u_id} AND editdoc = 1;
+    </select>
+
+    <!-- 문서 번호로 문서 가져오기 -->
+    <select id="findDoc" resultType="com.spring.cswiki.domain.Doc">
+        SELECT * FROM doc WHERE d_num = #{d_num};
+    </select>
+
+    <!-- 알람 처리후 editdoc 컬럼 변경 -->
+    <update id="finishAlarm">
+        UPDATE star SET editdoc = 0 WHERE u_id = #{u_id};
+    </update>
 </mapper>

@@ -1,66 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/sidebarnav.css">
     <meta name="viewport" content="width=device-width, initial-scale-1">
     <title>환영합니다! - CS위키</title>
 </head>
 <body style="overflow-x: hidden">
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script>
-        document.getElementById("searchBtn").onclick = function () {
-         let keyword =  document.getElementsByName("d_title")[0].value;
-         console.log(title)
-         location.href = "/doc/doc" + "&title=" + title;
-        };
-    </script>
+<header>
     <div th:insert="/header :: header"></div>
-    <script src="/js/header.js"></script>
-    <aside>
-        <div id="sidebar">
-            <ul>
-                <div th:each="list : ${sidebar}">
-                    <li>
-                        [[${list.b_ca_name}]]
-                        <ul>
-                            <li>
-                                [[${list.s_ca_name}]]
-                                <ul>
-                                    <li>[[${list.d_title}]]</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </div>
-            </ul>
+</header>
+<aside>
+    <div th:insert="/sidebarnav"></div>
+</aside>
+<main>
+    <div class="up frame">
+        <p class="strong">컴퓨터 공학에 대한 모든 것,</p> <br>
+        <p class="wiki_font">CS위키</p> <br> <br>
+        <p>CS위키에 오신 여러분을 환영합니다! 컴퓨터에 대한 많은 정보를 가지고 있으며 기여자들이 직접 편집할 수 있는 인터넷 사이트 입니다.</p>
+    </div>
+    <div class="middle">
+        <div class="rule frame">
+            <p>추천 문서</p> <hr>
         </div>
-    </aside>
-    <main>
-    </main>
-    <div th:if="${#httpServletRequest.getSession(false) != null}" id="userinfo" class="hidden">
-        <div class="userinfo">
-            <h4 style="text-align:center">사용자 정보</h4>
-            사용자 이름 : <span th:text="${session.member?.name}"></span>
-            <br>
-            가입일: <span th:text="${session.member?.reg_date}" th:utext="${#dates.format(session.member?.reg_date, 'yyyy-MM-dd')}"></span>
-            <br>
-            이메일 주소 : <span th:text="${session.member?.email}"></span>
+        <div class="down_p">
+            <div class="login_p frame">
+                로그인 후 더 많은 기능을 이용해보세요. <br>
+                <button style="cursor: pointer;">로그인</button> <br>
+                <a href="#">회원가입</a> |
+                <a href="#">아이디 찾기</a> |
+                <a href="#">비밀번호 찾기</a>
+            </div>
+            <div class="doc frame">
+                <p>새로 추가된 문서</p> <hr>
+                <ul th:each="list : ${recent}">
+                    <li><b><a th:href="@{/doc/doc(d_num=${list.d_num})}" th:text="${list.d_title}"/></b> : <th:block th:text="${#dates.format(list.d_date, 'yyyy-MM-dd HH:mm:ss')}" /> [[${list.u_id}]]</li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div th:if="${#httpServletRequest.getSession(false) != null}" id="usermodify" class="hidden">
-        <div class="userinfo">
-            <h4 style="text-align:center">사용자 정보수정</h4>
-            <form method="post" th:action="@{/member/infomodify(u_id=${u_id})}">
-                사용자 이름  : <input type="text" name="u_id" th:value="${session.member?.u_id}">
-                <br>
-                비밀번호 변경: <input type="password" name="pwd" placeholder="새로운 비밀번호를 입력하세요.">
-                <br>
-                이메일: <input type="text" name="email" th:value="${session.member?.email}">
-                <button type="submit">정보수정</button>
-            </form>
-        </div>
+    <div class="down frame">
+        규정/도움말 <hr>
     </div>
+</main>
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script src="/js/sidebarnav.js"></script>
 </body>
 </html>

@@ -1,11 +1,14 @@
 package com.spring.cswiki.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.spring.cswiki.domain.Doc;
+import com.spring.cswiki.domain.Star;
 import com.spring.cswiki.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +56,7 @@ public class MemberController {
 
     // 로그인 처리, 값이 일치하면 로그인 수행 후 메인 페이지로 이동, 일치하지 않으면 다시 로그인 페이지로 이동
     @RequestMapping(value="/login")
-    public String login(HttpServletRequest req, Member member) throws Exception{
+    public String login(HttpServletRequest req, Member member, Model model) throws Exception{
         HttpSession session = req.getSession();
         Member login = service.login(member);
         String referer = (String) session.getAttribute("referer");
@@ -78,11 +81,25 @@ public class MemberController {
             LOG.info(String.valueOf((login.getReg_date())));
             LOG.info(String.valueOf((login.getBan())));
 
+            List<Star> stars = service.findStars(login.getU_id());
+            List<Doc> docs = new ArrayList<>();
             if (referer != null && !referer.contains("login")) {
                 LOG.info("prev page is checked, return to check page.");
                 return "redirect:" + referer;
             } else {
                 LOG.info("prev page is not found, return to main page.");
+                if (stars == null) {
+                    LOG.info("즐겨찾기 등록된 문서 중 수정사항이 없습니다.");
+                    String comment = "수정된 즐겨찾기 문서가 없습니다.";
+                    session.setAttribute("docs", comment);
+                } else {
+                    for (int i = 0; i < stars.size(); i++) {
+                        docs.add(service.findDoc(stars.get(i).getD_num()));
+                    }
+                }
+                System.out.println(docs.get(1).getD_title());
+                session.setAttribute("docs", docs);
+//                service.finishAlarm(login.getU_id());
                 return "redirect:/";
             }
         }

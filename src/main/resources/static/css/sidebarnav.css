@@ -1,0 +1,228 @@
+/* 노멀라이즈 시작 */
+body, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+/* 노멀라이즈 끝 */
+
+/* 커스텀 시작 */
+
+/* 사이드바-아이콘 시작 */
+.side-bar__icon-box {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.side-bar__icon-1 {
+    position: relative;
+    width: 30px;
+    height: 22px;
+    margin: 15px;
+    transition: .5s;
+}
+
+:root {
+    --side-bar__icon: .5s;
+}
+
+.side-bar__icon-1 > div {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    background-color: white;
+    transition: all var(--side-bar__icon);
+}
+
+.side-bar__icon-1 > div:nth-of-type(1) {
+    top: 0;
+    width: auto;
+    left: 0;
+    right: 0;
+    transition: all var(--side-bar__icon), left calc(var(--side-bar__icon) / 2) calc(var(--side-bar__icon) / 2), right calc(var(--side-bar__icon) / 2) calc(var(--side-bar__icon) / 2), height calc(var(--side-bar__icon) / 2) 0s;
+}
+
+.side-bar__icon-1 > div:nth-of-type(2) {
+    top: 40%;
+    transform-origin: bottom left;
+}
+
+.side-bar__icon-1 > div:nth-of-type(3) {
+    top: 80%;
+    left: auto;
+    right: 0;
+    transform-origin: bottom right;
+}
+
+.side-bar:hover .side-bar__icon-1 > div:nth-of-type(2) {
+    transform: rotate(45deg);
+    width: 70.5%;
+    height: 25%;
+}
+
+.side-bar:hover .side-bar__icon-1 > div:nth-of-type(3) {
+    top: 40%;
+    transform: rotate(-45deg);
+    width: 70.5%;
+    height: 25%;
+}
+
+.side-bar:hover .side-bar__icon-1 > div:nth-of-type(1) {
+    left: 41%;
+    right: 41%;
+    height: 100%;
+    transition: all var(--side-bar__icon), left calc(var(--side-bar__icon) / 2) 0s, right calc(var(--side-bar__icon) / 2) 0s, height calc(var(--side-bar__icon) / 2) calc(var(--side-bar__icon) / 2);
+}
+/* 사이드바-아이콘 끝 */
+
+/* 사이드바-메뉴 시작 */
+
+body {
+    height: auto;
+}
+
+.side-bar {
+    position: fixed;
+    top: 0px;
+    min-height: 100vh;
+    width: 100px;
+    background-color: skyblue;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.side-bar .parentmenu > li > a {
+    color: white;
+    font-size: 15pt;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.side-bar .childmenu > li > a {
+    color: white;
+    font-size: 12pt;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.side-bar .child2menu > li > a {
+    color: black;
+    font-size: 10pt;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.side-bar > ul > li > a > span > i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.side-bar .childmenu:hover .child2menu {
+    display: block;
+}
+
+.childmenu .child2menu {
+    display: none;
+}
+
+.side-bar:hover {
+    width: 270px;
+    overflow: visible;
+}
+
+.side-bar:hover > ul > li > a > span:last-child {
+    opacity: 1;
+    transition: .5s .1s;
+}
+
+.side-bar ul > li:hover > a {
+    background-color: #00B9CE;
+}
+
+.side-bar > ul > li {
+    position: relative;
+}
+
+.side-bar > ul > li:hover > .childmenu {
+    display: block;
+}
+
+.side-bar ul li a {
+    display: none;
+}
+
+.side-bar:hover li a {
+    display: block;
+}
+
+.childmenu {
+    display: none;
+}
+
+.category-input{
+    margin-left : 8%;
+    border : 0;
+    font-size: 15pt;
+}
+
+.category-child{
+    font-size: 12pt;
+}
+
+.edit-input{
+    margin-left : 8%;
+    border : 0;
+    font-size: 15pt;
+}
+
+.add-area{
+    display:flex;
+    margin-left:8%;
+}
+.add-btn{
+    display:none;
+}
+.add-btn-child{
+    display:none;
+}
+
+.add-area:hover > .add-btn{
+    display:block;
+    padding-left:26%;
+}
+
+.side-bar ul > li:hover > .add-btn-child{
+    display:block;
+    position:relative;
+    top:-35px;
+    left:70%;
+    color:white;
+}
+
+.hidden {
+    display: none;
+}
+.add-form{
+    display:none;
+    margin-left : 8%;
+}
+.add-form-child{
+    display:none;
+    margin-left : 0%;
+}
+.delete-button {
+    display: none;
+}
+/* 사이드바-메뉴 끝 */
+
+/* 커스텀 끝 */

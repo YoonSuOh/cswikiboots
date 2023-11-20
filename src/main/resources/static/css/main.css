@@ -3,361 +3,102 @@
     box-sizing:border-box;
 }
 
-@font-face{
-    font-family:'InterparkGothic'; /*font 이름*/
+/*@font-face{
+    font-family:'InterparkGothic'; !*font 이름*!
     font-style: 'normal';
-    src: url("/font/InterparkGothicLight.ttf"); /* IE9 Compat Modes */
+    src: url("/font/InterparkGothicLight.ttf"); !* IE9 Compat Modes *!
 }
 @font-face{
-    font-family:'InterparkGothicMedium'; /*font 이름*/
+    font-family:'InterparkGothicMedium'; !*font 이름*!
     font-style: 'normal';
-    src: url("/font/InterparkGothicMedium.ttf"); /* IE9 Compat Modes */
+    src: url("/font/InterparkGothicMedium.ttf"); !* IE9 Compat Modes *!
 }
 @font-face{
-    font-family:'InterparkGothicBold'; /*font 이름*/
+    font-family:'InterparkGothicBold'; !*font 이름*!
     font-style: 'normal';
-    src: url("/font/InterparkGothicBold.ttf"); /* IE9 Compat Modes */
-}
-
+    src: url("/font/InterparkGothicBold.ttf"); !* IE9 Compat Modes *!
+}*/
 html, body{
+
     margin : 0;
     padding : 0;
     font-family: Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif;
 }
 
-a{
-    text-decoration:none;
-    color:blue;
+.frame {
+    border: 1px solid darkgray;
+    border-radius: 5px;
 }
 
-a:hover{
-    color:skyblue;
-}
-
-body{
-    margin-right : 20px;
-    margin-left : 20px;
-    margin-top : 20px;
-}
-#fixed{
-    position:fixed;
-    top : 50px;
-    right:50px;
-    display:inline-block;
-    width:100px;
-    height:100px;
-    border: 1px solid black;
-    border-radius : 50px;
-}
-.blind{
-    position:absolute;
-    overflow:hidden;
-    clip : rect(0, 0, 0, 0);
-    margin : -1px;
-    width : 1px;
-    height : 1px;
-}
-
-.center-align{
-    margin:0 auto;
-    width:1080px;
-}
-
-header{
-    height: 170px;
-}
-
-#header-top{
-    float:right;
-    margin-top:8px;
-}
-
-#header-top span{
-    color: #888;
-    letter-spacing: -1px;
-    font-size:  11px;
-    line-height: 22px;
-}
-
-#header-top span a{
-    text-decoration:none;
-    color:inherit;
-}
-
-#header-top span a:hover{
-    color:skyblue;
-}
-
-#header-search{
-    clear:both;
-}
-
-#header-search a{
-    text-decoration: none;
-}
-
-#header-search h1{
-    width:198px;
-    height:62px;
-    display:inline-block;
-    /* background-image : url(./sp_search.png);*/
-    /*background-position : 0px -1px;*/
-    /*background-repeat:no-repeat; */
-    background : url(../img/logo_skyblue.png) 0px 2px no-repeat;
-    vertical-align: middle;
-    position:relative;
-    top: 0px;
-}
-
-#header-search h1 span{
-    display:none;
-}
-
-#header-search h2{
-    display:none;
-}
-
-#header-search fieldset{
-    margin-left:18px;
-    padding: 12px 0 12px 10px;
-    width:521px;
-    height:49px;
-    display:inline-block;
-    border: 2px solid skyblue;
-    vertical-align: middle;
-    position:relative;
-    left:50px;
-}
-
-#header-search fieldset input{
-    border: none;
-    padding : 0;
-    outline:none;
-    vertical-align: top;
-    width:405px;
-    height:23px;
-}
-
-#header-search fieldset button{
-    width:49px;
-    height:49px;
-    border : none;
-    padding : 0;
-    background : skyblue;
-    position:relative;
-    top: -14px;
-    left: 48px;
-
-}
-
-#search-image{
-    background-image: url(./sp_searchbtn.png);
-    background-position: 0px 0px;
-    background-repeat:no-repeat;
-    width:21px;
-    height:21px;
-    display:inline-block;
-    margin:14px;
-}
-
-nav{
-    height:46px;
-    border-top: 1px solid #f1f3f6;
-    border-bottom: 1px solid #d1d8e4;
-}
-nav ul {
-    display: inline-block;
-    margin : 0;
-    padding : 10px 0 0 4px;
-    list-style : none;
-}
-
-nav li {
-    display:inline-block;
-}
-
-nav li > a{
-    color:#888;
-    font-family:InterparkGothicBold;
-    font-size:20px;
-    padding-left:10px;
-    text-decoration-line:none;
-}
-
-nav li > a:hover{
-    color:skyblue;
-}
-
-#search-ranking {
-    position: absolute;
-    top: 183px;
-    right: 30px;
-}
-
-#rank-number{
-    margin-top: -9px;
-    color: skyblue;
-    font-size: 16px;
-}
-
-#welcome{
-    margin:10px auto;
-    width:1080px;
-    border: 1px solid #d1d8e4;
-}
-
-#welcome_inner{
-    margin:10px auto;
-    width:1080px;
-    text-align:center;
-}
-
-#welcome_inner > h2{
-    font-family:InterparkGothic;
-}
-
-#member{
-    position:relative;
-    left:350px;
-    margin:5px auto;
-    padding-top:10px;
-    padding-bottom:10px;
-    width:380px;
-    height:130px;
-    border: 1px solid #d1d8e4;
-}
-
-#member_inner{
-    margin : 0 auto;
-    width:350px;
-    text-align:center;
-}
-
-#loginbtn{
-    margin-top:10px;
-    width:350px;
-    height:50px;
-    background-color:skyblue;
-    font-family:InterparkGothicBold;
-    font-size:25px;
-    border:0;
-}
-
-#loginbtn > a{
-    color:white;
-    text-decoration:none;
-}
-
-#logoutBtn{
-    margin-top:10px;
-    width:350px;
-    height:50px;
-    background-color:skyblue;
-    font-family:InterparkGothicBold;
-    font-size:25px;
-    border:0;
-}
-
-#logoutBtn > a{
-    color:white;
-    text-decoration:none;
-}
-
-#joingroup{
-    margin : 0 auto;
-    padding-top:10px;
-    text-align:center;
-}
-
-#recentedit{
-    position:relative;
-    left:350px;
-    margin: 10px auto;
-    width:380px;
-    border: 1px solid #d1d8e4;
-    padding-left:10px;
-    padding-right:10px;
-}
-
-#recentedit_inner{
-    margin: 10px auto;
-}
-
-.list{
-    padding-bottom:10px;
-}
-
-#help{
-    position: relative;
-    left: -197px;
-    top: -417px;
-    margin: 10px auto;
-    width: 686px;
-    height: 407px;
-    border: 1px solid #d1d8e4;
-}
-
-#notice{
-    position:relative;
-    top:-417px;
-    margin: 10px auto;
-    width:1080px;
-    border: 1px solid #d1d8e4;
-}
-.userinfo{
-    position:fixed;
-    font-family:'InterParkGothicMedium';
-    width:242px;
-    top: 60px;
-    left: 2041px;
-    border: 1px solid #d1d8e4;
-    border-radius: 7px;
-}
-
-@media (max-width: 1440px){
-    .userinfo{
-        position:fixed;
-        font-family:'InterParkGothicMedium';
-        width:242px;
-        top: 60px;
-        left: 935px;
-        border: 1px solid #d1d8e4;
-        border-radius: 7px;
-    }
-}
-
-table {
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
-  }
-th, td{
-    border-bottom: 1px solid #444444;
+.up {
+    width: 70%;
+    height: auto;
     padding: 10px;
-    text-align : left;
-}
-
-.footer_inner{
-    position: relative;
+    margin: 10px auto;
     text-align: center;
 }
-.footer_inner h1 span{
-    display:none;
+
+.up .strong {
+    font-weight: bold;
+    font-size: 15pt;
 }
-.footer_logo{
-    position:relative;
-    top:4px;
-    width:62px;
-    height:21px;
-    display:inline-block;
-    background : url("../img/logo_footer.png") 13px 1px no-repeat;
+
+.up .wiki_font {
+    font-weight: bold;
+    font-size: 30pt;
+    color: skyblue;
 }
-.footer_inner h1 span{
-    display:none;
+
+.middle {
+    display: flex;
+    justify-content: center;
 }
-.text, .corp{
-    font-size:14px;
+
+
+.middle .rule {
+    width: 40%;
+    padding: 10px;
 }
-.corp{
-    font-weight:bold;
+
+hr {
+    margin: 5px 0;
+}
+
+.middle .down_p {
+    width: 30%;
+}
+
+.middle .login_p {
+    padding: 10px;
+    margin: 0 0 10px 10px;
+    text-align: center;
+}
+
+.middle .login_p button {
+    width: 70%;
+    height: 50px;
+    margin: 10px 0;
+    font-size: 15pt;
+    background-color: skyblue;
+    color: white;
+    border: none;
+}
+
+.middle .login_p button:hover {
+    background-color: #00B9CE;
+}
+
+.middle .login_p a:hover {
+    color: #00B9CE;
+}
+
+.middle .doc {
+    margin: 0 0 0 10px;
+    padding: 10px;
+}
+
+.down {
+    width: 70%;
+    padding: 10px;
+    margin: 10px auto;
 }

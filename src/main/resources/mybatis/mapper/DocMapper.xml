@@ -177,8 +177,8 @@
 
     <!-- 즐겨찾기 등록 -->
     <insert id="starin">
-        INSERT INTO star (star, u_id, d_num)
-        VALUES (star, #{u_id}, #{d_num})
+        INSERT INTO star (star, u_id, d_num, editdoc)
+        VALUES (star, #{u_id}, #{d_num}, 0);
     </insert>
 
     <!-- 즐겨찾기 삭제 -->
@@ -208,13 +208,30 @@
         ORDER BY s.star DESC;
     </select>
 
+<<<<<<< HEAD
     <!-- 카테고리 테스트 코드 -->
+=======
+    <!-- 최근에 수정됬던 문서 출력 -->
+    <select id="selectRecent" resultType="com.spring.cswiki.domain.DocHistory">
+        SELECT dh.*, d.d_title
+        FROM doc_history dh
+                 JOIN cswiki.doc d ON dh.d_num = d.d_num
+        WHERE (dh.d_num, dh.d_version, dh.d_date) IN (
+            SELECT dh2.d_num, MAX(dh2.d_version), MAX(dh2.d_date)
+            FROM cswiki.doc_history dh2
+            GROUP BY dh2.d_num
+        ) AND dh.d_version = 1
+        ORDER BY dh.d_date DESC
+            LIMIT 4;
+    </select>
+>>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
         INSERT INTO category(id, name) VALUES(#{id}, #{name})
     </insert>
     <!-- 2단계 카테고리 생성 -->
     <insert id="insertSecondCategory">
+<<<<<<< HEAD
         INSERT INTO
             (
                 id,
@@ -226,6 +243,19 @@
             id = #{id}
             ,name = #{name}
             ,parent_id = #{parent_id}
+=======
+        INSERT INTO category
+        (
+            id,
+            name,
+            parent_id
+        )
+        VALUES
+            (
+                #{id}
+            ,#{name}
+            ,#{parent_id}
+>>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
             )
     </insert>
     <!-- 3단계 카테고리(문서 목록) 생성 -->
@@ -234,6 +264,19 @@
         VALUES(#{id}, #{name}, #{parent_id} ,#{d_num})
     </insert>
 
+<<<<<<< HEAD
+=======
+    <!-- 1단계 카테고리 중 마지막 카테고리 가져오기 -->
+    <select id="selectFirstCategory" resultType="com.spring.cswiki.domain.Category">
+        SELECT * FROM cswiki.category where parent_id IS NULL ORDER BY idx DESC LIMIT 1;
+    </select>
+
+    <!-- 2단계 카테고리 중 마지막 카테고리 가져오기 -->
+    <select id="selectSecondCategory" resultType="com.spring.cswiki.domain.Category">
+        SELECT * FROM cswiki.category where parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
+    </select>
+
+>>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
     <!-- 2단계 카테고리에 해당하는 문서 목록 가져오기 -->
     <select id="selectByCategoryId" resultType="com.spring.cswiki.domain.Category">
         SELECT parent_id, id, name FROM category WHERE d_num = #{d_num};
@@ -243,4 +286,30 @@
     <select id="selectThirdCategoryByParentId" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM category WHERE parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
+<<<<<<< HEAD
+=======
+
+    <!-- 카테고리 수정 -->
+    <update id="updateCategory">
+        UPDATE category
+        SET name = #{name}
+        WHERE
+            id = #{id}
+    </update>
+    <!-- 카테고리 삭제 -->
+    <delete id="deleteCategory">
+        DELETE from category
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 즐겨찾기 등록한 유저 찾기 -->
+    <select id="starUsers" resultType="com.spring.cswiki.domain.Star">
+        SELECT * FROM star WHERE d_num = #{d_num};
+    </select>
+
+    <!-- 문서 변경시 변경됨을 표시 -->
+    <update id="editDoc">
+        UPDATE star SET editdoc = 1 WHERE d_num = #{d_num};
+    </update>
+>>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
 </mapper>
