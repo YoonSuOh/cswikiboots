@@ -98,20 +98,6 @@
         </form>
         <br><br><hr>
         <div class="commentBox" th:each="c, status : ${comment}">
-<<<<<<< HEAD
-            <strong><p th:text="${c.u_id}"></p></strong>
-            <input type="hidden" th:value="${c.cm_num}">
-            <p th:text="${c.cm_comment}"></p>
-            <div th:if="${session.u_id == c.u_id}">
-                <details>
-                    <summary>수정/삭제하기</summary>
-                    <form method="post" th:action="@{/doc/comment/update}" target="ifrmProcess">
-                        <input type="hidden" name="cm_num" th:value="${c.cm_num}">
-                        <input type="text" name="cm_comment" placeholder="댓글 수정 부분">
-                        <input type="submit" id="updateLink" value="수정">
-                    </form>
-                    <a th:href="@{/doc/comment/delete/{cm_num}(cm_num=${c.cm_num})}" id="deleteLink" onclick="return confirm('정말 삭제하시겠습니까?');" target="ifrmProcess">삭제</a>
-=======
             <strong><p class="comment" th:text="${c.u_id}"></p></strong>
             <input type="hidden" th:value="${c.cm_num}">
             <p class="commenttext" th:text="${c.cm_comment}"></p>
@@ -128,7 +114,6 @@
                             <a th:href="@{/doc/comment/delete/{cm_num}(cm_num=${c.cm_num})}" id="deleteLink" onclick="return confirm('정말 삭제하시겠습니까?');" target="ifrmProcess">삭제</a>
                         </button>
                     </div>
->>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
                 </details>
             </div>
             <a th:if="${status.last}" id="comment_last"></a>
