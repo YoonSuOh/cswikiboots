@@ -304,4 +304,10 @@ public class DocService{
     public void deleteComment(int cm_num, String u_id, int d_num) {
         dao.deleteComment(cm_num, u_id, d_num);
     }
+
+    // 즐겨찾기 등록한 유저 찾기
+    public List<Star> starUsers(int d_num) { return dao.starUsers(d_num); }
+
+    // 문서 변경시 테이블에 반영
+    public void editDoc(int d_num) { dao.editDoc(d_num);}
 }

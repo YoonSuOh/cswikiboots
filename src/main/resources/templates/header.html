@@ -3,6 +3,16 @@
 <header>
     <div class="h-nav">
         <ul class="h-ul">
+            <li th:if="${#httpServletRequest.getSession(false) != null}" style="cursor: pointer" class="h-ul-user">
+                <p class="alarmBox">알림</p>
+                <ul>
+                    <div class="alarm">
+                        <ul th:each="doc : ${docs}">
+                            <li th:text="즐겨찾기 등록하신 ${doc.d_title} 문서가 변경되었습니다."></li>
+                        </ul>
+                    </div>
+                </ul>
+            </li>
             <li th:if="${#httpServletRequest.getSession(false) != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/logout';">로그아웃</a></li>
             <li th:if="${#httpServletRequest.getSession(false) == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/login';">로그인</a></li>
             <li th:if="${#httpServletRequest.getSession(false) == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/join';">회원가입</a></li>

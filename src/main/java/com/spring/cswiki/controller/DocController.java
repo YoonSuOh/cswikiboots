@@ -222,7 +222,9 @@ public class DocController {
     @RequestMapping(value="/edit", method=RequestMethod.POST)
     public String postedit(Doc domain) throws Exception{
         int result = service.edit(domain);
+        List<Star> users = service.starUsers(domain.getD_num());
         if(result > 0) {
+            service.editDoc(domain.getD_num());
             return "redirect:doc?d_num=" + domain.getD_num();
         } else {
             return "redirect:list";

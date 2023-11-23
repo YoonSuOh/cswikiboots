@@ -17,5 +17,6 @@ public class Member {
     private Date reg_date;
     private int ban;
     private Date ban_date;
+    private Date banExpire;
     private String ban_reason;
 }
