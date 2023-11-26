@@ -2,7 +2,9 @@ package com.spring.cswiki.controller;
 
 import com.spring.cswiki.domain.Category;
 import com.spring.cswiki.domain.DocHistory;
+import com.spring.cswiki.domain.Notice;
 import com.spring.cswiki.service.DocService;
+import com.spring.cswiki.service.NoticeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,13 +22,19 @@ public class MainController {
 
     @Inject
     private DocService service;
+
+    @Inject
+    private NoticeService noticeservice;
+
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @GetMapping("/")
     public String main(Model model){
         List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
         List<DocHistory> recent = service.getRecent();
+        List<Notice> notice = noticeservice.getNotice();
         model.addAttribute("jsonData", jsonData);
         model.addAttribute("recent", recent);
+        model.addAttribute("notice", notice);
         return "/main";
     }
 
@@ -42,7 +50,9 @@ public class MainController {
     @GetMapping("/test")
     public String test(Model model){
         List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
+        List<Notice> notice = noticeservice.getNotice();
         model.addAttribute("jsonData", jsonData);
+        model.addAttribute("notice", notice);
         return "/test";
     }
 

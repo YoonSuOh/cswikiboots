@@ -3,36 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.cswiki.dao.DocDAO">
+    <!-- 카테고리 전체 조회 -->
     <select id="selectAll" resultType="com.spring.cswiki.domain.Category">
         SELECT id, name, parent_id, d_num FROM category where disable = 0;
     </select>
-
-    <!-- 1단계 분류
-    <select id="list" resultType="com.spring.cswiki.domain.BigCategory">
-        SELECT
-        b_ca_name, b_ca_num
-        FROM big_category WHERE b_ca_avaliable = 1
-    </select>
-
-    &lt;!&ndash; 2단계 분류 &ndash;&gt;
-    <select id="s_category" resultType="com.spring.cswiki.domain.SmallCategory">
-        SELECT s_ca_name, s_ca_num FROM small_category WHERE b_ca_num = #{b_ca_num} and s_ca_avaliable = 1
-    </select>
-
-    &lt;!&ndash; 1단계 분류 추가 &ndash;&gt;
-    <insert id="createbigcategory" useGeneratedKeys="true" keyProperty="b_ca_num">
-        INSERT INTO big_category (b_ca_name, b_ca_avaliable)
-        VALUES (#{b_ca_name}, 1)
-    </insert>
-    &lt;!&ndash; 2단계 분류 추가 &ndash;&gt;
-    <insert id="createsmallcategory" useGeneratedKeys="true" keyProperty="s_ca_num">
-        INSERT INTO small_category (s_ca_name, b_ca_num, s_ca_avaliable)
-        VALUES (#{s_ca_name}, #{b_ca_num}, 1)
-    </insert>
-    &lt;!&ndash; 문서 리스트 &ndash;&gt;
-    <select id="doc_list" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d_title, d_num FROM doc WHERE s_ca_num = #{s_ca_num} AND d_available = 1
-    </select>-->
 
     <!-- 문서번호 접속시 접속날짜 업데이트 -->
     <update id="setDocTimeNum">
@@ -80,26 +54,16 @@
         VALUES (1, 2, 2, 2, #{d_title}, #{d_content}, #{d_summary}, 1, null);
     </insert>
 
-    <!-- 문서 작성 시 2단계 카테고리 선택 -->
-    <select id="selectcategory">
-        select * from small_category
-    </select>
     <!-- 새 문서 작성 시 역사 생성 -->
     <insert id="createDocHistory" useGeneratedKeys="true" keyProperty="d_num">
         INSERT INTO doc_history (d_version, d_num, d_date, u_id, d_summary, d_content)
         VALUES (#{d_version}, #{d_num}, SYSDATE(), #{u_id}, #{d_summary}, #{d_content})
     </insert>
 
-    <!-- 문서 편집 시 해당하는 분류 가져오기 -->
-    <select id="getcategory" resultType="com.spring.cswiki.domain.SmallCategory">
-        SELECT s_ca_num, s_ca_name FROM small_category WHERE s_ca_num IN(SELECT s_ca_num FROM doc WHERE d_num = #{d_num});
-    </select>
-
     <!-- 문서 편집 -->
     <update id="edit">
         UPDATE doc
         SET
-            s_ca_num = #{s_ca_num},
             d_title = #{d_title},
             d_content = #{d_content},
             d_summary = #{d_summary},
@@ -152,10 +116,7 @@
 
     <!-- 문서 검색 -->
     <select id="search" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d.d_num, d.s_ca_num, d.p_read, d.p_insert, d.p_update, d.p_delete, d.d_title, d.d_content, sc.s_ca_name, b.b_ca_name FROM doc d
-                                                                                                                                             JOIN small_category sc on sc.s_ca_num = d.s_ca_num
-                                                                                                                                             JOIN big_category b on b.b_ca_num = sc.b_ca_num
-        WHERE d_title = #{d_title};
+        SELECT * FROM doc WHERE d_title = #{d_title};
     </select>
 
     <!-- 문서 역사  -->
@@ -208,9 +169,6 @@
         ORDER BY s.star DESC;
     </select>
 
-<<<<<<< HEAD
-    <!-- 카테고리 테스트 코드 -->
-=======
     <!-- 최근에 수정됬던 문서 출력 -->
     <select id="selectRecent" resultType="com.spring.cswiki.domain.DocHistory">
         SELECT dh.*, d.d_title
@@ -222,28 +180,15 @@
             GROUP BY dh2.d_num
         ) AND dh.d_version = 1
         ORDER BY dh.d_date DESC
-            LIMIT 4;
+            LIMIT 10;
     </select>
->>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
     <!-- 1단계 카테고리 생성 -->
     <insert id="insertFirstCategory">
         INSERT INTO category(id, name) VALUES(#{id}, #{name})
     </insert>
+
     <!-- 2단계 카테고리 생성 -->
     <insert id="insertSecondCategory">
-<<<<<<< HEAD
-        INSERT INTO
-            (
-                id,
-                name,
-                parent_id
-            )
-            VALUES
-        (
-            id = #{id}
-            ,name = #{name}
-            ,parent_id = #{parent_id}
-=======
         INSERT INTO category
         (
             id,
@@ -255,17 +200,15 @@
                 #{id}
             ,#{name}
             ,#{parent_id}
->>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
             )
     </insert>
+
     <!-- 3단계 카테고리(문서 목록) 생성 -->
     <insert id="insertThirdCategory">
         INSERT INTO category(id, name, parent_id, d_num)
         VALUES(#{id}, #{name}, #{parent_id} ,#{d_num})
     </insert>
 
-<<<<<<< HEAD
-=======
     <!-- 1단계 카테고리 중 마지막 카테고리 가져오기 -->
     <select id="selectFirstCategory" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM cswiki.category where parent_id IS NULL ORDER BY idx DESC LIMIT 1;
@@ -276,7 +219,6 @@
         SELECT * FROM cswiki.category where parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
 
->>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
     <!-- 2단계 카테고리에 해당하는 문서 목록 가져오기 -->
     <select id="selectByCategoryId" resultType="com.spring.cswiki.domain.Category">
         SELECT parent_id, id, name FROM category WHERE d_num = #{d_num};
@@ -286,8 +228,6 @@
     <select id="selectThirdCategoryByParentId" resultType="com.spring.cswiki.domain.Category">
         SELECT * FROM category WHERE parent_id = #{parent_id} ORDER BY idx DESC LIMIT 1;
     </select>
-<<<<<<< HEAD
-=======
 
     <!-- 카테고리 수정 -->
     <update id="updateCategory">
@@ -311,5 +251,4 @@
     <update id="editDoc">
         UPDATE star SET editdoc = 1 WHERE d_num = #{d_num};
     </update>
->>>>>>> 58563f3f5880b014dca50c3d2ddd339499e48c8f
 </mapper>

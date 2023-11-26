@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="/css/header.css">
 <header>
     <div class="h-nav">
+        <div id="notice">
+            <span><b>[공지]</b></span><span><a id="titleDisplay" style="cursor: pointer;" href=""></a></span><span id="notice-more"><a href="">+ 더보기</a></span>
+        </div>
         <ul class="h-ul">
             <li th:if="${#httpServletRequest.getSession(false) != null}" style="cursor: pointer" class="h-ul-user">
                 <p class="alarmBox">알림</p>

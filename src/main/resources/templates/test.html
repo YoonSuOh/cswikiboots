@@ -17,7 +17,6 @@
             height:100px;
             text-align:center;
         }
-
         .edit-inner{
             display:inline-block;
         }
@@ -25,6 +24,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<h1 id="titleDisplay"><a id="titleLink" href=""></a></h1>
 <ul>
     <form action="/addcategory" method="post">
         <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
@@ -82,7 +82,7 @@
     });
 
     $(document).ready(function(){
-
+        // 카테고리 수정
         $('.category-toggle').on('dblclick', function(){
             let id = $(this).data("id");
             let name = $(this).text();
@@ -136,6 +136,34 @@
             });
         });
     });
+</script>
+<script th:inline="javascript">
+    var noticeList = /*[[${notice}]]*/ []; // Thymeleaf 모델에서 'notice' 속성을 가져옵니다.
+    var currentIndex = 0;
+
+    function changeTitle() {
+        var currentNotice = noticeList[currentIndex];
+        document.getElementById('titleDisplay').innerText = currentNotice.title;
+        document.getElementById('titleLink').innerText = currentNotice.title;
+        document.getElementById('titleLink').href = '/notice/notice?idx=' + currentNotice.noticeidx;
+        currentIndex = (currentIndex + 1) % noticeList.length;
+    }
+
+    // 초기 타이틀 설정
+    changeTitle();
+
+    // 일정 시간 간격으로 타이틀 변경
+    var interval = setInterval(changeTitle, 3000);
+
+    // 마지막 타이틀이 보여진 후, 다시 처음 타이틀로 돌아가기 위한 처리
+    function resetInterval() {
+        clearInterval(interval);
+        currentIndex = 0;
+        interval = setInterval(changeTitle, 3000);
+    }
+
+    // 페이지가 로드된 후 일정 시간이 지나면 처음부터 다시 시작
+    setTimeout(resetInterval, 3000 * noticeList.length);
 </script>
 </body>
 </html>

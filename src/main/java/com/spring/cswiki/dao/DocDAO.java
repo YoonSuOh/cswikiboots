@@ -18,7 +18,6 @@ public interface DocDAO {
     public void setDocTimeNum(@Param("d_num")int d_num, @Param("lastVisit")Timestamp lastVisit); // 문서번호 방문시간 업데이트
     public void setDocTimeTitle(@Param("d_title")String d_title, @Param("lastVisit")Timestamp lastVisit); // 문서제목 방문시간 업데이트
     public Timestamp getDocTimeTitle(String d_title); // 문서 제목으로 방문시간 가져오기
-    public SmallCategory getcategory(int d_num);
     public int edit(Doc dto); // 문서 편집
     public void edithistory(DocHistory dto); // 문서 편집시 역사 생성
     public void delete(int d_num); // 문서 삭제

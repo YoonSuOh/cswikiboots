@@ -27,13 +27,6 @@
             <p>추천 문서</p> <hr>
         </div>
         <div class="down_p">
-            <div class="login_p frame">
-                로그인 후 더 많은 기능을 이용해보세요. <br>
-                <button style="cursor: pointer;">로그인</button> <br>
-                <a href="#">회원가입</a> |
-                <a href="#">아이디 찾기</a> |
-                <a href="#">비밀번호 찾기</a>
-            </div>
             <div class="doc frame">
                 <p>새로 추가된 문서</p> <hr>
                 <ul th:each="list : ${recent}">
@@ -48,5 +41,31 @@
 </main>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <script src="/js/sidebarnav.js"></script>
+<script th:inline="javascript">
+    var noticeList = /*[[${notice}]]*/ []; // Thymeleaf 모델에서 'notice' 속성을 가져옵니다.
+    var currentIndex = 0;
+
+    function changeTitle() {
+        document.getElementById('titleDisplay').innerText = noticeList[currentIndex].title;
+        document.getElementById('titleDisplay').href = '/notice/notice?idx=' + noticeList[currentIndex].noticeIdx;
+        currentIndex = (currentIndex + 1) % noticeList.length;
+    }
+
+    // 초기 타이틀 설정
+    changeTitle();
+
+    // 일정 시간 간격으로 타이틀 변경
+    var interval = setInterval(changeTitle, 3000);
+
+    // 마지막 타이틀이 보여진 후, 다시 처음 타이틀로 돌아가기 위한 처리
+    function resetInterval() {
+        clearInterval(interval);
+        currentIndex = 0;
+        interval = setInterval(changeTitle, 3000);
+    }
+
+    // 페이지가 로드된 후 일정 시간이 지나면 처음부터 다시 시작
+    setTimeout(resetInterval, 3000 * noticeList.length);
+</script>
 </body>
 </html>
