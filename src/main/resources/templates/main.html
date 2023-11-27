@@ -47,7 +47,7 @@
 
     function changeTitle() {
         document.getElementById('titleDisplay').innerText = noticeList[currentIndex].title;
-        document.getElementById('titleDisplay').href = '/notice/notice?idx=' + noticeList[currentIndex].noticeIdx;
+        document.getElementById('titleDisplay').href = '/notices/' + noticeList[currentIndex].noticeIdx;
         currentIndex = (currentIndex + 1) % noticeList.length;
     }
 

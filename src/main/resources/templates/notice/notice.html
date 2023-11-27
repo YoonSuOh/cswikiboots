@@ -5,8 +5,9 @@
     <meta content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/sidebarnav.css">
-    <link rel="stylesheet" href="/css/innotice.css">
-    <title>공지사항 세부내용 - CS위키</title>
+    <link rel="stylesheet" href="/css/notice/innotice.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>[[${list.title}]] - CS위키</title>
 </head>
 
 <body>
@@ -21,39 +22,52 @@
 <main>
     <!-- 공지사항 세부 내용 -->
     <div class="notice-name">
-        <h2>공지 : 11월 24일 (목) 업데이트 안내</h2>
+        <h2>공지 : [[${list.title}]]</h2>
     </div>
     <div class="notice-date">
-        <p>2023.11.24 00:01</p>
+        <p>[[${#dates.format(list.createdAt, 'yyyy-MM-dd HH:mm')}]]</p>
     </div>
 
     <hr>
 
     <div class="notice-main">
-        <p>
-            안녕하세요, CS위키 관리자 입니다.<br>
-            <br><br>
-            11월 24일 (목) 00:00경 업데이트가 진행되어 안내해 드립니다.<br>
-            CS위키에 접속하시면 아래 사항이 변경됩니다.<br>
-            <br><br>
-            [수정 사항 안내]<br>
-            일단 아무 내용을 채워 넣었습니다.<br>
-            <br><br>
-            보다 안정적인 환경을 제공해 드리기 위해 최선을 다하겠습니다.<br>
-            <br><br>
-            항상 감사드립니다.
-        </p>
+        <p th:utext="${list.content}"></p>
     </div>
 
     <hr>
 
     <div class="btn">
-        <button>목록으로</button>
+        <button type="button" onclick="location.href='/notices'">목록으로</button>
     </div>
 </main>
 
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <script src="/js/sidebarnav.js"></script>
+<script th:inline="javascript">
+    var noticeList = /*[[${notice}]]*/ []; // Thymeleaf 모델에서 'notice' 속성을 가져옵니다.
+    var currentIndex = 0;
 
+    function changeTitle() {
+        document.getElementById('titleDisplay').innerText = noticeList[currentIndex].title;
+        document.getElementById('titleDisplay').href = '/notices/' + noticeList[currentIndex].noticeIdx;
+        currentIndex = (currentIndex + 1) % noticeList.length;
+    }
+
+    // 초기 타이틀 설정
+    changeTitle();
+
+    // 일정 시간 간격으로 타이틀 변경
+    var interval = setInterval(changeTitle, 3000);
+
+    // 마지막 타이틀이 보여진 후, 다시 처음 타이틀로 돌아가기 위한 처리
+    function resetInterval() {
+        clearInterval(interval);
+        currentIndex = 0;
+        interval = setInterval(changeTitle, 3000);
+    }
+
+    // 페이지가 로드된 후 일정 시간이 지나면 처음부터 다시 시작
+    setTimeout(resetInterval, 3000 * noticeList.length);
+</script>
 </body>
 </html>

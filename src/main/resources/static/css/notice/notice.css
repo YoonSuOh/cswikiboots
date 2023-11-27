@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.notice-name {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.table {
+    margin: 0 auto;
+    width: 80%;
+    height: auto;
+}
+
+.table .t-in-title {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.table tbody {
+    text-align: center;
+}
+
+.table thead th {
+    height: 50px;
+    background-color: skyblue;
+    color: white;
+}
+
+.table tbody td {
+    height: 50px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.title {
+    width: 60%;
+}

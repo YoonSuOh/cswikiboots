@@ -16,8 +16,21 @@ public class NoticeService {
     @Inject
     private noticeDAO dao;
 
-    // 공지 보여주기
+    // 공지 목록 보여주기
     public List<Notice> getNotice(){
         return dao.selectNotice();
+    }
+    public List<Notice> getNoticeDesc(){
+        return dao.selectNoticeDesc();
+    }
+
+    // 공지 보여주기
+    public Notice getNoticeById(int noticeIdx){
+        return dao.selectNoticeById(noticeIdx);
+    }
+
+    // 공지 생성
+    public void addNotice(String title, String content, String u_id){
+        dao.insertNotice(title, content, u_id);
     }
 }

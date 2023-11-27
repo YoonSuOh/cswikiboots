@@ -4,7 +4,7 @@
   <meta content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/sidebarnav.css">
-  <link rel="stylesheet" href="/css/notice.css">
+  <link rel="stylesheet" href="/css/notice/notice.css">
   <title>공지사항 - CS위키</title>
 </head>
 <body>
@@ -31,23 +31,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>3</td>
-          <td class="t-in-title">테스트 공지 3</td>
-          <td>정원동</td>
-          <td>2023-11-22</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td class="t-in-title">테스트 공지 2</td>
-          <td>정원동</td>
-          <td>2023-11-21</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td class="t-in-title">테스트 공지 1</td>
-          <td>정원동</td>
-          <td>2023-11-20</td>
+        <tr th:each="list : ${list}">
+          <td>[[${list.noticeIdx}]]</td>
+          <td class="t-in-title"><a th:href="@{|/notices/${list.noticeIdx}|}">[[${list.title}]]</a></td>
+          <td>[[${list.uId}]]</td>
+          <td>[[${#dates.format(list.createdAt, 'yyyy-MM-dd HH:mm')}]]</td>
         </tr>
         </tbody>
       </table>
@@ -56,8 +44,33 @@
 </main>
 <!-- IONICONS -->
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-
 <!-- JS -->
 <script src="/js/sidebarnav.js"></script>
+<script th:inline="javascript">
+  var noticeList = /*[[${notice}]]*/ []; // Thymeleaf 모델에서 'notice' 속성을 가져옵니다.
+  var currentIndex = 0;
+
+  function changeTitle() {
+    document.getElementById('titleDisplay').innerText = noticeList[currentIndex].title;
+    document.getElementById('titleDisplay').href = '/notices/' + noticeList[currentIndex].noticeIdx;
+    currentIndex = (currentIndex + 1) % noticeList.length;
+  }
+
+  // 초기 타이틀 설정
+  changeTitle();
+
+  // 일정 시간 간격으로 타이틀 변경
+  var interval = setInterval(changeTitle, 3000);
+
+  // 마지막 타이틀이 보여진 후, 다시 처음 타이틀로 돌아가기 위한 처리
+  function resetInterval() {
+    clearInterval(interval);
+    currentIndex = 0;
+    interval = setInterval(changeTitle, 3000);
+  }
+
+  // 페이지가 로드된 후 일정 시간이 지나면 처음부터 다시 시작
+  setTimeout(resetInterval, 3000 * noticeList.length);
+</script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.notice-name {
+    width: 80%;
+    margin: 20px auto 0 auto;
+}
+
+.notice-date {
+    width: 80%;
+    margin: 0 auto 20px auto;
+}
+
+hr {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.notice-main {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.btn {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.btn button{
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: skyblue;
+    color: white;
+}

@@ -8,7 +8,7 @@
   <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
   <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
   <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
-  <title>새 문서 작성 - CS위키</title>
+  <title>공지 작성 - CS위키</title>
 </head>
 <body style="overflow-x: hidden">
 <script>
@@ -26,29 +26,31 @@
 </script>
 
 <div th:insert="/header :: header"></div>
-<main>
-  <div id="doc">
-    <div class="doc_inner">
-      <form class="editarea" method="post">
-        <input type="hidden" name="u_id" id="u_id" th:value="${session.u_id}"/>
-        <input type="text" name="d_title" id="d_title" placeholder="제목을 입력하세요."><br>
-        <select id="category" name="id">
-          <option value="">분류를 선택하세요.</option>
-          <option th:each="list : ${list}" th:value="${list.id}" th:text="|${list.id} : ${list.name}|"></option>
-        </select>
-        <textarea name="d_content" id="editor"></textarea>
-        <br>
-        <p id="caution">경고! 문서 편집을 저장할 경우 당신의 기여 내용은 CC-BY-NC-SA 2.0 KR으로 배포됩니다.</p>
-        <button id="save" type="submit">저장</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      </form>
-      <script>
-        CKEDITOR.replace('editor', {
-          filebrowserUploadUrl : '/doc/ckUpload'
-        });
-      </script>
-    </div>
-  </div>
-</main>
+  <th:block th:if="not ${session.p_id >= 3}">
+    <script>
+      alert('접근 권한이 없습니다.');
+      history.back();
+    </script>
+  </th:block>
+  <th:block th:unless="not ${session.p_id >= 3}">
+    <main>
+      <div id="doc">
+        <div class="doc_inner">
+          <form class="editarea" method="post">
+            <input type="hidden" name="u_id" id="u_id" th:value="${session.u_id}"/>
+            <input type="text" name="title" id="d_title" placeholder="제목을 입력하세요."><br>
+            <textarea name="content" id="editor"></textarea>
+            <br>
+            <button id="saveBtn" type="submit">저장</button>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+          </form>
+          <script>
+            CKEDITOR.replace('editor', {
+            });
+          </script>
+        </div>
+      </div>
+    </main>
+  </th:block>
 </body>
 </html>
