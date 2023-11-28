@@ -1,40 +1,56 @@
-<aside class="side-bar">
-<section class="side-bar__icon-box">
-    <section class="side-bar__icon-1">
-        <div></div>
-        <div></div>
-        <div></div>
-    </section>
-</section>
-    <ul class="parentmenu">
-        <div class="add-area">
-            <span>분류 (3)</span>
-            <span class="add-btn">+</span>
-        </div>
-        <div class="add-form">
-            <form method="post" action="/addcategory">
-                <input type="text" name="name" placeholder="1단계 카테고리 추가"/>
-            </form>
-        </div>
-        <li th:each="category : ${jsonData}" class="ct">
-            <a th:text="${category['name']}" class="category-toggle category-name" th:value="${category['name']}"></a>
-            <span class="add-btn-child">+</span>
-            <ul class="hidden childmenu">
-                <div class="add-form-child">
-                    <form method="post" action="/addsecondcategory">
-                        <input class="category-input category-child" type="text" value="" name="name" placeholder="2단계 카테고리 추가"/>
-                        <input type="hidden" name="parent_id" id="parent"/>
-                    </form>
+<aside>
+    <div class="l-navbar" id="navbar">
+        <nav class="nav">
+            <div>
+                <div class="nav__brand">
+                    <a class="icon-color" href="javascript:doDisplay();"><ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon></a>
+                    <a href="#" class="nav__logo">Category</a>
                 </div>
-                <li th:each="child : ${category['children']}" class="ct">
-                    <a><span th:text="${child['name']}" class="category-name-child category-toggle"></span></a>
-                    <ul class="hidden child2menu">
-                        <li th:each="lastChild : ${child['children']}">
-                            <a th:href="@{/doc/doc(d_num=${lastChild['d_num']})}" th:text="${lastChild['name']}"></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
+                <div class="nav__list">
+                    <div id="nav__list">
+                        <ul>
+                            <p>New Category</p>
+                            <form action="/addcategory" method="post" class="cform">
+                                <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+                            </form>
+                            <hr>
+                            <p>Category List</p>
+                            <li class="parent" th:each="category : ${jsonData}">
+                                <span th:text="${category['name']}" class="category-toggle category-parent" th:attr="data-id=${category['id']}"></span>
+                                <input type="hidden" name="name" class="parent-edit" th:value="${category['id']}">
+                                <ul class="hidden">
+                                    <form action="/addsecondcategory" method="post" class="cform">
+                                        <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+                                        <input type="hidden" name="parent_id" id="parent" th:value="${category['id']}"/>
+                                    </form>
+                                    <li th:each="child : ${category['children']}">
+                                        <span th:text="${child['name']}" class="category-toggle category-child" th:attr="data-id=${child['id']}"></span>
+                                        <ul class="hidden">
+                                            <li th:each="lastChild : ${child['children']}">
+                                                <a th:href="@{/doc/doc(d_num=${lastChild['d_num']})}" th:text="${lastChild['name']}"></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="edit">
+                        <div class="edit-inner">
+                            <input name="edit-category" type="text" placeholder="수정할 카테고리 이름 입력"/>
+                        </div>
+                        <div class="edit-inner">
+                            <button id="editBtn" type="button">수정</button>
+                            <button id="delBtn" type="button">삭제</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- JS -->
+    <script src="/js/sidebarnav.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </aside>
