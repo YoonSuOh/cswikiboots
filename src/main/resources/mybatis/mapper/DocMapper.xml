@@ -90,16 +90,10 @@
         VALUES (#{d_version}, #{d_num}, SYSDATE(), #{u_id}, #{d_summary}, #{d_content})
     </insert>
 
-    <!-- 문서 편집 시 해당하는 분류 가져오기 -->
-    <select id="getcategory" resultType="com.spring.cswiki.domain.SmallCategory">
-        SELECT s_ca_num, s_ca_name FROM small_category WHERE s_ca_num IN(SELECT s_ca_num FROM doc WHERE d_num = #{d_num});
-    </select>
-
     <!-- 문서 편집 -->
     <update id="edit">
         UPDATE doc
         SET
-            s_ca_num = #{s_ca_num},
             d_title = #{d_title},
             d_content = #{d_content},
             d_summary = #{d_summary},
@@ -152,10 +146,7 @@
 
     <!-- 문서 검색 -->
     <select id="search" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d.d_num, d.s_ca_num, d.p_read, d.p_insert, d.p_update, d.p_delete, d.d_title, d.d_content, sc.s_ca_name, b.b_ca_name FROM doc d
-                                                                                                                                             JOIN small_category sc on sc.s_ca_num = d.s_ca_num
-                                                                                                                                             JOIN big_category b on b.b_ca_num = sc.b_ca_num
-        WHERE d_title = #{d_title};
+        SELECT * FROM doc WHERE d_title = #{d_title};
     </select>
 
     <!-- 문서 역사  -->
