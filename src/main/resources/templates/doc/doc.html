@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/css/doc.css">
-    <link rel="stylesheet" href="/css/doc/header.css">
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/sidebarnav.css">
 
@@ -32,7 +32,7 @@
 <div th:insert="/header :: header"></div>
 <div th:insert="/sidebarnav"></div>
 <main>
-    <div id="doc">
+    <div style="z-index: 1;" id="doc">
         <hr>
         <div class="doc_inner">
             <span class="title">[[${doc.d_title}]]</span>
@@ -122,5 +122,7 @@
     <script type="text/javascript" src="/js/indexLink.js"></script>
 </main>
 <iframe name="ifrmProcess" width="0" height="0"></iframe>
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script src="/js/sidebarnav.js"></script>
 </body>
 </html>

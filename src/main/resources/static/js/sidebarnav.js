@@ -8,7 +8,7 @@ const showMenu = (toggleId, navbarId, bodyId) => {
         toggle.addEventListener('click', ()=>{
             navbar.classList.toggle('expander');
 
-            bodypadding.classList.toggle('body-pd')
+            //bodypadding.classList.toggle('body-pd')
         })
     }
 }
@@ -125,3 +125,10 @@ var bDisplay = true; function doDisplay(){
         con.style.display = 'block';
     }
 }
+
+$(document).click(function() {
+    var container = $("#edit");
+    if (!container.is(event.target) && !container.has(event.target).length) {
+        container.hide();
+    }
+});
