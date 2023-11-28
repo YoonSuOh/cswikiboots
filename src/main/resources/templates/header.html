@@ -18,13 +18,14 @@
                 <span><b>[공지]</b></span><span><a id="titleDisplay" style="cursor: pointer;" href=""></a></span><span id="notice-more"><a href="/notices">+ 더보기</a></span>
             </div>
             <ul class="h-ul">
-                <li th:if="${#httpServletRequest.getSession(false) != null}" class="h-alarm-text"><p class="alarmBox">알람</p>
+                <li style="z-index: 10;" th:if="${#httpServletRequest.getSession(false) != null}" class="h-alarm-text"><p class="alarmBox">알람</p>
                     <ul class="alarmdrop">
                         <div th:if="${session.docs != null}" class="alarm">
                             <li th:each="doc : ${session.docs}" class="alarmMessage" th:text="${doc}"></li>
                         </div>
                     </ul>
                 </li>
+                <li th:if="${session.u_id != null}" style="cursor: pointer" class="h-ul-user">[[${session.name}]]님</li>
                 <li th:if="${session.u_id != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/logout';">로그아웃</a></li>
                 <li th:if="${session.u_id == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/login';">로그인</a></li>
                 <li th:if="${session.u_id == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/join';">회원가입</a></li>

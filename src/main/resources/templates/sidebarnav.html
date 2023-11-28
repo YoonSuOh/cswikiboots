@@ -11,7 +11,7 @@
                         <ul>
                             <p>New Category</p>
                             <form action="/addcategory" method="post" class="cform">
-                                <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+                                <input class="c-input" type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
                             </form>
                             <hr>
                             <p>Category List</p>
@@ -20,7 +20,7 @@
                                 <input type="hidden" name="name" class="parent-edit" th:value="${category['id']}">
                                 <ul class="hidden">
                                     <form action="/addsecondcategory" method="post" class="cform">
-                                        <input type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
+                                        <input class="c-input" type="text" value="" name="name" placeholder="카테고리 이름 입력"/>
                                         <input type="hidden" name="parent_id" id="parent" th:value="${category['id']}"/>
                                     </form>
                                     <li th:each="child : ${category['children']}">
@@ -36,10 +36,10 @@
                         </ul>
                     </div>
                     <div id="edit">
-                        <div class="edit-inner">
+                        <div class="edit-inner edit-cname">
                             <input name="edit-category" type="text" placeholder="수정할 카테고리 이름 입력"/>
-                        </div>
-                        <div class="edit-inner">
+                        </div><br>
+                        <div class="edit-inner edit-cbtn">
                             <button id="editBtn" type="button">수정</button>
                             <button id="delBtn" type="button">삭제</button>
                         </div>

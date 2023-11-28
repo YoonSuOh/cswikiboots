@@ -70,6 +70,7 @@ public class MemberController {
         } else {
             LOG.info("login success!");
             session.setAttribute("member", login);
+            session.setAttribute("name", login.getName());
             session.setAttribute("p_id", login.getP_id());
             session.setAttribute("u_id", login.getU_id());
             session.setAttribute("email", login.getEmail());
