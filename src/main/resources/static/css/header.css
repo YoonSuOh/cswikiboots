@@ -17,6 +17,34 @@ a {
     text-decoration: none;
 }
 
+.header {
+    display: flex;
+}
+
+.logo {
+    margin: 40px 40px 40px auto;
+    width: 50px;
+    height: 50px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.m-search-input {
+    width: 80%;
+    height: 50px;
+    border: 2px solid skyblue;
+    border-radius: 50px;
+    padding: 0 30px;
+}
+
+.searchbar {
+    margin: 0 auto 0 50px;
+    padding: 40px 0;
+    width: 50%;
+}
+
 .h-nav {
     padding: 10px;
     display: flex;
@@ -50,6 +78,10 @@ a {
 }
 
 .h-ul-user{
+    margin-top: 6px;
+}
+
+.h-alarm-text {
     margin-top: 6px;
 }
 
@@ -99,20 +131,16 @@ a {
     margin: 25px 0;
 }
 
-#notice {
-    position:absolute;
-    padding-left:5px;
-    left: 213px;
-    top: 18px;
-    width: 70%;
-    height:25px;
-    border: 1px solid darkgray;
-    border-radius: 5px;
+.box {
+    margin: 25px 0;
 }
 
-#notice-more{
-    display:block;
-    position:absolute;
-    left: 935px;
-    top : 2px;
+.box:hover .box-text{
+    text-decoration-color: skyblue;
+}
+
+.box-item {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }

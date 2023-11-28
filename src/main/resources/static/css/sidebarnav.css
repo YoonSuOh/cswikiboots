@@ -1,228 +1,228 @@
-/* 노멀라이즈 시작 */
-body, ul, li {
+/* GOOGLE FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+/* VARIABLES CSS */
+:root {
+    --nav--width: 92px;
+
+    /* Colores */
+    --first-color: #0c5df4;
+    --bg-color: #12192c;
+    --sub-color: #b6cefc;
+    --white-color: #fff;
+
+    /* Fuente y tipografia */
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+
+    /* z index */
+    --z-fixed: 100;
+}
+
+/* BASE */
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding: 0 0 0 6.75rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+}
+
+h1 {
+    margin: 0;
+}
+
+ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 a {
-    color: inherit;
     text-decoration: none;
 }
-/* 노멀라이즈 끝 */
 
-/* 커스텀 시작 */
-
-/* 사이드바-아이콘 시작 */
-.side-bar__icon-box {
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-.side-bar__icon-1 {
-    position: relative;
-    width: 30px;
-    height: 22px;
-    margin: 15px;
-    transition: .5s;
-}
-
-:root {
-    --side-bar__icon: .5s;
-}
-
-.side-bar__icon-1 > div {
-    position: absolute;
-    width: 100%;
-    height: 20%;
-    background-color: white;
-    transition: all var(--side-bar__icon);
-}
-
-.side-bar__icon-1 > div:nth-of-type(1) {
-    top: 0;
-    width: auto;
-    left: 0;
-    right: 0;
-    transition: all var(--side-bar__icon), left calc(var(--side-bar__icon) / 2) calc(var(--side-bar__icon) / 2), right calc(var(--side-bar__icon) / 2) calc(var(--side-bar__icon) / 2), height calc(var(--side-bar__icon) / 2) 0s;
-}
-
-.side-bar__icon-1 > div:nth-of-type(2) {
-    top: 40%;
-    transform-origin: bottom left;
-}
-
-.side-bar__icon-1 > div:nth-of-type(3) {
-    top: 80%;
-    left: auto;
-    right: 0;
-    transform-origin: bottom right;
-}
-
-.side-bar:hover .side-bar__icon-1 > div:nth-of-type(2) {
-    transform: rotate(45deg);
-    width: 70.5%;
-    height: 25%;
-}
-
-.side-bar:hover .side-bar__icon-1 > div:nth-of-type(3) {
-    top: 40%;
-    transform: rotate(-45deg);
-    width: 70.5%;
-    height: 25%;
-}
-
-.side-bar:hover .side-bar__icon-1 > div:nth-of-type(1) {
-    left: 41%;
-    right: 41%;
-    height: 100%;
-    transition: all var(--side-bar__icon), left calc(var(--side-bar__icon) / 2) 0s, right calc(var(--side-bar__icon) / 2) 0s, height calc(var(--side-bar__icon) / 2) calc(var(--side-bar__icon) / 2);
-}
-/* 사이드바-아이콘 끝 */
-
-/* 사이드바-메뉴 시작 */
-
-body {
-    height: auto;
-}
-
-.side-bar {
+/* l NAV */
+.l-navbar {
     position: fixed;
-    top: 0px;
-    min-height: 100vh;
-    width: 100px;
-    background-color: skyblue;
-    overflow: hidden;
-    transition: .5s;
-}
-
-.side-bar .parentmenu > li > a {
-    color: white;
-    font-size: 15pt;
-    padding: 10px 20px;
-    white-space: nowrap;
-}
-
-.side-bar .childmenu > li > a {
-    color: white;
-    font-size: 12pt;
-    padding: 10px 20px;
-    white-space: nowrap;
-}
-
-.side-bar .child2menu > li > a {
-    color: black;
-    font-size: 10pt;
-    padding: 10px 20px;
-    white-space: nowrap;
-}
-
-.side-bar > ul > li > a > span > i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.side-bar .childmenu:hover .child2menu {
-    display: block;
-}
-
-.childmenu .child2menu {
-    display: none;
-}
-
-.side-bar:hover {
-    width: 270px;
-    overflow: visible;
-}
-
-.side-bar:hover > ul > li > a > span:last-child {
-    opacity: 1;
-    transition: .5s .1s;
-}
-
-.side-bar ul > li:hover > a {
+    top: 0;
+    left: 0;
+    width: var(--nav--width);
+    height: 100vh;
     background-color: #00B9CE;
+    color: var(--white-color);
+    padding: 1.5rem 1.5rem 2rem;
+    transition: .5s;
+    z-index: var(--z-fixed);
 }
 
-.side-bar > ul > li {
-    position: relative;
+/* NAV */
+.nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
 }
 
-.side-bar > ul > li:hover > .childmenu {
+.nav__brand {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.nav__toggle {
+    font-size: 1.25rem;
+    padding: .75rem;
+    cursor: pointer;
+}
+
+.nav__logo {
+    color: var(--white-color);
+    font-weight: 600;
+}
+
+.nav__link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: .75rem;
+    padding: .75rem;
+    color: var(--white-color);
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.nav__link:hover {
+    background-color: skyblue;
+}
+
+.nav_name {
+    font-size: var(--small-font-size);
+}
+
+/* Expander menu */
+.expander {
+    width: calc(var(--nav--width) + 9.25rem);
+}
+
+/* Add padding body*/
+.body-pd {
+    padding: 2rem 0 0 16rem;
+}
+
+/* Active links menu */
+.active {
+    background-color: skyblue;
+}
+
+/* COLLAPSE */
+.collapse {
+    grid-template-columns: 20px max-content 1fr;
+}
+
+.collapse__link {
+    justify-self: flex-end;
+    transition: .5;
+}
+
+.collapse__menu {
+    display: none;
+    padding: .75rem 2.25rem;
+}
+
+.collapse__sublink {
+    color: grey;
+    font-size: var(--small-font-size);
+}
+
+.collapse__sublink:hover {
+    color: var(--white-color);
+}
+
+/* Show collapse */
+.showCollapse {
     display: block;
 }
 
-.side-bar ul li a {
-    display: none;
-}
-
-.side-bar:hover li a {
-    display: block;
-}
-
-.childmenu {
-    display: none;
-}
-
-.category-input{
-    margin-left : 8%;
-    border : 0;
-    font-size: 15pt;
-}
-
-.category-child{
-    font-size: 12pt;
-}
-
-.edit-input{
-    margin-left : 8%;
-    border : 0;
-    font-size: 15pt;
-}
-
-.add-area{
-    display:flex;
-    margin-left:8%;
-}
-.add-btn{
-    display:none;
-}
-.add-btn-child{
-    display:none;
-}
-
-.add-area:hover > .add-btn{
-    display:block;
-    padding-left:26%;
-}
-
-.side-bar ul > li:hover > .add-btn-child{
-    display:block;
-    position:relative;
-    top:-35px;
-    left:70%;
-    color:white;
+.nav__childlist {
+    display: flex;
+    column-gap: 0.75rem;
 }
 
 .hidden {
     display: none;
 }
-.add-form{
+
+#edit {
     display:none;
-    margin-left : 8%;
+    border:1px solid black;
+    border-radius: 5px;
+    margin-right:20%;
+    margin-left:20%;
+    width:20%;
+    height:100px;
+    text-align:center;
 }
-.add-form-child{
-    display:none;
-    margin-left : 0%;
+
+.edit-inner{
+    display:inline-block;
 }
-.delete-button {
+
+input {
+    margin: 10px;
+    width: 172px;
+    height: 30px;
+    border: 1.5px solid white;
+    border-radius: 5px;
+}
+
+hr {
+    border: 0.5px solid white;
+    margin: 25px 0;
+}
+
+.parent {
+    margin: 20px 10px;
+}
+
+.parent ul li span {
+    margin: 0 10px;
+    width:150px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    display:inline-block;
+}
+
+.parent ul li a {
+    margin: 0 20px;
+}
+
+.nav__list ul p{
+    margin: 0 10px;
+    font-weight: 600;
+}
+
+.nav__list ul {
+    list-style-type: circle;
+    margin: 0 5px;
+}
+
+#nav__list {
     display: none;
 }
-/* 사이드바-메뉴 끝 */
 
-/* 커스텀 끝 */
+.icon-color {
+    color: inherit;
+}
