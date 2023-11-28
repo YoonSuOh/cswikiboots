@@ -15,11 +15,10 @@
 
         <div class="h-nav">
             <ul class="h-ul">
-                <li class="h-alarm-text"><p class="alarmBox">알람</p>
+                <li th:if="${#httpServletRequest.getSession(false) != null}" class="h-alarm-text"><p class="alarmBox">알람</p>
                     <ul class="alarmdrop">
-                        <div class="alarm">
-                            <li class="alarmMessage">C# 문서가 변경되었습니다.</li>
-                            <li class="alarmMessage">Java 문서가 변경되었습니다.</li>
+                        <div th:if="${session.docs != null}" class="alarm">
+                            <li th:each="doc : ${session.docs}" class="alarmMessage" th:text="${doc}"></li>
                         </div>
                     </ul>
                 </li>

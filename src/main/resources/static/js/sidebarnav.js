@@ -8,7 +8,7 @@ const showMenu = (toggleId, navbarId, bodyId) => {
         toggle.addEventListener('click', ()=>{
             navbar.classList.toggle('expander');
 
-            bodypadding.classList.toggle('body-pd')
+            // bodypadding.classList.toggle('body-pd')
         })
     }
 }

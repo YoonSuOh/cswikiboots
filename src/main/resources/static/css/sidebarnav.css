@@ -188,8 +188,8 @@ input {
 }
 
 hr {
-    border: 0.5px solid white;
-    margin: 25px 0;
+    border: 0.5px solid #cccccc;
+    margin: 0px 0;
 }
 
 .parent {

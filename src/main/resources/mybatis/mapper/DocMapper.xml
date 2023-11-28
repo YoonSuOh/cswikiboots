@@ -7,33 +7,6 @@
         SELECT id, name, parent_id, d_num FROM category where disable = 0;
     </select>
 
-    <!-- 1단계 분류
-    <select id="list" resultType="com.spring.cswiki.domain.BigCategory">
-        SELECT
-        b_ca_name, b_ca_num
-        FROM big_category WHERE b_ca_avaliable = 1
-    </select>
-
-    &lt;!&ndash; 2단계 분류 &ndash;&gt;
-    <select id="s_category" resultType="com.spring.cswiki.domain.SmallCategory">
-        SELECT s_ca_name, s_ca_num FROM small_category WHERE b_ca_num = #{b_ca_num} and s_ca_avaliable = 1
-    </select>
-
-    &lt;!&ndash; 1단계 분류 추가 &ndash;&gt;
-    <insert id="createbigcategory" useGeneratedKeys="true" keyProperty="b_ca_num">
-        INSERT INTO big_category (b_ca_name, b_ca_avaliable)
-        VALUES (#{b_ca_name}, 1)
-    </insert>
-    &lt;!&ndash; 2단계 분류 추가 &ndash;&gt;
-    <insert id="createsmallcategory" useGeneratedKeys="true" keyProperty="s_ca_num">
-        INSERT INTO small_category (s_ca_name, b_ca_num, s_ca_avaliable)
-        VALUES (#{s_ca_name}, #{b_ca_num}, 1)
-    </insert>
-    &lt;!&ndash; 문서 리스트 &ndash;&gt;
-    <select id="doc_list" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d_title, d_num FROM doc WHERE s_ca_num = #{s_ca_num} AND d_available = 1
-    </select>-->
-
     <!-- 문서번호 접속시 접속날짜 업데이트 -->
     <update id="setDocTimeNum">
         UPDATE doc SET d_num = #{d_num}, lastvisit = #{lastVisit} WHERE d_num = #{d_num}
@@ -189,14 +162,14 @@
 
     <!-- 즐겨찾기 횟수가 가장 많은 문서 출력 -->
     <select id="popular" resultType="com.spring.cswiki.domain.Doc">
-        SELECT d.d_num, d.d_title, d.p_read, d.p_insert, d.p_update, d.p_delete, s.star, s.d_num
+        SELECT d.d_num, d.d_title, d.p_read, d.p_insert, d.p_update, d.p_delete, s.star_count, s.star
         FROM doc d
                  JOIN (
-            SELECT d_num, MAX(star) AS star
+            SELECT d_num, MAX(star) AS star, COUNT(star) AS star_count
             FROM star
             GROUP BY d_num
         ) s ON d.d_num = s.d_num
-        ORDER BY s.star DESC;
+        ORDER BY s.star_count DESC LIMIT 4;
     </select>
 
     <!-- 카테고리 테스트 코드 -->

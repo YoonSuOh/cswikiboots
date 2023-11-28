@@ -28,4 +28,5 @@ public class Doc {
     private LocalDateTime lastVisit;
     private String parent_id;
     private String id;
+    private int star_count;
 }

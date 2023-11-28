@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/sidebarnav.css">
     <link rel="stylesheet" href="/css/nav.css">
     <meta name="viewport" content="width=device-width, initial-scale-1">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <title>환영합니다! - CS위키</title>
 </head>
 <body style="overflow-x: hidden">
@@ -25,17 +26,16 @@
     <div class="middle">
         <div class="rule frame">
             <p>추천 문서</p> <hr>
-            <ul>
-                <li>더미 데이터 1 - 5 stars</li>
-                <li>더미 데이터 2 - 5 stars</li>
-                <li>더미 데이터 3 - 5 stars</li>
-                <li>더미 데이터 4 - 5 stars</li>
+            <ul th:each="list : ${doc}">
+                <hr>
+                <li>[[${list.d_title}]] - 추천 수 : [[${list.star_count}]]</li>
             </ul>
         </div>
         <div class="down_p">
             <div class="doc frame">
                 <p>새로 추가된 문서</p> <hr>
                 <ul th:each="list : ${recent}">
+                    <hr>
                     <li><b><a th:href="@{/doc/doc(d_num=${list.d_num})}" th:text="${list.d_title}"/></b> : <th:block th:text="${#dates.format(list.d_date, 'yyyy-MM-dd HH:mm:ss')}" /> [[${list.u_id}]]</li>
                 </ul>
             </div>
