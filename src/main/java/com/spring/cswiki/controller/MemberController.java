@@ -82,24 +82,25 @@ public class MemberController {
             LOG.info(String.valueOf((login.getBan())));
 
             List<Star> stars = service.findStars(login.getU_id());
-            List<Doc> docs = new ArrayList<>();
+            List<String> docs = new ArrayList<>();
+            if (stars == null) {
+                LOG.info("즐겨찾기 등록된 문서 중 수정사항이 없습니다.");
+                String comment = "수정된 즐겨찾기 문서가 없습니다.";
+                session.setAttribute("docs", comment);
+            } else {
+                for (int i = 0; i < stars.size(); i++) {
+                    docs.add("즐겨찾기 등록하신 '" + service.findDoc(stars.get(i).getD_num()).getD_title() + "'문서가 수정되었습니다.");
+                }
+            }
+            session.setAttribute("docs", docs);
+
             if (referer != null && !referer.contains("login")) {
                 LOG.info("prev page is checked, return to check page.");
+                service.finishAlarm(login.getU_id());
                 return "redirect:" + referer;
             } else {
                 LOG.info("prev page is not found, return to main page.");
-                if (stars == null) {
-                    LOG.info("즐겨찾기 등록된 문서 중 수정사항이 없습니다.");
-                    String comment = "수정된 즐겨찾기 문서가 없습니다.";
-                    session.setAttribute("docs", comment);
-                } else {
-                    for (int i = 0; i < stars.size(); i++) {
-                        docs.add(service.findDoc(stars.get(i).getD_num()));
-                    }
-                }
-                System.out.println(docs.get(1).getD_title());
-                session.setAttribute("docs", docs);
-//                service.finishAlarm(login.getU_id());
+                service.finishAlarm(login.getU_id());
                 return "redirect:/";
             }
         }
@@ -151,7 +152,7 @@ public class MemberController {
         service.removeban(member);
         return "redirect:/member/ban";
     }
-    
+
     // 권한 부여 / 회수 메뉴 이동
     @GetMapping(value="/grant")
     public String grant(Model model) throws Exception{
