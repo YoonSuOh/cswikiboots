@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/sidebarnav.css">
 
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 
@@ -33,7 +34,7 @@
 <div th:insert="/sidebarnav"></div>
 <main>
     <div style="z-index: 1;" id="doc">
-        <hr>
+        <hr class="doc_hr">
         <div class="doc_inner">
             <span class="title">[[${doc.d_title}]]</span>
             <div class="selectbox">
@@ -82,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <hr>
+        <hr class="comment_hr">
         <form method="post" th:action="@{/doc/comment}" target="ifrmProcess">
             <th:block th:if="${session.member != null}">
                 <p class="comment" th:text="${session.member.u_id}"></p>
@@ -96,7 +97,7 @@
             <input class="commentbox" type="text" name="cm_comment" placeholder="댓글 작성 부분">
             <input class="writebtn" type="submit" id="writeButton" value="등록">
         </form>
-        <br><br><hr>
+        <br><br>
         <div class="commentBox" th:each="c, status : ${comment}">
             <strong><p class="comment" th:text="${c.u_id}"></p></strong>
             <input type="hidden" th:value="${c.cm_num}">
