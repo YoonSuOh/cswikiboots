@@ -125,3 +125,10 @@ var bDisplay = true; function doDisplay(){
         con.style.display = 'block';
     }
 }
+
+$(document).on('click', function(e) {
+    var container = $("#edit");
+    if (!$(e.target).closest(container).length) {
+        container.hide();
+    }
+});

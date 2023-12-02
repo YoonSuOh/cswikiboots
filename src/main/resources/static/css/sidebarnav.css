@@ -220,6 +220,14 @@ a {
     border-radius: 5px;
 }
 
+.c-i-input {
+    margin: 10px;
+    width: 160px;
+    height: 30px;
+    border: 1.5px solid white;
+    border-radius: 5px;
+}
+
 hr {
     border: 0.5px solid white;
     margin: 25px 0;
