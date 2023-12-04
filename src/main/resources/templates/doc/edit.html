@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/css/create.css">
-    <link rel="stylesheet" href="/css/doc/header.css">
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/nav.css">
     <title>[[${doc.d_title}]](편집) - CS위키</title>
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
@@ -24,7 +24,7 @@
         location.href = "/doc/search" + "&title=" + title;
     }
 </script>
-<div th:insert="/header :: header"></div>
+<div th:insert="header :: header"></div>
 <main>
     <div id="doc">
         <form class="editarea" method="post">

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/css/doc.css">
-    <link rel="stylesheet" href="/css/doc/header.css">
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/nav.css">
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
@@ -24,7 +24,7 @@
          location.href = "/doc/search" + "&title=" + title;
         }
     </script>
-<div th:insert="/header :: header"></div>
+<div th:insert="header :: header"></div>
 <main>
     <div id="doc">
         <hr>

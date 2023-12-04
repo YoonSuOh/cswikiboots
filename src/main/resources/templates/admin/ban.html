@@ -11,7 +11,7 @@
 <body style="overflow-x: hidden;">
 <script src="/js/header.js"></script>
 <!-- header -->
-<div th:insert="/header :: header"></div>
+<div th:insert="header :: header"></div>
 <th:block th:if="${session.p_id < 3}">
   <script>
     alert('접근 권한이 없다.');

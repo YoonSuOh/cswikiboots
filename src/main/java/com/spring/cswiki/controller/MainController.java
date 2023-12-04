@@ -35,7 +35,7 @@ public class MainController {
         model.addAttribute("recent", recent);
         model.addAttribute("notice", notice);
         model.addAttribute("doc", doc);
-        return "/main";
+        return "main";
     }
 
     // json 테스트
@@ -62,7 +62,7 @@ public class MainController {
         String id ="";
         System.out.println("1단계 카테고리 삽입");
         service.addFirstCategory(id, name);
-        return "redirect:/test";
+        return "redirect:/";
     }
 
     // 2단계 카테고리 삽입
@@ -75,7 +75,7 @@ public class MainController {
         System.out.println("category id= " + category.getId());
         System.out.println("category name= " + category.getName());
         service.addSecondCategory(category);
-        return "redirect:test/";
+        return "redirect:/";
     }
 
     // 카테고리 수정
