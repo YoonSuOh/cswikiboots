@@ -134,8 +134,8 @@ public class DocService{
     }
 
     // 문서 즐겨찾기 삭제
-    public int starout(Star vo) {
-        return dao.starout(vo);
+    public int starout(int d_num, String id) {
+        return dao.starout(d_num, id);
     }
 
     // 사용자 별 즐겨찾기 목록 확인

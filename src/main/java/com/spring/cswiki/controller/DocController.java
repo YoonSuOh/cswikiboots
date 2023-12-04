@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -274,7 +275,7 @@ public class DocController {
 
     // 즐겨찾기 등록
     @RequestMapping(value="/starcheck")
-    public String starin(Model model, Star vo, int d_num, String u_id) {
+    public String starin(Model model, Star vo, int d_num) {
         Doc doc = service.doc(d_num);
         LocalDateTime docDate = doc.getLastVisit();
         log.info(String.valueOf(docDate));
@@ -285,10 +286,14 @@ public class DocController {
 
     // 즐겨찾기 삭제
     @RequestMapping(value="/starout")
-    public String starout(Model model, Star vo, @RequestParam("d_num")int d_num, @RequestParam("u_id")String u_id) {
-        service.starout(vo);
-        model.addAttribute("u_id", u_id);
-        return "redirect:userstar?u_id=" + u_id;
+    @ResponseBody
+    public Map<String, Object> starout(@RequestParam("num")int d_num, @RequestParam("id")String id){
+       int result = service.starout(d_num, id);
+       Map<String, Object> map = new HashMap<>();
+       if(result == 1){
+           map.put("code", 200);
+       }
+       return map;
     }
 
     // 사용자 즐겨찾기 목록 조회

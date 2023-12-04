@@ -25,39 +25,37 @@
                 </li>
                 <li th:if="${session.u_id != null}" style="cursor: pointer" class="h-ul-user">[[${session.name}]]님</li>
                 <li th:if="${session.u_id != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/logout';">로그아웃</a></li>
-                <li th:if="${session.u_id == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/login';">로그인</a></li>
-                <li th:if="${session.u_id == null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/join';">회원가입</a></li>
+                <li th:unless="${session.u_id != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/login';">로그인</a></li>
+                <li th:unless="${session.u_id != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/join';">회원가입</a></li>
                 <li class="h-menu-img"><img class="menu-img" src="/img/menu.png">
                     <ul class="h-subdrop">
                         <div class="dropdown">
-                            <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/doc(d_title=공지사항)}'|">
+                            <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/notices}'|">
                                 <img class="box-item" src="/img/notice50.png">
                                 <span class="box-text">공지사항</span>
                             </li>
-                            <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/doc(d_title=기본규정)}'|">
-                                <img class="box-item" src="/img/rule50.png">
-                                <span class="box-text">규정</span>
-                            </li>
-                            <li class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
-                                <img class="box-item" src="/img/userstar50.png">
-                                <span class="box-text">즐겨찾기 목록</span>
-                            </li>
-                            <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/popular}'|">
-                                <img class="box-item" src="/img/popular50.png">
-                                <span class="box-text">인기문서</span>
-                            </li>
-                            <li class="box" style="cursor: pointer" onclick="location.href='/board/list';">
-                                <img class="box-item" src="/img/board50.png">
-                                <span class="box-text">게시판</span>
-                            </li>
-                            <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/member/banlist}'|">
-                                <img class="box-item" src="/img/ban50.png">
-                                <span class="box-text">차단내역</span>
-                            </li>
-                            <li class="box" style="cursor: pointer" onclick="location.href='board/report';">
-                                <img class="box-item" src="/img/report50.png">
-                                <span class="box-text">신고</span>
-                            </li>
+                            <th:block th:if="${session.p_id >=2}">
+                                <li class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
+                                    <img class="box-item" src="/img/userstar50.png">
+                                    <span class="box-text">즐겨찾기 목록</span>
+                                </li>
+                            </th:block>
+                                <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/popular}'|">
+                                    <img class="box-item" src="/img/popular50.png">
+                                    <span class="box-text">인기문서</span>
+                                </li>
+                            <th:block th:if="${session.p_id >=2}">
+                                <li class="box" style="cursor: pointer" onclick="location.href='/doc/create';">
+                                    <img class="box-item" src="/img/doccreate50.png">
+                                    <span class="box-text">새문서 만들기</span>
+                                </li>
+                            </th:block>
+                            <th:block th:if="${session.p_id >=3}">
+                                <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/admin/ban}'|">
+                                    <img class="box-item" src="/img/ban50.png">
+                                    <span class="box-text">사용자 차단</span>
+                                </li>
+                            </th:block>
                         </div>
                     </ul>
                 </li>

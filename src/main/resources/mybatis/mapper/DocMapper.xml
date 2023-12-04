@@ -148,7 +148,7 @@
     <!-- 즐겨찾기 삭제 -->
     <delete id="starout">
         DELETE FROM star
-        WHERE u_id = #{u_id} AND d_num = #{d_num}
+        WHERE u_id = #{id} AND d_num = #{d_num}
     </delete>
 
     <!-- 즐겨찾기 된 문서의 방문정보 출력-->

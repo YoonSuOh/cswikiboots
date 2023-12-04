@@ -25,7 +25,7 @@ public interface DocDAO {
     public void aclwipe(Doc dto); // acl 삭제
     public Doc search(String d_title); // 문서 검색
     public int starin(Star vo); // 즐겨찾기 등록
-    public int starout(Star vo); // 즐겨찾기 삭제
+    public int starout(@Param("d_num") int d_num, @Param("id") String id); // 즐겨찾기 삭제
     public List<Doc> userstar(String u_id); // 즐겨찾기 한 문서 목록 조회
     public List<Doc> popular(); // 즐겨찾기가 가장 많이 된 문서 목록 조회
     public List<DocHistory> selectRecent(); // 최근에 수정된 문서 목록 조회

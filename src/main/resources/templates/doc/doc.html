@@ -41,7 +41,7 @@
                 <ul>
                     <li>
                         <th:block th:if="${session.member != null}">
-                            <a th:href="@{/doc/starcheck(d_num=${doc.d_num}, u_id=${session.member.u_id})}" id="star"style="cursor:pointer;">★</a>
+                            <a th:href="@{/doc/starcheck(d_num=${doc.d_num}, u_id=${session.u_id})}" id="star" style="cursor:pointer; color:skyblue;">★</a>
                         </th:block>
                         <th:block th:unless="${session.member != null}">
                             ★
@@ -86,8 +86,8 @@
         <hr class="comment_hr">
         <form method="post" th:action="@{/doc/comment}" target="ifrmProcess">
             <th:block th:if="${session.member != null}">
-                <p class="comment" th:text="${session.member.u_id}"></p>
-                <input type="hidden" name="u_id" th:value="${session.member.u_id}">
+                <p class="comment" th:text="${session.u_id}"></p>
+                <input type="hidden" name="u_id" th:value="${session.u_id}">
                 <input type="hidden" name="d_num" th:value="${doc.d_num}">
                 <input type="hidden" name="d_title" th:value="${doc.d_title}">
             </th:block>

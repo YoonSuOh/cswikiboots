@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/css/doc.css">
     <link rel="stylesheet" href="/css/header.css">
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!--<link rel="stylesheet" href="/src/main/resources/static/css/doc.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/doc/header.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/nav.css">-->
@@ -42,12 +43,41 @@
                 <span class="title">내 문서함</span>
                 <ul>
                     <div id="category" th:each="star : ${star}">
-                        <li><span th:text="${star.lastVisit}"></span> <a th:href="@{/doc/doc(d_num=${star.d_num})}">[[${star.d_title}]]</a>(<a th:href="@{/doc/starout(d_num=${star.d_num}, u_id=${session.member.u_id})}">삭제</a>)</li>
+                        <input type="hidden" th:value="${star.d_num}" name="num">
+                        <input type="hidden" th:value="${session.u_id}" name="id">
+                        <li>마지막 수정 시간 : <span th:text="${#temporals.format(star.lastVisit, 'yyyy-MM-dd HH:mm:ss')}"></span> <a th:href="@{/doc/doc(d_num=${star.d_num})}"><b>[[${star.d_title}]]</b></a>(<a class="starDeleteBtn" style="cursor: pointer;">삭제</a>)</li>
                     </div>
                 </ul>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('.starDeleteBtn').on('click', function(e){
+                e.preventDefault();
+
+                let num = $('input[name = num]').val().trim();
+                let id = $('input[name = id]').val().trim();
+
+                $.ajax({
+                    type: 'delete'
+                    ,url: '/doc/starout'
+                    ,data:{"num":num, "id":id}
+                    , success : function(data){
+                        if(data.code == 200){
+                            alert('즐겨찾기가 삭제되었습니다!');
+                            location.reload(true);
+                        } else {
+                            alert('서버 오류가 발생했습니다.')
+                        }
+                    }
+                    ,error : function(){
+                        alert('즐겨찾기 삭제에 실패했습니다.');
+                    }
+                });
+            })
+        });
+    </script>
 </main>
 </body>
 </html>

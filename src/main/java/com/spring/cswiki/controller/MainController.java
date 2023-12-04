@@ -29,7 +29,7 @@ public class MainController {
     public String main(Model model){
         List<Map<String, Object>> jsonData = service.generateCategoryTreeJson();
         List<DocHistory> recent = service.getRecent();
-        List<Notice> notice = noticeservice.getNotice();
+        List<Notice> notice = noticeservice.getNoticeDesc();
         List<Doc> doc = service.popular();
         model.addAttribute("jsonData", jsonData);
         model.addAttribute("recent", recent);
