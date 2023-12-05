@@ -10,31 +10,8 @@
 </head>
 <body style="overflow-x: hidden">
 <script src="/js/header.js"></script>
-<div th:insert="header :: header"></div>
+<div th:insert="admin-header :: header"></div>
 <main>
-<div th:if="${#httpServletRequest.getSession(false) != null}" id="userinfo" class="hidden">
-  <div class="userinfo">
-    <h4 style="text-align:center">사용자 정보</h4>
-    사용자 이름 : <span th:text="${session.member.name}"></span>
-    <br>
-    가입일: <span th:text="${session.member.reg_date}" th:utext="${#dates.format(session.member.reg_date, 'yyyy-MM-dd')}"></span>
-    <br>
-    이메일 주소 : <span th:text="${session.member.email}"></span>
-  </div>
-</div>
-<div th:if="${#httpServletRequest.getSession(false) != null}" id="usermodify" class="hidden">
-  <div class="userinfo">
-    <h4 style="text-align:center">사용자 정보수정</h4>
-    <form>
-      사용자 이름  : <input type="text" name="u_id" th:value="${session.member.u_id}">
-      <br>
-      비밀번호 변경: <input type="password" name="pwd" placeholder="새로운 비밀번호를 입력하세요.">
-      <br>
-      이메일      : <input type="text" name="email" th:value="${session.member.email}">
-      <button type="submit">정보수정</button>
-    </form>
-  </div>
-</div>
   <div class="acl" th:if="${session.member.p_id>=3}">
     <h2>관리자 / 개발자 목록</h2>
     <table class="table">

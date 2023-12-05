@@ -37,7 +37,7 @@
             <p>추천 문서</p> <hr class="head_line">
             <ul th:each="list : ${doc}">
                 <hr class="main_line">
-                <li>[[${list.d_title}]] - 추천 수 : [[${list.star_count}]]</li>
+                <li><a th:href="@{/doc/doc(d_num=${list.d_num})}" th:text="${list.d_title}"></a> - 추천 수 : [[${list.star_count}]]</li>
             </ul>
         </div>
         <div class="down_p">
@@ -51,7 +51,30 @@
         </div>
     </div>
     <div class="down frame">
-        규정/도움말 <hr class="head_line">
+        <details>
+            <summary>목차 기능 도움말</summary>
+            <h3>목차 기능 도움말</h3>
+            <hr class="head_line">
+            1. 문서 작성 및 수정 시에 사용<br>
+            2. 문단 형식 부분의 '제목 1'을 사용하여 글귀 작성 시 목차로 자동 인식<br>
+            3. 문서 작성 후 목차 구성에 목차 순서번호와 함께 자동으로 추가됨<br>
+        </details>
+        <details>
+            <summary>목차 기능 도움말</summary>
+            <h3>목차 기능 도움말</h3>
+            <hr class="head_line">
+            1. 문서 작성 및 수정 시에 사용<br>
+            2. 문단 형식 부분의 '제목 1'을 사용하여 글귀 작성 시 목차로 자동 인식<br>
+            3. 문서 작성 후 목차 구성에 목차 순서번호와 함께 자동으로 추가됨<br>
+        </details>
+        <details>
+            <summary>목차 기능 도움말</summary>
+            <h3>목차 기능 도움말</h3>
+            <hr class="head_line">
+            1. 문서 작성 및 수정 시에 사용<br>
+            2. 문단 형식 부분의 '제목 1'을 사용하여 글귀 작성 시 목차로 자동 인식<br>
+            3. 문서 작성 후 목차 구성에 목차 순서번호와 함께 자동으로 추가됨<br>
+        </details>
     </div>
 </main>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>

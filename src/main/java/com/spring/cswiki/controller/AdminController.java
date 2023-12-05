@@ -5,12 +5,11 @@ import com.spring.cswiki.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,10 +26,15 @@ public class AdminController {
     }
 
     // 사용자 차단 메뉴 이동
-    @RequestMapping(value = "/ban", method = RequestMethod.GET)
-    public String ban(Model model) throws Exception {
-        List<Member> list = service.banlist();
-        model.addAttribute("list", list);
+    @GetMapping("/ban")
+    public String ban(@RequestParam(value = "user", required = false) String id, Model model) throws Exception {
+        if (id != null) {
+            Member user = service.findByBan(id);
+            model.addAttribute("list", user);
+        } else {
+            List<Member> list = service.banlist();
+            model.addAttribute("list", list);
+        }
         return "admin/ban";
     }
 

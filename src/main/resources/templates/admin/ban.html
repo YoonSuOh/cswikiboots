@@ -48,8 +48,15 @@
 
 <hr>
 
+
 <!-- ban user list-->
+<form id="search-user" action="/admin/ban">
   <span class="title"> 차단된 사용자 목록 </span>
+  <span class="b-u-search">
+    <input name="user" type="text" class="u-search">
+    <input type="submit" id="searchBtn" class="gradient btn" value="검색">
+  </span>
+</form>
 <br>
 <div class="acl">
   <table id="b-table">

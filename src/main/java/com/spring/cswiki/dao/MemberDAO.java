@@ -16,6 +16,9 @@ public interface MemberDAO {
     int infomodify(Member member); // 개인 정보 수정
     List<Member> list(); // (관리자 전용) 회원 목록 조회
     int ban(Member member); // (관리자 전용) 회원 차단
+
+    Member findByBan(String id); // (관리자 전용) 차단된 회원 조회
+
     int removeban(Member member); // (관리자 전용) 회원 차단 해제
     List<Member> banlist(); // (관리자 전용) 차단된 회원 목록 조회
     List<Member> adminlist(); // (개발자 전용) 관리자 및 개발자 목록 조회

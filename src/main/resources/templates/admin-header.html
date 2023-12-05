@@ -1,0 +1,66 @@
+<html>
+<link rel="stylesheet" href="/css/header.css">
+<header>
+    <div class="header">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="/"><img src="/img/logo_skyblue.png"></a>
+        </div>
+        <!-- Searchbar -->
+        <div class="searchbar">
+            <form class="search-form" action="/doc/doc" method="get">
+                <input type="text" name="d_title" class="m-search-input" placeholder="찾으시는 문서의 이름을 입력하세요.">
+            </form>
+        </div>
+
+        <div class="h-nav">
+            <ul class="h-ul">
+                <li style="z-index: 10;" th:if="${session.u_id != null}" class="h-alarm-text">
+                    <p class="alarmBox">알람</p>
+                    <ul class="alarmdrop">
+                        <div th:if="${session.docs != null}" class="alarm">
+                            <li th:each="doc : ${session.docs}" class="alarmMessage" th:text="${doc}"></li>
+                        </div>
+                    </ul>
+                </li>
+                <li th:if="${session.u_id != null}" style="cursor: pointer" class="h-ul-user">[[${session.name}]]님</li>
+                <li th:if="${session.u_id != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/logout';">로그아웃</a></li>
+                <li th:unless="${session.u_id != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/login';">로그인</a></li>
+                <li th:unless="${session.u_id != null}" style="cursor: pointer" class="h-ul-user"><a onclick="location.href='/member/join';">회원가입</a></li>
+                <li class="h-menu-img"><img class="menu-img" src="/img/menu.png">
+                    <ul class="h-subdrop">
+                        <div class="dropdown">
+                            <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/notices}'|">
+                                <img class="box-item" src="/img/notice50.png">
+                                <span class="box-text">공지사항</span>
+                            </li>
+                            <th:block th:if="${session.p_id >=2}">
+                                <li class="box" style=" cursor: pointer;" th:onclick="|location.href='@{/doc/userstar(u_id=${session.member?.u_id})}'|">
+                                    <img class="box-item" src="/img/userstar50.png">
+                                    <span class="box-text">즐겨찾기 목록</span>
+                                </li>
+                            </th:block>
+                                <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/doc/popular}'|">
+                                    <img class="box-item" src="/img/popular50.png">
+                                    <span class="box-text">인기문서</span>
+                                </li>
+                            <th:block th:if="${session.p_id >=2}">
+                                <li class="box" style="cursor: pointer" onclick="location.href='/doc/create';">
+                                    <img class="box-item" src="/img/doccreate50.png">
+                                    <span class="box-text">새문서 만들기</span>
+                                </li>
+                            </th:block>
+                            <th:block th:if="${session.p_id >=3}">
+                                <li class="box" style="cursor: pointer" th:onclick="|location.href='@{/admin/ban}'|">
+                                    <img class="box-item" src="/img/ban50.png">
+                                    <span class="box-text">사용자 차단</span>
+                                </li>
+                            </th:block>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+</html>

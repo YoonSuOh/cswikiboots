@@ -42,7 +42,9 @@ public class MemberService{
     public int ban(Member member) {
         return dao.ban(member);
     }
-
+    public Member findByBan(String id){
+        return dao.findByBan(id);
+    }
      
     public int removeban(Member member){
         return dao.removeban(member);

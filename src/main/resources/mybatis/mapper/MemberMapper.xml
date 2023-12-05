@@ -68,6 +68,10 @@
         select * from user where ban = 1;
     </select>
 
+    <!-- 차단 된 멤버 조회 -->
+    <select id="findByBan" resultType="com.spring.cswiki.domain.Member">
+        select * from user where ban = 1 and u_id = #{id};
+    </select>
     <!-- 로그인한 유저의 즐겨찾기 문서 중 변경된 문서 조회 -->
     <select id="findStars">
         SELECT * FROM star WHERE u_id = #{u_id} AND editdoc = 1;
