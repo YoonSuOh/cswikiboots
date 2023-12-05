@@ -12,7 +12,7 @@
 
     <!-- 회원 가입 -->
     <insert id="join">
-        INSERT INTO user (u_id, p_id, email, name, pwd, reg_date) VALUES (#{u_id}, #{p_id}, #{email}, #{name}, #{pwd}, SYSDATE())
+        INSERT INTO user (u_id, p_id, email, name, pwd, reg_date) VALUES (#{u_id}, 1, #{email}, #{name}, #{pwd}, SYSDATE())
     </insert>
 
     <!-- 로그인  -->
