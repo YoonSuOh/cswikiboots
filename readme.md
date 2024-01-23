@@ -5,4 +5,4 @@
 -윤수오 : Back-End, AWS 서버 배포<br>
 -최승용 : Back-End<br>
 -정원동 : Front-End<br>
-4. 상세 정보 : 
+4. 상세 정보 : https://www.notion.so/CSWIKI-6b1006fd877a480bacb74470e0e06e52
